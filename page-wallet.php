@@ -32,7 +32,7 @@
     <div class="topup-note">
       <strong>Lưu ý:</strong>
       <ul>
-        <li>Sau khi nhập số tiền và nạp, bạn sẽ được chuyển sang trang thanh toán bằng mã QR. Mọi thắc mắc vui lòng liên hệ số <strong>034.770.0437</strong>.</li>
+        <li>Sau khi nhập số tiền và nạp, bạn sẽ được chuyển sang trang thanh toán bằng mã QR. Mọi thắc mắc vui lòng liên hệ số <strong>034.***.***7</strong>.</li>
         <li>Chỉ hỗ trợ nạp trên <strong>50.000 VND</strong>.</li>
       </ul>
     </div>

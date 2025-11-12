@@ -1,0 +1,41 @@
+.otp-group {
+            display: flex;
+            gap: 10px;
+            align-items: flex-end;
+            margin-bottom: 20px;
+        }
+        .otp-group input {
+            flex: 1;
+            max-width: 180px;
+        }
+        .otp-group button {
+            padding: 12px 20px;
+            font-size: 14px;
+            font-weight: 600;
+            background-color: #0d6efd;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            white-space: nowrap;
+            transition: all 0.3s ease;
+        }
+        .otp-group button:hover {
+            background-color: #0a58ca;
+            transform: translateY(-1px);
+        }
+        .back-to-login {
+            text-align: center;
+            margin-top: 24px;
+            font-size: 14px;
+            color: #666;
+        }
+        .back-to-login a {
+            color: #0d6efd;
+            text-decoration: none;
+            font-weight: 600;
+        }
+        .back-to-login a:hover {
+            color: #0a58ca;
+            text-decoration: underline;
+        }

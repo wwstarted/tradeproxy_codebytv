@@ -1,12 +1,18 @@
 <!DOCTYPE html>
 <html lang="vi">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tài khoản của tôi</title>
-    <link rel="stylesheet" href="../css/account.css">
+    <script>
+        const baseURL = "<?php echo get_site_url(); ?>";
+    </script>
+    <link rel="stylesheet" href="<?php echo get_template_directory_uri(); ?>/css/account.css" />
+    <!-- <link rel="stylesheet" href="/css/account.css"> -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
 </head>
+
 <body>
     <div class="account-wrapper">
         <!-- Sidebar -->
@@ -64,10 +70,12 @@
                     <p>Đang tải...</p>
                 </div>
             </div>
-        </main>  
+        </main>
 
-        
+
     </div>
-    <script src="../js/account.js"></script>
+    <!-- <script src="/js/account.js"></script> -->
+    <script src="<?php echo get_stylesheet_directory_uri(); ?>/js/account.js"></script>
 </body>
+
 </html>

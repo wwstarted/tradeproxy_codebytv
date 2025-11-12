@@ -375,7 +375,7 @@
             content: '';
             position: absolute;
             top: -1px;
-            bottom: -1px;
+            bottom: -2px;
             left: -8px;
             width: 20px;
             background: linear-gradient(135deg, #e8e8e8 0%, #a8a8a8 100%);
@@ -390,7 +390,7 @@
             content: '';
             position: absolute;
             top: -1px;
-            bottom: -1px;
+            bottom: -2px;
             right: -8px;
             width: 20px;
             background: linear-gradient(135deg, #a8a8a8 0%, #e8e8e8 100%);
@@ -411,7 +411,6 @@
 <body>
     <div class="container">
         <h1>Hạng thành viên</h1>
-        <!-- giới thiệu 4 hạng -->
         <div class="ranks-intro">
             <div class="intro-header">
                 <div class="intro-title">Thành viên TRADE PROXY</div>
@@ -473,7 +472,7 @@
             </center>
         </div>
 
-        <!-- Phần thông tin cá nhân -->
+        <!-- Rank user -->
         <div class="user-rank-card">
             <div class="member-badge">
                 <div class="medal">

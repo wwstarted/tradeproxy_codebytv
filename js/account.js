@@ -1,11 +1,11 @@
 // Page configuration
 const pages = {
-    'profile': '/html/pages/profile.html',
-    'change-password': '/html/pages/change-password.html',
-    'wallet': '/html/pages/wallet.html',
-    'membership': 'html/pages/membership.html',
-    'deposit-history': '/html/pages/deposit-history.html',
-    'purchase-history': '/html/pages/purchase-history.html'
+    'profile': `${baseURL}/profile.php`,
+    'change-password': `${baseURL}/page-change-password.php`,
+    'wallet': `${baseURL}/page-wallet.php`,
+    'membership': `${baseURL}/page-membership.php`,
+    'deposit-history': `${baseURL}/page-deposit-history.php`,
+    'purchase-history': `${baseURL}/page-purchase-history.php`
 };
 
 // Load page content
@@ -95,7 +95,7 @@ function handleMenuClick(e) {
     if (!pageName) return;
     
     // Update URL without reload
-    history.pushState({ page: pageName }, '', `/${href}`);
+    history.pushState({ page: pageName }, '', `${baseURL}/${pageName}`);
     
     // Load page content
     loadPage(pageName);

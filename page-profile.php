@@ -94,7 +94,7 @@ body {
     font-size: 18px;
 }
 
-/* Phần số điện thoại */
+/* Phone number */
 .phone-input {
     display: flex;
     gap: 10px;
@@ -249,8 +249,6 @@ body {
     width: 90%;
     max-width: 400px;
 }
-
-/* Giữ nguyên phần còn lại */
     </style>
 </head>
 <body>
@@ -260,7 +258,6 @@ body {
     </div>
 
     <div class="profile-form">
-        <!-- Họ tên -->
         <div class="form-group">
             <label class="form-label">Họ tên</label>
             <div class="form-input-wrapper">
@@ -268,7 +265,6 @@ body {
             </div>
         </div>
 
-        <!-- Email -->
         <div class="form-group">
             <label class="form-label">Email</label>
             <div class="form-input-wrapper">
@@ -279,7 +275,6 @@ body {
             </div>
         </div>
 
-        <!-- Số điện thoại -->
         <div class="form-group">
             <label class="form-label">Số điện thoại</label>
             <div class="form-input-wrapper phone-input">
@@ -290,7 +285,7 @@ body {
                 </div>
                 <input type="tel" class="form-input" id="phone" value="84" placeholder="84xxxxxxxxx">
 
-                <!-- Dropdown quốc gia -->
+                <!-- Dropdown country -->
                 <div class="country-dropdown" id="country-dropdown">
                     <div class="country-search">
                         <input type="text" placeholder="Tìm kiếm quốc gia..." id="country-search">
@@ -342,7 +337,7 @@ body {
             </div>
         </div>
 
-        <!-- Save Button -->
+        <!-- Save -->
         <div class="form-actions">
             <button class="btn-save" id="save-profile-btn">Lưu</button>
         </div>
@@ -398,7 +393,7 @@ body {
                 document.querySelector('.country-flag').src = `https://flagcdn.com/w40/${flag}.png`;
                 document.querySelector('.country-code').textContent = code;
                 
-                // CẬP NHẬT SỐ ĐIỆN THOẠI - Bỏ dấu + ở đầu
+                // phone number
                 const phoneInput = document.getElementById('phone');
                 const codeWithoutPlus = code.replace('+', '');
                 phoneInput.value = codeWithoutPlus;
@@ -423,7 +418,7 @@ body {
             });
         });
 
-        // Close dropdown when click outside
+        // Close dropdown
         document.addEventListener('click', function() {
             document.getElementById('country-dropdown')?.classList.remove('show');
         });

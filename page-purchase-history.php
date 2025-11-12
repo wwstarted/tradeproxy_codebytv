@@ -57,7 +57,6 @@
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
         }
 
-        /* Hàng 1: Mã đơn hàng và trạng thái */
         .order-header {
             background: #E3F2FD;
             padding: 12px 16px;
@@ -92,7 +91,7 @@
             margin-right: 16px;
         }
 
-        /* Hàng 2, 3: Chi tiết sản phẩm */
+        /* Chi tiết sản phẩm */
         .product-item {
             padding: 16px;
             border-bottom: 1px solid #f0f0f0;
@@ -168,7 +167,6 @@
             text-align: right;
         }
 
-        /* Hàng 4: Footer với button và tổng tiền */
         .order-footer {
             padding: 16px;
             display: flex;
@@ -239,14 +237,12 @@
 
         <!-- Order Box 1 - Hoàn thành -->
         <div class="order-box">
-            <!-- Hàng 1: Mã đơn hàng -->
             <div class="order-header">
                 <span class="order-code">Đơn hàng: <strong>#CBQGLKH</strong></span>
                 <span class="order-date">11/11/2025 09:21</span>
                 <span class="order-status">Hoàn thành</span>
             </div>
 
-            <!-- Hàng 2: Sản phẩm 1 -->
             <div class="product-item">
                 <div class="product-left">
                     <div class="product-logo proxy9">9</div>
@@ -263,7 +259,6 @@
                 </div>
             </div>
 
-            <!-- Hàng 3: Sản phẩm 2 -->
             <div class="product-item">
                 <div class="product-left">
                     <div class="product-logo pia">P</div>
@@ -280,7 +275,6 @@
                 </div>
             </div>
 
-            <!-- Hàng 4: Footer -->
             <div class="order-footer">
                 <div class="product-left">
                     <div class="order-actions">
@@ -300,14 +294,12 @@
 
         <!-- Order Box 2 - Chờ thanh toán -->
         <div class="order-box">
-            <!-- Hàng 1: Mã đơn hàng -->
             <div class="order-header">
                 <span class="order-code">Đơn hàng: <strong>#ABCD1234</strong></span>
                 <span class="order-date">10/11/2025 14:30</span>
                 <span class="order-status pending">Chờ thanh toán</span>
             </div>
 
-            <!-- Hàng 2: Sản phẩm -->
             <div class="product-item">
                 <div class="product-left">
                     <div class="product-logo proxy9">9</div>
@@ -324,7 +316,6 @@
                 </div>
             </div>
 
-            <!-- Hàng 4: Footer -->
             <div class="order-footer">
                 <div class="product-left">
                     <div class="order-actions">
@@ -337,7 +328,6 @@
                 </div>
                 <div class="product-right">
                     <div class="order-total">
-                        <div class="total-label">Tổng tiền</div>
                         <div class="total-amount">350,000đ</div>
                     </div>
                 </div>
