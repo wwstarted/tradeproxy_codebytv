@@ -1,3 +1,28 @@
+<?php
+// Enqueue account.js và pass WordPress URLs
+function enqueue_account_scripts() {
+    // Chỉ load trên trang account
+    if (is_page('account')) {
+        wp_enqueue_script(
+            'account-js',
+            get_template_directory_uri() . '/js/account.js',
+            array(), // dependencies
+            '1.0.0',
+            true // load in footer
+        );
+        
+        // Pass WordPress URLs to JavaScript
+        wp_localize_script('account-js', 'wpAccountData', array(
+            'baseUrl' => home_url(),
+            'accountUrl' => home_url('/account'),
+            'ajaxUrl' => admin_url('admin-ajax.php'),
+            'nonce' => wp_create_nonce('account_nonce')
+        ));
+    }
+}
+add_action('wp_enqueue_scripts', 'enqueue_account_scripts');
+?>
+
 <!DOCTYPE html>
 <html lang="vi">
 
@@ -5,9 +30,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tài khoản của tôi</title>
-    <script>
-        const baseURL = "<?php echo get_site_url(); ?>";
-    </script>
     <link rel="stylesheet" href="<?php echo get_template_directory_uri(); ?>/css/account.css" />
     <!-- <link rel="stylesheet" href="/css/account.css"> -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">

@@ -30,4 +30,3 @@ function generate_jwt_token($user_id) {
 }
 
 
-

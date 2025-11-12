@@ -1,11 +1,16 @@
+// Get WordPress base URL from PHP (passed via wp_localize_script)
+const wpData = window.wpAccountData || {};
+const baseURL = wpData.baseUrl || window.location.origin;
+const accountPageUrl = wpData.accountUrl || `${baseURL}/account`;
+
 // Page configuration
 const pages = {
-    'profile': `${baseURL}/profile.php`,
-    'change-password': `${baseURL}/page-change-password.php`,
-    'wallet': `${baseURL}/page-wallet.php`,
-    'membership': `${baseURL}/page-membership.php`,
-    'deposit-history': `${baseURL}/page-deposit-history.php`,
-    'purchase-history': `${baseURL}/page-purchase-history.php`
+    'profile': `http://localhost/tradeproxy/wordpress-6.8.3-vi/wordpress/profile`,
+    'change-password': `http://localhost/tradeproxy/wordpress-6.8.3-vi/wordpress/change-password`,
+    'wallet': `http://localhost/tradeproxy/wordpress-6.8.3-vi/wordpress/wallet`,
+    'membership': `http://localhost/tradeproxy/wordpress-6.8.3-vi/wordpress/membership`,
+    'deposit-history': `http://localhost/tradeproxy/wordpress-6.8.3-vi/wordpress/deposit-history`,
+    'purchase-history': `http://localhost/tradeproxy/wordpress-6.8.3-vi/wordpress/purchase-history`
 };
 
 // Load page content
@@ -90,12 +95,12 @@ function handleMenuClick(e) {
     
     const menuItem = e.currentTarget;
     const pageName = menuItem.dataset.page;
-    const href = menuItem.getAttribute('href');
     
     if (!pageName) return;
     
-    // Update URL without reload
-    history.pushState({ page: pageName }, '', `${baseURL}/${pageName}`);
+    // Update URL without reload - FIX: Sử dụng đường dẫn tương đối từ current page
+    const newUrl = `${accountPageUrl}#${pageName}`;
+    history.pushState({ page: pageName }, '', newUrl);
     
     // Load page content
     loadPage(pageName);
@@ -111,11 +116,26 @@ window.addEventListener('popstate', (e) => {
     updateActiveMenu(pageName);
 });
 
-// Get page name from current URL
+// Get page name from current URL (hash-based routing)
 function getPageFromURL() {
+    // Try to get from hash first
+    const hash = window.location.hash.replace('#', '');
+    if (hash && pages[hash]) {
+        return hash;
+    }
+    
+    // Fallback: try to get from pathname
     const path = window.location.pathname;
-    const pageName = path.split('/').pop() || 'profile';
-    return pages[pageName] ? pageName : 'profile';
+    const segments = path.split('/').filter(Boolean);
+    const lastSegment = segments[segments.length - 1];
+    
+    // If last segment matches a page name, use it
+    if (pages[lastSegment]) {
+        return lastSegment;
+    }
+    
+    // Default to profile
+    return 'profile';
 }
 
 // Initialize page
@@ -128,8 +148,9 @@ function init() {
     // Get initial page from URL or default to profile
     const initialPage = getPageFromURL();
     
-    // Set initial state
-    history.replaceState({ page: initialPage }, '', `/${initialPage}`);
+    // Set initial state - FIX: Không thay đổi URL nếu đã đúng
+    const currentUrl = `${accountPageUrl}#${initialPage}`;
+    history.replaceState({ page: initialPage }, '', currentUrl);
     
     // Load initial page
     loadPage(initialPage);
@@ -137,7 +158,9 @@ function init() {
     
     // Add smooth transition
     const contentArea = document.getElementById('page-content');
-    contentArea.style.transition = 'opacity 0.3s ease';
+    if (contentArea) {
+        contentArea.style.transition = 'opacity 0.3s ease';
+    }
 }
 
 // Initialize when DOM is ready
@@ -230,6 +253,17 @@ style.textContent = `
     .error-message p {
         font-size: 14px;
         color: #999;
+    }
+    
+    .loading {
+        text-align: center;
+        padding: 60px 20px;
+        color: #999;
+    }
+    
+    .loading i {
+        font-size: 48px;
+        margin-bottom: 20px;
     }
 `;
 document.head.appendChild(style);
