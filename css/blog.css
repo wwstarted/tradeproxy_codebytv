@@ -161,6 +161,7 @@ body {
     transition: all 0.3s ease;
     display: flex;
     flex-direction: column;
+    position: relative;
 }
 
 .post-card:hover {
@@ -171,7 +172,6 @@ body {
 .post-thumbnail {
     position: relative;
     width: 100%;
-    /* height: 320px; */
     aspect-ratio: 16/9;
     overflow: hidden;
 }
@@ -200,19 +200,12 @@ body {
     z-index: 1;
 }
 
-.post-card {
-    position: relative;
-}
-
 /* Date */
 .post-date {
     position: absolute;
-
-    /* can giua */
     left: 8%;
     bottom: 160px;
     transform: translateX(-50%);
-
     background: #E0F2FF;
     color: #0077C8;
     padding: 6px 16px;
@@ -341,32 +334,20 @@ body {
 
 /* ==================== RESPONSIVE DESIGN ==================== */
 
-/* Tablet Large (1024px - 1199px) */
-@media (max-width: 1199px) {
-    .container {
-        max-width: 100%;
-        padding: 0 24px;
-    }
-
-    .content-wrapper {
-        grid-template-columns: 260px 1fr;
-        gap: 32px;
-    }
-
-    .post-thumbnail {
-        width: 320px;
-        min-width: 320px;
-    }
-
-    .post-title {
-        font-size: 18px;
-    }
-}
-
-/* Tablet (768px - 1023px) */
+/* Tablet (768px - 1023px) - Giống trang mẫu */
 @media (max-width: 1023px) {
-    .hero-banner {
-        padding: 50px 0;
+    .content-wrapper {
+        grid-template-columns: 1fr;
+        gap: 0;
+    }
+
+    /* Ẩn sidebar trên tablet và mobile */
+    .left-sidebar {
+        display: none;
+    }
+
+    .right-content {
+        order: 1;
     }
 
     .hero-title {
@@ -376,35 +357,22 @@ body {
     .hero-summary {
         font-size: 1rem;
     }
-
-    .content-wrapper {
-        grid-template-columns: 240px 1fr;
-        gap: 28px;
-    }
-
-    .post-thumbnail {
-        width: 280px;
-        min-width: 280px;
-    }
-
-    .post-title {
-        font-size: 17px;
-    }
-
-    .post-content {
-        padding: 20px;
-        padding-left: 0;
-    }
 }
 
-/* Mobile Large (640px - 767px) */
+/* Mobile (< 768px) - Responsive như trang mẫu */
 @media (max-width: 767px) {
+    .container {
+        padding: 0 16px;
+    }
+
     .hero-banner {
         padding: 40px 0;
+        margin-bottom: 24px;
     }
 
     .hero-title {
-        font-size: 1.8rem;
+        font-size: 1.75rem;
+        margin-bottom: 8px;
     }
 
     .hero-summary {
@@ -412,52 +380,25 @@ body {
     }
 
     .main-content {
-        padding: 30px 0 60px;
+        padding: 24px 0 50px;
     }
 
-    /* Sidebar */
     .content-wrapper {
-        grid-template-columns: 1fr;
-        gap: 32px;
+        gap: 24px;
     }
 
-    /* Move sidebar */
+    /* Sidebar stacks vertically */
     .left-sidebar {
-        order: 2;
-    }
-
-    .right-content {
-        order: 1;
-    }
-
-    /* Post cards */
-    .post-card {
         flex-direction: column;
+        gap: 16px;
     }
 
-    .post-thumbnail {
-        width: 100%;
-        height: 220px;
+    .search-box {
+        min-width: unset;
     }
 
-    .post-date {
-        padding: 16px 20px;
-        padding-bottom: 0;
-        left: 10%;
-        bottom: 145px;
-        display: inline-flex;
-        align-items: center;
-    }
-
-
-    .post-content {
-        padding: 16px 20px;
-        padding-top: 30px;
-    }
-
-    /* Sidebar becomes horizontal on mobile */
     .categories-box {
-        padding: 16px;
+        min-width: unset;
     }
 
     .categories-list {
@@ -466,33 +407,72 @@ body {
         gap: 8px;
     }
 
-    .category-item {
-        margin-bottom: 0;
-    }
-
     .category-link {
         text-align: center;
         font-size: 13px;
-        padding: 8px 10px;
+        padding: 10px 12px;
+    }
+
+    /* Posts */
+    .posts-list {
+        gap: 20px;
+    }
+
+    .post-card {
+        border-radius: 10px;
+    }
+
+    .post-thumbnail {
+        aspect-ratio: 16/9;
+    }
+
+    .post-date {
+        left: 20px;
+        bottom: 20px;
+        transform: translateX(0);
+        font-size: 12px;
+        padding: 5px 12px;
+    }
+
+    .post-content {
+        padding: 20px 16px;
     }
 
     .post-title {
         font-size: 17px;
+        margin-bottom: 10px;
     }
 
     .post-summary {
         font-size: 14px;
+        line-height: 1.5;
+        margin-bottom: 14px;
     }
 
-    /* Pagination adjustments */
+    .post-link {
+        font-size: 13px;
+    }
+
+    .post-badge {
+        font-size: 11px;
+        padding: 4px 10px;
+        top: 10px;
+        left: 10px;
+    }
+
+    /* Pagination */
     .pagination {
+        gap: 10px;
         flex-wrap: wrap;
-        gap: 12px;
     }
 
     .pagination-btn {
         padding: 8px 14px;
         font-size: 13px;
+    }
+
+    .pagination-numbers {
+        gap: 6px;
     }
 
     .pagination-number {
@@ -502,31 +482,47 @@ body {
     }
 }
 
-/* Mobile Medium (480px - 639px) */
-@media (max-width: 639px) {
+/* Mobile nhỏ (< 480px) */
+@media (max-width: 479px) {
     .container {
-        padding: 0 16px;
+        padding: 0 12px;
+    }
+
+    .hero-banner {
+        padding: 32px 0;
+        margin-bottom: 20px;
     }
 
     .hero-title {
-        font-size: 1.6rem;
+        font-size: 1.5rem;
     }
 
     .hero-summary {
-        font-size: 0.9rem;
+        font-size: 0.875rem;
+    }
+
+    .main-content {
+        padding: 20px 0 40px;
+    }
+
+    .content-wrapper {
+        gap: 20px;
     }
 
     .search-box {
         padding: 12px;
+        flex-direction: column;
+        gap: 10px;
     }
 
     .search-input {
-        font-size: 13px;
-        padding: 9px 12px;
+        width: 100%;
     }
 
     .search-btn {
-        padding: 9px 14px;
+        width: 100%;
+        justify-content: center;
+        padding: 10px;
     }
 
     .categories-box {
@@ -538,59 +534,6 @@ body {
         margin-bottom: 12px;
     }
 
-    .post-thumbnail {
-        height: 200px;
-    }
-
-    .post-date {
-        font-size: 13px;
-        padding: 14px 18px;
-        padding-bottom: 0;
-    }
-
-    .post-content {
-        padding: 14px 18px;
-    }
-
-    .post-title {
-        font-size: 16px;
-        margin-bottom: 10px;
-    }
-
-    .post-summary {
-        font-size: 13px;
-        margin-bottom: 14px;
-    }
-
-    .post-link {
-        font-size: 13px;
-    }
-}
-
-/* Mobile Small (< 480px) */
-@media (max-width: 479px) {
-    .hero-banner {
-        padding: 32px 0;
-    }
-
-    .hero-title {
-        font-size: 1.4rem;
-        margin-bottom: 8px;
-    }
-
-    .hero-summary {
-        font-size: 0.85rem;
-    }
-
-    .main-content {
-        padding: 24px 0 50px;
-    }
-
-    .content-wrapper {
-        gap: 24px;
-    }
-
-    /* Categories */
     .categories-list {
         grid-template-columns: 1fr;
         gap: 6px;
@@ -598,40 +541,26 @@ body {
 
     .category-link {
         font-size: 13px;
-        padding: 9px 12px;
-    }
-
-    .search-box {
-        flex-direction: column;
-        gap: 10px;
-    }
-
-    .search-btn {
-        width: 100%;
         padding: 10px;
-        justify-content: center;
     }
 
     .posts-list {
-        gap: 20px;
+        gap: 16px;
     }
 
     .post-card {
-        border-radius: 10px;
-    }
-
-    .post-thumbnail {
-        height: 180px;
+        border-radius: 8px;
     }
 
     .post-date {
-        font-size: 12px;
-        padding: 12px 16px;
-        padding-bottom: 0;
+        font-size: 11px;
+        padding: 4px 10px;
+        left: 12px;
+        bottom: 12px;
     }
 
     .post-content {
-        padding: 12px 16px;
+        padding: 16px 12px;
     }
 
     .post-title {
@@ -641,8 +570,7 @@ body {
     }
 
     .post-summary {
-        font-size: 12px;
-        line-height: 1.5;
+        font-size: 13px;
         margin-bottom: 12px;
     }
 
@@ -650,25 +578,13 @@ body {
         font-size: 12px;
     }
 
-    .post-badge {
-        font-size: 11px;
-        padding: 3px 10px;
-        top: 10px;
-        left: 10px;
-    }
-
-    /* Pagination */
     .pagination {
         gap: 8px;
     }
 
     .pagination-btn {
-        padding: 7px 12px;
+        padding: 7px 10px;
         font-size: 12px;
-    }
-
-    .pagination-numbers {
-        gap: 6px;
     }
 
     .pagination-number {
@@ -678,11 +594,10 @@ body {
     }
 }
 
-/* Landscape*/
+/* Landscape cho tablet */
 @media (min-width: 768px) and (max-width: 1023px) and (orientation: landscape) {
-    .post-thumbnail {
-        width: 320px;
-        min-width: 320px;
+    .categories-box {
+        flex: 3;
     }
 }
 
@@ -691,7 +606,8 @@ body {
     .search-box,
     .categories-box,
     .post-badge,
-    .post-link {
+    .post-link,
+    .pagination {
         display: none;
     }
 
@@ -705,5 +621,10 @@ body {
         break-inside: avoid;
         box-shadow: none;
         border: 1px solid #ddd;
+        margin-bottom: 20px;
+    }
+
+    .content-wrapper {
+        grid-template-columns: 1fr;
     }
 }

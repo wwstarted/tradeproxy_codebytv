@@ -1,67 +1,79 @@
-// Get WordPress base URL from PHP (passed via wp_localize_script)
+// Get WordPress data from PHP
 const wpData = window.wpAccountData || {};
 const baseURL = wpData.baseUrl || window.location.origin;
 const accountPageUrl = wpData.accountUrl || `${baseURL}/account`;
+const ajaxUrl = wpData.ajaxUrl || `${baseURL}/wp-admin/admin-ajax.php`;
+const nonce = wpData.nonce || '';
 
-// Page configuration
+// Page slugs configuration
 const pages = {
-    'profile': `http://localhost/tradeproxy/wordpress-6.8.3-vi/wordpress/profile`,
-    'change-password': `http://localhost/tradeproxy/wordpress-6.8.3-vi/wordpress/change-password`,
-    'wallet': `http://localhost/tradeproxy/wordpress-6.8.3-vi/wordpress/wallet`,
-    'membership': `http://localhost/tradeproxy/wordpress-6.8.3-vi/wordpress/membership`,
-    'deposit-history': `http://localhost/tradeproxy/wordpress-6.8.3-vi/wordpress/deposit-history`,
-    'purchase-history': `http://localhost/tradeproxy/wordpress-6.8.3-vi/wordpress/purchase-history`
+    'profile': 'profile',
+    'change-password': 'change-password',
+    'wallet': 'wallet',
+    'membership': 'membership',
+    'deposit-history': 'deposit-history',
+    'purchase-history': 'purchase-history'
 };
 
-// Load page content
+// Load page content via AJAX
 async function loadPage(pageName) {
     const contentArea = document.getElementById('page-content');
-    const pageUrl = pages[pageName];
+    const pageSlug = pages[pageName];
     
-    if (!pageUrl) {
+    if (!pageSlug) {
         contentArea.innerHTML = '<div class="error">Trang không tồn tại</div>';
         return;
     }
     
     try {
-        // Show loading
-        contentArea.innerHTML = `
-            <div class="loading">
-                <i class="fas fa-spinner fa-spin"></i>
-                <p>Đang tải...</p>
-            </div>
-        `;
-
+        // Prepare form data
+        const formData = new FormData();
+        formData.append('action', 'load_account_page');
+        formData.append('page_slug', pageSlug);
+        formData.append('nonce', nonce);
         
-        // Fetch page content
-        const response = await fetch(pageUrl);
+        // Fetch page content via AJAX (không hiển thị loading)
+        const response = await fetch(ajaxUrl, {
+            method: 'POST',
+            body: formData
+        });
         
         if (!response.ok) {
-            throw new Error('Failed to load page');
+            throw new Error('Network response was not ok');
         }
         
-        const html = await response.text();
+        const data = await response.json();
         
-        // Update content with animation
+        if (!data.success) {
+            throw new Error(data.data || 'Failed to load content');
+        }
+        
+        const html = data.data;
+        
+        // Update content with quick animation (0.1s total)
+        contentArea.style.opacity = '0';
+        
         setTimeout(() => {
-            contentArea.style.opacity = '0';
-            setTimeout(() => {
-                contentArea.innerHTML = html;
-                
-                // Execute scripts in loaded content
-                const scripts = contentArea.querySelectorAll('script');
-                scripts.forEach(oldScript => {
-                    const newScript = document.createElement('script');
-                    Array.from(oldScript.attributes).forEach(attr => {
-                        newScript.setAttribute(attr.name, attr.value);
-                    });
-                    newScript.textContent = oldScript.textContent;
-                    oldScript.parentNode.replaceChild(newScript, oldScript);
+            contentArea.innerHTML = html;
+            
+            // Execute scripts in loaded content
+            const scripts = contentArea.querySelectorAll('script');
+            scripts.forEach(oldScript => {
+                const newScript = document.createElement('script');
+                Array.from(oldScript.attributes).forEach(attr => {
+                    newScript.setAttribute(attr.name, attr.value);
                 });
-                
-                contentArea.style.opacity = '1';
-            }, 150);
-        }, 100);
+                newScript.textContent = oldScript.textContent;
+                oldScript.parentNode.replaceChild(newScript, oldScript);
+            });
+
+            // === GỌI HÀM KHỞI TẠO THEO TRANG ===
+            if (typeof window.initProfilePage === 'function' && pageName === 'profile') {
+                window.initProfilePage();
+            }
+            
+            contentArea.style.opacity = '1';
+        }, 50);
         
     } catch (error) {
         console.error('Error loading page:', error);
@@ -69,7 +81,7 @@ async function loadPage(pageName) {
             <div class="error-message">
                 <i class="fas fa-exclamation-circle"></i>
                 <h3>Không thể tải trang</h3>
-                <p>Vui lòng thử lại sau.</p>
+                <p>${error.message}</p>
             </div>
         `;
     }
@@ -98,8 +110,8 @@ function handleMenuClick(e) {
     
     if (!pageName) return;
     
-    // Update URL without reload - FIX: Sử dụng đường dẫn tương đối từ current page
-    const newUrl = `${accountPageUrl}#${pageName}`;
+    // FIX: Update URL to clean format (không có /account và #)
+    const newUrl = `${baseURL}/${pageName}`;
     history.pushState({ page: pageName }, '', newUrl);
     
     // Load page content
@@ -116,30 +128,32 @@ window.addEventListener('popstate', (e) => {
     updateActiveMenu(pageName);
 });
 
-// Get page name from current URL (hash-based routing)
+// Get page name from current URL
 function getPageFromURL() {
-    // Try to get from hash first
-    const hash = window.location.hash.replace('#', '');
-    if (hash && pages[hash]) {
-        return hash;
-    }
-    
-    // Fallback: try to get from pathname
     const path = window.location.pathname;
     const segments = path.split('/').filter(Boolean);
     const lastSegment = segments[segments.length - 1];
     
-    // If last segment matches a page name, use it
+    // Check if last segment matches a page name
     if (pages[lastSegment]) {
         return lastSegment;
     }
     
+    // If on account page, default to profile
+    if (lastSegment === 'account' || !lastSegment) {
+        return 'profile';
+    }
     // Default to profile
     return 'profile';
 }
 
 // Initialize page
 function init() {
+    console.log('Account page initialized');
+    console.log('Base URL:', baseURL);
+    console.log('Account URL:', accountPageUrl);
+    console.log('AJAX URL:', ajaxUrl);
+    
     // Add click handlers to menu items
     document.querySelectorAll('.menu-item').forEach(item => {
         item.addEventListener('click', handleMenuClick);
@@ -148,9 +162,9 @@ function init() {
     // Get initial page from URL or default to profile
     const initialPage = getPageFromURL();
     
-    // Set initial state - FIX: Không thay đổi URL nếu đã đúng
-    const currentUrl = `${accountPageUrl}#${initialPage}`;
-    history.replaceState({ page: initialPage }, '', currentUrl);
+    // FIX: Set initial URL to clean format
+    const initialUrl = `${baseURL}/${initialPage}`;
+    history.replaceState({ page: initialPage }, '', initialUrl);
     
     // Load initial page
     loadPage(initialPage);
@@ -159,7 +173,7 @@ function init() {
     // Add smooth transition
     const contentArea = document.getElementById('page-content');
     if (contentArea) {
-        contentArea.style.transition = 'opacity 0.3s ease';
+        contentArea.style.transition = 'opacity 0.15s ease';
     }
 }
 
@@ -179,7 +193,6 @@ function showNotification(message, type = 'success') {
         <span>${message}</span>
     `;
     
-    // Add styles
     notification.style.cssText = `
         position: fixed;
         top: 20px;
@@ -198,7 +211,6 @@ function showNotification(message, type = 'success') {
     
     document.body.appendChild(notification);
     
-    // Auto remove after 3 seconds
     setTimeout(() => {
         notification.style.animation = 'slideOutRight 0.3s ease-out';
         setTimeout(() => {
@@ -253,17 +265,6 @@ style.textContent = `
     .error-message p {
         font-size: 14px;
         color: #999;
-    }
-    
-    .loading {
-        text-align: center;
-        padding: 60px 20px;
-        color: #999;
-    }
-    
-    .loading i {
-        font-size: 48px;
-        margin-bottom: 20px;
     }
 `;
 document.head.appendChild(style);

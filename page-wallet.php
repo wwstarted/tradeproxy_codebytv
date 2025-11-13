@@ -1,9 +1,12 @@
-<section class="wallet-page">
+
+  <!-- Header giống change-password -->
+  <div class="page-header">
+    <h1>💳 Ví tiền</h1>
+    <p class="page-subtitle">Nạp tiền vào ví để thanh toán bất cứ lúc nào!</p>
+  </div>
+
   <!-- Ví tiền -->
   <div class="wallet-balance-section">
-    <h2 class="section-title">💳 Ví tiền</h2>
-    <p class="section-subtitle">Nạp tiền vào ví để thanh toán bất cứ lúc nào!</p>
-
     <div class="wallet-card">
       <div class="wallet-card-header">ATM</div>
       <div class="wallet-card-body">
@@ -37,164 +40,227 @@
       </ul>
     </div>
   </div>
-</section>
+
+
 <style>
-    .wallet-page {
-  display: flex;
-  flex-direction: column;
-  gap: 2rem;
-  color: #222;
-  font-family: 'Inter', sans-serif;
-}
-
-/* ========== Ví tiền========== */
-.wallet-balance-section {
-  background: #fff;
-  padding: 1.5rem;
-  border-radius: 12px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-}
-
-.section-title {
-  font-size: 1.5rem;
-  margin-bottom: 0.2rem;
-  color: #111;
-}
-
-.section-subtitle {
-  color: #555;
-  margin-bottom: 1rem;
-}
-
-.wallet-card {
-  width: 320px;
-  height: 180px;
-  border-radius: 12px;
-  background: linear-gradient(145deg, #0092ff, #005fcc);
-  color: #fff;
-  padding: 1.2rem 1.5rem;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  transition: transform 0.3s ease;
-}
-
-.wallet-card:hover {
-  transform: translateY(-3px);
-}
-
-.wallet-card-header {
-  font-size: 1.2rem;
-  font-weight: 600;
-}
-
-.wallet-balance-label {
-  font-size: 0.9rem;
-  opacity: 0.8;
-}
-
-.wallet-balance-amount {
-  font-size: 2rem;
-  font-weight: 700;
-  margin: 0.5rem 0;
-}
-
-/* ========== Nạp tiền========== */
-.wallet-topup-section {
-  background: #fff;
-  padding: 1.5rem;
-  border-radius: 12px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-}
-
-.topup-header {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  margin-bottom: 1rem;
-}
-
-.topup-icon {
-  width: 32px;
-  height: 32px;
-}
-
-.topup-form label {
-  font-weight: 500;
-  color: #333;
-}
-
-.input-group {
-  display: flex;
-  gap: 0.5rem;
-  margin-top: 0.5rem;
-}
-
-.input-group input {
-  flex: 1;
-  padding: 0.6rem 0.8rem;
-  border: 1px solid #ddd;
-  border-radius: 6px;
-  font-size: 1rem;
-  background: #f9fafb;
-}
-
-.input-group button {
-  background: #007bff;
-  color: #fff;
-  border: none;
-  border-radius: 6px;
-  padding: 0.6rem 1.2rem;
-  font-size: 1rem;
-  cursor: pointer;
-  transition: background 0.3s ease;
-}
-
-.input-group button:hover {
-  background: #005fcc;
-}
-
-.topup-note {
-  margin-top: 1rem;
-  font-size: 0.9rem;
-  color: #444;
-  line-height: 1.5;
-}
-
-.topup-note ul {
-  margin-top: 0.5rem;
-  padding-left: 1.2rem;
-  list-style-type: disc;
-}
-
-@media (max-width: 768px) {
-  .wallet-card {
-    width: 100%;
-    height: auto;
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
   }
-}
 
+  /* ========== PAGE HEADER ========== */
+  .page-header {
+    margin-bottom: 30px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #f0f0f0;
+  }
+
+  .page-header h1 {
+    font-size: 24px;
+    font-weight: 600;
+    color: #1a1a1a;
+    margin-bottom: 5px;
+  }
+
+  .page-subtitle {
+    font-size: 14px;
+    color: #666;
+  }
+
+  /* ========== WALLET PAGE ========== */
+  .wallet-page {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  /* ========== Ví tiền  ========== */
+  .wallet-balance-section {
+    background: white;
+    padding: 5px;
+    border-radius: 10px;
+    width: 100%;
+    max-width: none;
+    box-sizing: border-box;
+    margin-bottom: 15px;
+  }
+
+  .wallet-card {
+    margin-top: -10px;
+    width: 320px;
+    height: 180px;
+    border-radius: 12px;
+    background: linear-gradient(145deg, #0092ff, #005fcc);
+    color: #fff;
+    padding: 1.2rem 1.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: transform 0.3s ease;
+  }
+
+  .wallet-card:hover {
+    transform: translateY(-3px);
+  }
+
+  .wallet-card-header {
+    font-size: 1.2rem;
+    font-weight: 600;
+  }
+
+  .wallet-balance-label {
+    font-size: 0.9rem;
+    opacity: 0.8;
+  }
+
+  .wallet-balance-amount {
+    font-size: 2rem;
+    font-weight: 700;
+    margin: 0.5rem 0;
+  }
+
+  /* ========== Nạp tiền  ========== */
+  .wallet-topup-section {
+    background: white;
+    padding: 5px;
+    border-radius: 10px;
+    width: 100%;
+    max-width: none;
+    box-sizing: border-box;
+  }
+
+  .topup-header {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 25px;
+  }
+
+  .topup-header h3 {
+    font-size: 18px;
+    font-weight: 600;
+    color: #1a1a1a;
+  }
+
+  .topup-icon {
+    width: 32px;
+    height: 32px;
+  }
+
+  .topup-form label {
+    display: block;
+    margin-bottom: 10px;
+    color: #333;
+    font-size: 14px;
+    font-weight: 500;
+  }
+
+  .input-group {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 25px;
+  }
+
+  .input-group input {
+    flex: 1;
+    padding: 14px 16px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 15px;
+    background: white;
+    transition: all 0.3s;
+    box-sizing: border-box;
+  }
+
+  .input-group input:focus {
+    outline: none;
+    border-color: #007bff;
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.1);
+  }
+
+  .input-group button {
+    background: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    padding: 14px 40px;
+    font-size: 15px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  .input-group button:hover {
+    background: #0056b3;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(0, 123, 255, 0.3);
+  }
+
+  .input-group button:active {
+    transform: translateY(0);
+  }
+
+  .topup-note {
+    font-size: 14px;
+    color: #666;
+    line-height: 1.6;
+  }
+
+  .topup-note strong {
+    color: #333;
+  }
+
+  .topup-note ul {
+    margin-top: 10px;
+    padding-left: 20px;
+    list-style-type: disc;
+  }
+
+  .topup-note li {
+    margin-bottom: 8px;
+  }
+
+  /* ========== RESPONSIVE ========== */
+  @media (max-width: 768px) {
+    .wallet-balance-section,
+    .wallet-topup-section {
+      padding: 20px;
+    }
+
+    .wallet-card {
+      width: 100%;
+      height: auto;
+    }
+
+    .input-group {
+      flex-direction: column;
+    }
+
+    .input-group button {
+      width: 100%;
+    }
+  }
 </style>
 
 <script>
-    const topupBtn = document.getElementById("topup-btn");
-const amountInput = document.getElementById("topup-amount");
-const walletBalance = document.getElementById("wallet-balance");
+  const topupBtn = document.getElementById("topup-btn");
+  const amountInput = document.getElementById("topup-amount");
+  const walletBalance = document.getElementById("wallet-balance");
 
-let balance = 0;
+  let balance = 0;
 
-topupBtn.addEventListener("click", () => {
-  const amount = parseInt(amountInput.value);
-  if (isNaN(amount) || amount < 50000) {
-    alert("Số tiền nạp tối thiểu là 50.000 VND");
-    return;
-  }
+  topupBtn.addEventListener("click", () => {
+    const amount = parseInt(amountInput.value);
+    if (isNaN(amount) || amount < 50000) {
+      alert("Số tiền nạp tối thiểu là 50.000 VND");
+      return;
+    }
 
-  balance += amount;
-  walletBalance.textContent = balance.toLocaleString("vi-VN") + " VND";
-  amountInput.value = "";
+    balance += amount;
+    walletBalance.textContent = balance.toLocaleString("vi-VN") + " VND";
+    amountInput.value = "";
 
-  alert(`Bạn đã nạp thành công ${amount.toLocaleString("vi-VN")} VND vào ví!`);
-});
-
+    alert(`Bạn đã nạp thành công ${amount.toLocaleString("vi-VN")} VND vào ví!`);
+  });
 </script>

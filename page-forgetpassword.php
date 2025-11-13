@@ -31,7 +31,7 @@
                         <input type="email" id="email" placeholder="Nhập email" required>
                     </div>
 
-                    <!-- OTP input + Gửi -->
+                    <!-- OTP input  -->
                     <div class="otp-group">
                         <div class="input-group" style="margin-bottom: 0; flex: 1;">
                             <label for="otp">Mã OTP *</label>
@@ -40,7 +40,7 @@
                         <button type="button" id="sendOtpBtn">Gửi</button>
                     </div>
 
-                    <!-- Mật khẩu mới -->
+                    <!-- new password -->
                     <div class="input-group">
                         <label for="newPassword">Mật khẩu mới *</label>
                         <div class="password-wrapper">
@@ -56,7 +56,7 @@
                         </div>
                     </div>
 
-                    <!-- Xác nhận mật khẩu -->
+                    <!-- conform password -->
                     <div class="input-group">
                         <label for="confirmPassword">Xác nhận mật khẩu *</label>
                         <div class="password-wrapper">
@@ -76,10 +76,10 @@
                     <!-- recaptcha -->
                     <div class="g-recaptcha" data-sitekey="6LfNxwksAAAAALrxpsJlGqGllZ2P-UF9Wmk-5VSc"></div>
 
-                    <!-- Nút xác nhận -->
+                    <!-- conform -->
                     <button type="submit" class="btn btn-primary">Xác nhận</button>
 
-                    <!-- Quay lại đăng nhập -->
+                    <!-- back to login -->
                     <div class="back-to-login">
                         <p>Đã nhớ mật khẩu? <a href="<?php echo home_url('/login') ?>">Quay lại đăng nhập</a></p>
                     </div>

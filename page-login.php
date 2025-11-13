@@ -22,9 +22,6 @@
                 <p class="welcome-text">Chào mừng bạn đã quay trở lại!</p>
 
                 <?php
-                // import
-                use Firebase\JWT\JWT;
-                use Firebase\JWT\Key;
 
                 // google login
                 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['credential'])) {
@@ -38,10 +35,10 @@
                     if (isset($user_data['email'])) {
                         $email = $user_data['email'];
 
-                        // Kiểm tra user đã tồn tại chưa
+                        // check user
                         $user = get_user_by('email', $email);
                         if (!$user) {
-                            // Tạo user mới
+                            // create new user
                             $userdata = [
                                 'user_login' => $email,
                                 'user_email' => $email,
@@ -60,7 +57,7 @@
                         do_action('wp_login', $user->user_login, $user);
                         $token = generate_jwt_token($user->ID);
 
-                        // Lưu token vào cookie (7 ngày)
+                        // save token to cookie (7 ngày)
                         setcookie(
                             "jwt_token",
                             $token,
@@ -70,8 +67,14 @@
                             false,
                             true
                         );
-                        wp_redirect(home_url());
+                        echo "<script>
+                                    localStorage.setItem('jwt_token', '{$token}');
+                                    window.location.href = '" . home_url('/account') . "';
+                                    console.log(localStorage.getItem('jwt_token'));
+                                </script>";
                         exit;
+                        // wp_redirect(home_url());
+                        // exit;
                     } else {
                         echo '<div class="login-message error" style="padding-bottom:15px;">Google login thất bại.</div>';
                     }
@@ -98,14 +101,12 @@
                         if (is_wp_error($user)) {
                             $errors[] = 'Email hoặc mật khẩu không đúng.';
                         } else {
-                            // Login thành công → redirect Home
                             wp_set_current_user($user->ID);
                             wp_set_auth_cookie($user->ID);
                             do_action('wp_login', $user->user_login, $user);
 
                             $token = generate_jwt_token($user->ID);
 
-                            // Lưu token vào cookie (7 ngày)
                             setcookie(
                                 "jwt_token",
                                 $token,
@@ -116,9 +117,18 @@
                                 true
                             );
 
-                            wp_redirect(home_url());
+                            echo "<script>
+                                    localStorage.setItem('jwt_token', '{$token}');
+                                    window.location.href = '" . home_url('/account') . "';
+                                    console.log(localStorage.getItem('jwt_token'));
+                                </script>";
                             exit;
+                            
+
+                            // wp_redirect(home_url());
+                            // exit;
                         }
+                        
                     }
 
                     if (!empty($errors)) {
@@ -127,9 +137,12 @@
                         }
                     }
                 }
+                
                 ?>
-                <!-- FORM LOGIN BÌNH THƯỜNG -->
+                
+                <!-- FORM LOGIN -->
                 <form id="loginForm" method="post">
+                    
                     <div class="input-group">
                         <label for="login_email">Email *</label>
                         <input type="email" name="login_email" id="login_email" placeholder="Nhập email" required>
