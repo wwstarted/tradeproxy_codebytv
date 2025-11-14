@@ -17,7 +17,7 @@ const pages = {
     'purchase-history': 'purchase-history'
 };
 
-// === HÀM GỌI KHỞI TẠO CHO TỪNG TRANG (có thể mở rộng) ===
+// === call content ===
 const PAGE_INIT = {
     profile: () => {
         if (typeof window.initProfilePage === 'function') {
@@ -92,7 +92,7 @@ async function loadPage(pageName) {
         setTimeout(() => {
             contentArea.innerHTML = html;
             
-            // === THỰC THI CÁC SCRIPT TRONG NỘI DUNG ĐÃ LOAD ===
+            // === TRONG NỘI DUNG ĐÃ LOAD ===
             const scripts = contentArea.querySelectorAll('script');
             scripts.forEach(oldScript => {
                 const newScript = document.createElement('script');

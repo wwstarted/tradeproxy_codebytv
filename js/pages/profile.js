@@ -1,4 +1,5 @@
 // ===== profile.js =====
+const API_URL = wpAccountData.restUrl + 'my-api/v1/user/profile/';
 function initProfilePage() {
   const token = localStorage.getItem("jwt_token");
   if (!token) {
@@ -101,22 +102,24 @@ function initProfilePage() {
     fullnameInput.value = data.display_name || "";
     emailInput.value = data.email || "";
 
-    if (data.phone) {
-      let phone = data.phone.trim();
-      let selectedCode = currentCountryCode;
+    // SỬA: DÙNG !== undefined ĐỂ NHẬN CẢ "" VÀ null
+    if (data.phone !== undefined && data.phone !== null) {
+        let phone = (data.phone || "").toString().trim();
+        let selectedCode = currentCountryCode;
 
-      for (const code of Object.keys(COUNTRY_DATA)) {
-        if (phone.startsWith(code)) {
-          selectedCode = code;
-          phone = phone.substring(code.length).trim();
-          break;
+        // Tìm mã quốc gia
+        for (const code of Object.keys(COUNTRY_DATA)) {
+            if (phone.startsWith(code.replace('+', ''))) {
+                selectedCode = '+' + code.replace('+', '');
+                phone = phone.substring(code.length).trim();
+                break;
+            }
         }
-      }
-
       currentCountryCode = selectedCode;
       updateCountrySelect(selectedCode);
       phoneInput.value = phone || "";
     } else {
+      currentCountryCode="+84";
       updateCountrySelect("+84");
       phoneInput.value = "";
     }
@@ -189,15 +192,15 @@ function initProfilePage() {
       const currentValue = phoneInput.value.trim();
       const oldPrefix = COUNTRY_DATA[currentCountryCode]?.prefix || "";
 
-      // Case 1: Input trống → thêm prefix mới
+      // Case 1: Input trống
       if (!currentValue) {
         phoneInput.value = data.prefix;
       }
-      // Case 2: Chỉ có prefix cũ (90, 90 ) → thay bằng prefix mới
+      // Case 2: Chỉ có prefix cũ (90, 90 )
       else if (currentValue === oldPrefix || currentValue === oldPrefix + " ") {
         phoneInput.value = data.prefix;
       }
-      // Case 3: Có số thật → giữ nguyên
+      // Case 3: Có số thật
       else {
         // Không thay đổi
       }
@@ -208,7 +211,7 @@ function initProfilePage() {
     });
   });
 
-  // Tìm kiếm quốc gia
+  // find country
   document.getElementById("country-search")?.addEventListener("input", (e) => {
     const query = e.target.value.toLowerCase();
     countryItems.forEach(item => {
@@ -218,14 +221,14 @@ function initProfilePage() {
     });
   });
 
-  // Đóng dropdown khi click ngoài
+  // close when click out
   document.addEventListener("click", (e) => {
     if (!e.target.closest(".phone-input")) {
       countryDropdown.classList.remove("show");
     }
   });
 
-  // === CHỈNH SỬA EMAIL + OTP ===
+  // ==== EMAIL + OTP ===
   editEmailBtn.addEventListener("click", () => {
     emailInput.disabled = false;
     emailInput.classList.remove("disabled");

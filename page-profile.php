@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hồ sơ</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-     <link rel="stylesheet" href="<?php echo get_template_directory_uri(); ?>/css/pages/profile.css" />
+    <link rel="stylesheet" href="<?php echo get_template_directory_uri(); ?>/css/pages/profile.css" />
 </head>
 
 <body>
@@ -22,7 +22,7 @@
                 <input type="text" class="form-input" id="fullname" value="Anh Nhi" placeholder="Nhập họ tên">
             </div>
         </div>
-       
+
         <div class="form-group">
             <label class="form-label">Email</label>
             <div class="form-input-wrapper">
@@ -43,7 +43,7 @@
                     <i class="fas fa-chevron-down"></i>
                 </div>
                 <input type="tel" class="form-input" id="phone" value="84" placeholder="84xxxxxxxxx">
-                
+
                 <div class="country-dropdown" id="country-dropdown">
                     <div class="country-search">
                         <input type="text" placeholder="Tìm kiếm quốc gia..." id="country-search">

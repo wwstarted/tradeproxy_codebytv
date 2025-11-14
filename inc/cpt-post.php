@@ -132,7 +132,6 @@ function post_description_callback($post){
     $summary = isset($saved_data['summary']) ? $saved_data['summary'] : '';
     $date = isset($saved_data['date']) ? $saved_data['date'] : '';
 
-
     ?>
     <!-- ==================================css=========================== -->
     <style>

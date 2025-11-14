@@ -14,6 +14,7 @@
             baseUrl: '<?php echo home_url(); ?>',
             accountUrl: '<?php echo home_url('/account'); ?>',
             ajaxUrl: '<?php echo admin_url('admin-ajax.php'); ?>',
+            restUrl: '<?php echo get_rest_url(); ?>', 
             nonce: '<?php echo wp_create_nonce('account_nonce'); ?>'
         };
     </script>
@@ -78,8 +79,11 @@
             </div>
         </main>
     </div>
-    <script src="<?php echo get_stylesheet_directory_uri(); ?>/js/pages/profile.js"></script>
+    
     <script src="<?php echo get_stylesheet_directory_uri(); ?>/js/account.js"></script>
+    <script src="<?php echo get_stylesheet_directory_uri(); ?>/js/pages/profile.js"></script>
+    <script src="<?php echo get_stylesheet_directory_uri(); ?>/js/pages/wallet.js"></script>
+
     
 
     <?php wp_footer(); ?>

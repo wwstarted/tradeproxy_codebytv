@@ -1,45 +1,45 @@
+<!-- Header giống change-password -->
+<div class="page-header">
+  <h1>💳 Ví tiền</h1>
+  <p class="page-subtitle">Nạp tiền vào ví để thanh toán bất cứ lúc nào!</p>
+</div>
 
-  <!-- Header giống change-password -->
-  <div class="page-header">
-    <h1>💳 Ví tiền</h1>
-    <p class="page-subtitle">Nạp tiền vào ví để thanh toán bất cứ lúc nào!</p>
-  </div>
-
-  <!-- Ví tiền -->
-  <div class="wallet-balance-section">
-    <div class="wallet-card">
-      <div class="wallet-card-header">ATM</div>
-      <div class="wallet-card-body">
-        <p class="wallet-balance-label">Số tiền hiện có</p>
-        <h3 class="wallet-balance-amount" id="wallet-balance">0 VND</h3>
-        <small>*Nạp thêm tiền để sử dụng dịch vụ</small>
-      </div>
+<!-- Ví tiền -->
+<div class="wallet-balance-section">
+  <div class="wallet-card">
+    <div class="wallet-card-header">ATM</div>
+    <div class="wallet-card-body">
+      <p class="wallet-balance-label">Số tiền hiện có</p>
+      <h3 class="wallet-balance-amount" id="wallet-balance">0 VND</h3>
+      <small>*Nạp thêm tiền để sử dụng dịch vụ</small>
     </div>
   </div>
+</div>
 
-  <!-- Nạp tiền -->
-  <div class="wallet-topup-section">
-    <div class="topup-header">
-      <img src="https://cdn-icons-png.flaticon.com/512/1170/1170678.png" alt="topup" class="topup-icon">
-      <h3>Nạp tiền vào ví</h3>
-    </div>
+<!-- Nạp tiền -->
+<div class="wallet-topup-section">
+  <div class="topup-header">
+    <img src="https://cdn-icons-png.flaticon.com/512/1170/1170678.png" alt="topup" class="topup-icon">
+    <h3>Nạp tiền vào ví</h3>
+  </div>
 
-    <div class="topup-form">
-      <label for="topup-amount">Nhập số tiền bạn cần nạp:</label>
-      <div class="input-group">
-        <input type="number" id="topup-amount" placeholder="Ví dụ: 50000">
-        <button id="topup-btn">Nạp</button>
-      </div>
-    </div>
-
-    <div class="topup-note">
-      <strong>Lưu ý:</strong>
-      <ul>
-        <li>Sau khi nhập số tiền và nạp, bạn sẽ được chuyển sang trang thanh toán bằng mã QR. Mọi thắc mắc vui lòng liên hệ số <strong>034.***.***7</strong>.</li>
-        <li>Chỉ hỗ trợ nạp trên <strong>50.000 VND</strong>.</li>
-      </ul>
+  <div class="topup-form">
+    <label for="topup-amount">Nhập số tiền bạn cần nạp:</label>
+    <div class="input-group">
+      <input type="number" id="topup-amount" placeholder="Ví dụ: 50000">
+      <button id="topup-btn">Nạp</button>
     </div>
   </div>
+
+  <div class="topup-note">
+    <strong>Lưu ý:</strong>
+    <ul>
+      <li>Sau khi nhập số tiền và nạp, bạn sẽ được chuyển sang trang thanh toán bằng mã QR. Mọi thắc mắc vui lòng liên
+        hệ số <strong>034.***.***7</strong>.</li>
+      <li>Chỉ hỗ trợ nạp trên <strong>50.000 VND</strong>.</li>
+    </ul>
+  </div>
+</div>
 
 
 <style>
@@ -223,6 +223,7 @@
 
   /* ========== RESPONSIVE ========== */
   @media (max-width: 768px) {
+
     .wallet-balance-section,
     .wallet-topup-section {
       padding: 20px;
@@ -263,4 +264,6 @@
 
     alert(`Bạn đã nạp thành công ${amount.toLocaleString("vi-VN")} VND vào ví!`);
   });
+
+
 </script>
