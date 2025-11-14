@@ -1,3 +1,5 @@
+// ===== account.js =====
+
 // Get WordPress data from PHP
 const wpData = window.wpAccountData || {};
 const baseURL = wpData.baseUrl || window.location.origin;
@@ -13,6 +15,40 @@ const pages = {
     'membership': 'membership',
     'deposit-history': 'deposit-history',
     'purchase-history': 'purchase-history'
+};
+
+// === HÀM GỌI KHỞI TẠO CHO TỪNG TRANG (có thể mở rộng) ===
+const PAGE_INIT = {
+    profile: () => {
+        if (typeof window.initProfilePage === 'function') {
+            window.initProfilePage();
+        }
+    },
+    'change-password': () => {
+        if (typeof window.initChangePasswordPage === 'function') {
+            window.initChangePasswordPage();
+        }
+    },
+    wallet: () => {
+        if (typeof window.initWalletPage === 'function') {
+            window.initWalletPage();
+        }
+    },
+    membership: () => {
+        if (typeof window.initMembershipPage === 'function') {
+            window.initMembershipPage();
+        }
+    },
+    'deposit-history': () => {
+        if (typeof window.initDepositHistoryPage === 'function') {
+            window.initDepositHistoryPage();
+        }
+    },
+    'purchase-history': () => {
+        if (typeof window.initPurchaseHistoryPage === 'function') {
+            window.initPurchaseHistoryPage();
+        }
+    }
 };
 
 // Load page content via AJAX
@@ -32,7 +68,7 @@ async function loadPage(pageName) {
         formData.append('page_slug', pageSlug);
         formData.append('nonce', nonce);
         
-        // Fetch page content via AJAX (không hiển thị loading)
+        // Fetch page content via AJAX
         const response = await fetch(ajaxUrl, {
             method: 'POST',
             body: formData
@@ -50,13 +86,13 @@ async function loadPage(pageName) {
         
         const html = data.data;
         
-        // Update content with quick animation (0.1s total)
+        // Update content with smooth fade
         contentArea.style.opacity = '0';
         
         setTimeout(() => {
             contentArea.innerHTML = html;
             
-            // Execute scripts in loaded content
+            // === THỰC THI CÁC SCRIPT TRONG NỘI DUNG ĐÃ LOAD ===
             const scripts = contentArea.querySelectorAll('script');
             scripts.forEach(oldScript => {
                 const newScript = document.createElement('script');
@@ -67,13 +103,13 @@ async function loadPage(pageName) {
                 oldScript.parentNode.replaceChild(newScript, oldScript);
             });
 
-            // === GỌI HÀM KHỞI TẠO THEO TRANG ===
-            if (typeof window.initProfilePage === 'function' && pageName === 'profile') {
-                window.initProfilePage();
-            }
-            
+            // === GỌI HÀM KHỞI TẠO THEO TRANG (SAU KHI DOM ĐÃ CẬP NHẬT) ===
+            setTimeout(() => {
+                PAGE_INIT[pageName]?.();
+            }, 10);
+
             contentArea.style.opacity = '1';
-        }, 50);
+        }, 100);
         
     } catch (error) {
         console.error('Error loading page:', error);
@@ -89,12 +125,10 @@ async function loadPage(pageName) {
 
 // Update active menu item
 function updateActiveMenu(pageName) {
-    // Remove active class from all menu items
     document.querySelectorAll('.menu-item').forEach(item => {
         item.classList.remove('active');
     });
     
-    // Add active class to current menu item
     const currentItem = document.querySelector(`[data-page="${pageName}"]`);
     if (currentItem) {
         currentItem.classList.add('active');
@@ -110,14 +144,12 @@ function handleMenuClick(e) {
     
     if (!pageName) return;
     
-    // FIX: Update URL to clean format (không có /account và #)
+    // Cập nhật URL sạch (không có #)
     const newUrl = `${baseURL}/${pageName}`;
     history.pushState({ page: pageName }, '', newUrl);
     
-    // Load page content
+    // Load nội dung
     loadPage(pageName);
-    
-    // Update active menu
     updateActiveMenu(pageName);
 }
 
@@ -134,16 +166,14 @@ function getPageFromURL() {
     const segments = path.split('/').filter(Boolean);
     const lastSegment = segments[segments.length - 1];
     
-    // Check if last segment matches a page name
     if (pages[lastSegment]) {
         return lastSegment;
     }
     
-    // If on account page, default to profile
     if (lastSegment === 'account' || !lastSegment) {
         return 'profile';
     }
-    // Default to profile
+    
     return 'profile';
 }
 
@@ -151,40 +181,37 @@ function getPageFromURL() {
 function init() {
     console.log('Account page initialized');
     console.log('Base URL:', baseURL);
-    console.log('Account URL:', accountPageUrl);
     console.log('AJAX URL:', ajaxUrl);
     
-    // Add click handlers to menu items
+    // Gắn sự kiện cho menu
     document.querySelectorAll('.menu-item').forEach(item => {
         item.addEventListener('click', handleMenuClick);
     });
     
-    // Get initial page from URL or default to profile
+    // Lấy trang ban đầu
     const initialPage = getPageFromURL();
-    
-    // FIX: Set initial URL to clean format
     const initialUrl = `${baseURL}/${initialPage}`;
     history.replaceState({ page: initialPage }, '', initialUrl);
     
-    // Load initial page
+    // Load trang đầu
     loadPage(initialPage);
     updateActiveMenu(initialPage);
     
-    // Add smooth transition
+    // Thêm hiệu ứng fade
     const contentArea = document.getElementById('page-content');
     if (contentArea) {
         contentArea.style.transition = 'opacity 0.15s ease';
     }
 }
 
-// Initialize when DOM is ready
+// Chạy khi DOM sẵn sàng
 if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', init);
 } else {
     init();
 }
 
-// Utility function for showing notifications
+// === NOTIFICATION ===
 function showNotification(message, type = 'success') {
     const notification = document.createElement('div');
     notification.className = `notification notification-${type}`;
@@ -207,6 +234,8 @@ function showNotification(message, type = 'success') {
         align-items: center;
         gap: 12px;
         animation: slideInRight 0.3s ease-out;
+        font-size: 14px;
+        font-weight: 500;
     `;
     
     document.body.appendChild(notification);
@@ -214,54 +243,39 @@ function showNotification(message, type = 'success') {
     setTimeout(() => {
         notification.style.animation = 'slideOutRight 0.3s ease-out';
         setTimeout(() => {
-            document.body.removeChild(notification);
+            if (notification.parentNode) {
+                document.body.removeChild(notification);
+            }
         }, 300);
     }, 3000);
 }
 
-// Add CSS animations
+// === CSS ANIMATIONS ===
 const style = document.createElement('style');
 style.textContent = `
     @keyframes slideInRight {
-        from {
-            opacity: 0;
-            transform: translateX(100px);
-        }
-        to {
-            opacity: 1;
-            transform: translateX(0);
-        }
+        from { opacity: 0; transform: translateX(100px); }
+        to { opacity: 1; transform: translateX(0); }
     }
-    
     @keyframes slideOutRight {
-        from {
-            opacity: 1;
-            transform: translateX(0);
-        }
-        to {
-            opacity: 0;
-            transform: translateX(100px);
-        }
+        from { opacity: 1; transform: translateX(0); }
+        to { opacity: 0; transform: translateX(100px); }
     }
-    
     .error-message {
         text-align: center;
         padding: 60px 20px;
         color: #666;
     }
-    
     .error-message i {
         font-size: 48px;
         color: #f44336;
         margin-bottom: 20px;
     }
-    
     .error-message h3 {
         font-size: 20px;
         margin-bottom: 10px;
         color: #333;
     }
-    
     .error-message p {
         font-size: 14px;
         color: #999;

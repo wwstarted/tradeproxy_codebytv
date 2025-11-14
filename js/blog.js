@@ -27,7 +27,6 @@ function init() {
 categoryItems.forEach(item => {
     item.addEventListener('click', (e) => {
         e.preventDefault();
-        
         // Update active category
         categoryItems.forEach(cat => cat.classList.remove('active'));
         item.classList.add('active');

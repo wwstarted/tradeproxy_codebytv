@@ -9,6 +9,14 @@
     <?php wp_head(); ?>
     <link rel="stylesheet" href="<?php echo get_template_directory_uri(); ?>/css/account.css" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <script>
+        window.wpAccountData = {
+            baseUrl: '<?php echo home_url(); ?>',
+            accountUrl: '<?php echo home_url('/account'); ?>',
+            ajaxUrl: '<?php echo admin_url('admin-ajax.php'); ?>',
+            nonce: '<?php echo wp_create_nonce('account_nonce'); ?>'
+        };
+    </script>
 </head>
 
 <body>
@@ -29,7 +37,7 @@
                     </a>
                 </nav>
             </div>
-
+            
             <div class="sidebar-section">
                 <a href="#wallet" class="menu-item" data-page="wallet">
                     <i class="fas fa-wallet"></i>
@@ -70,6 +78,8 @@
             </div>
         </main>
     </div>
+    <script src="<?php echo get_stylesheet_directory_uri(); ?>/js/pages/profile.js"></script>
+    <script src="<?php echo get_stylesheet_directory_uri(); ?>/js/account.js"></script>
     
 
     <?php wp_footer(); ?>

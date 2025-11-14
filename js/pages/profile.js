@@ -1,5 +1,4 @@
 // ===== profile.js =====
-
 function initProfilePage() {
   const token = localStorage.getItem("jwt_token");
   if (!token) {
@@ -8,9 +7,12 @@ function initProfilePage() {
     return;
   }
 
-  // Kiểm tra
-  const required = ["fullname", "email", "phone", "save-profile-btn", "edit-email-btn", "country-select", "country-dropdown", "country-search"];
-  if (!required.every(id => document.getElementById(id))) return;
+  // check 
+  const required = ["fullname", "email", "phone", "save-profile-btn", "edit-email-btn", "country-select", "country-dropdown"];
+  if (!required.every(id => document.getElementById(id))) {
+    console.error("Thiếu phần tử HTML bắt buộc");
+    return;
+  }
 
   // Elements
   const fullnameInput = document.getElementById("fullname");
@@ -20,108 +22,122 @@ function initProfilePage() {
   const editEmailBtn = document.getElementById("edit-email-btn");
   const countrySelect = document.getElementById("country-select");
   const countryDropdown = document.getElementById("country-dropdown");
-  const countrySearch = document.getElementById("country-search");
   const countryItems = document.querySelectorAll(".country-item");
   const otpInputs = document.querySelectorAll(".otp-input");
 
   let currentCountryCode = "+84";
   let isEmailEditing = false;
 
-  // === QUỐC GIA + ĐỘ DÀI SỐ ĐIỆN THOẠI ===
-  const COUNTRY_RULES = {
-    "+84": { name: "Việt Nam", prefix: "90", min: 9, max: 10 },
-    "+1":  { name: "Hoa Kỳ",   prefix: "201", min: 10, max: 10 },
-    "+44": { name: "Anh",      prefix: "71",  min: 10, max: 10 },
-    "+86": { name: "Trung Quốc", prefix: "13", min: 11, max: 11 },
-    "+81": { name: "Nhật Bản", prefix: "90",  min: 10, max: 11 },
-    "+82": { name: "Hàn Quốc", prefix: "10",  min: 10, max: 11 },
-    "+65": { name: "Singapore", prefix: "8",  min: 8,  max: 8 },
-    "+66": { name: "Thái Lan", prefix: "8",   min: 9,  max: 10 },
+  // country format phone number
+  const COUNTRY_DATA = {
+    "+84": { flag: "vn", name: "Việt Nam", prefix: "90" },
+    "+1":  { flag: "us", name: "Hoa Kỳ", prefix: "201" },
+    "+44": { flag: "gb", name: "Anh", prefix: "71" },
+    "+86": { flag: "cn", name: "Trung Quốc", prefix: "13" },
+    "+81": { flag: "jp", name: "Nhật Bản", prefix: "90" },
+    "+82": { flag: "kr", name: "Hàn Quốc", prefix: "10" },
+    "+65": { flag: "sg", name: "Singapore", prefix: "8" },
+    "+66": { flag: "th", name: "Thái Lan", prefix: "8" },
   };
 
-  // === FETCH & RENDER ===
-  function fetchUserProfile() {
+  // === UI country phone number ===
+  function updateCountrySelect(code) {
+    const data = COUNTRY_DATA[code];
+    if (!data) return;
+
+    const flagImg = countrySelect.querySelector(".country-flag");
+    const codeSpan = countrySelect.querySelector(".country-code");
+
+    if (flagImg && codeSpan) {
+      flagImg.src = `https://flagcdn.com/w40/${data.flag}.png`;
+      flagImg.alt = data.name;
+      codeSpan.textContent = code;
+    }
+
+    countryItems.forEach(i => i.classList.remove("active"));
+    const activeItem = document.querySelector(`.country-item[data-code="${code}"]`);
+    if (activeItem) activeItem.classList.add("active");
+  }
+
+  // === FETCH USER PROFILE ===
+  async function fetchUserProfile() {
     saveBtn.textContent = "Đang tải...";
     saveBtn.disabled = true;
 
-    fetch("http://localhost/tradeproxy/wordpress-6.8.3-vi/wordpress/wp-json/my-api/v1/user/profile/", {
-      method: "GET",
-      headers: {
-        "Authorization": "Bearer " + token,
-        "Content-Type": "application/json",
-      },
-    })
-      .then(res => {
-        if (!res.ok) {
-          if (res.status === 401) {
-            localStorage.removeItem("jwt_token");
-            alert("Phiên hết hạn!");
-            window.location.href = "/login";
-          }
-          throw new Error("Lỗi server");
-        }
-        return res.json();
-      })
-      .then(data => renderUserProfile(data))
-      .catch(() => alert("Không thể tải thông tin."))
-      .finally(() => {
-        saveBtn.textContent = "Lưu";
-        saveBtn.disabled = false;
+    try {
+      const response = await fetch("http://localhost/tradeproxy/wordpress-6.8.3-vi/wordpress/wp-json/my-api/v1/user/profile/", {
+        method: "GET",
+        headers: {
+          "Authorization": `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
       });
+
+      if (!response.ok) {
+        if (response.status === 401) {
+          localStorage.removeItem("jwt_token");
+          alert("Phiên đăng nhập hết hạn!");
+          window.location.href = "/login";
+          return;
+        }
+        const err = await response.json().catch(() => ({}));
+        throw new Error(err.message || `Lỗi ${response.status}`);
+      }
+
+      const data = await response.json();
+      renderUserProfile(data);
+
+    } catch (error) {
+      console.error("Fetch error:", error);
+      alert("Không thể tải thông tin. Vui lòng thử lại.");
+    } finally {
+      saveBtn.textContent = "Lưu";
+      saveBtn.disabled = false;
+    }
   }
 
+  // === HIỂN THỊ DỮ LIỆU ===
   function renderUserProfile(data) {
     fullnameInput.value = data.display_name || "";
     emailInput.value = data.email || "";
 
-    if (data.phone && data.phone.startsWith("+")) {
-      const match = data.phone.match(/^\+(\d+)/);
-      if (match) {
-        const code = "+" + match[1];
-        const rule = COUNTRY_RULES[code];
-        const item = document.querySelector(`.country-item[data-code="${code}"]`);
-        if (item && rule) {
-          currentCountryCode = code;
-          updateCountrySelect(item);
-          phoneInput.value = data.phone.replace(code, "").replace(/^\d*/, rule.prefix);
-        } else {
-          phoneInput.value = data.phone.replace(/^\+\d+/, "");
+    if (data.phone) {
+      let phone = data.phone.trim();
+      let selectedCode = currentCountryCode;
+
+      for (const code of Object.keys(COUNTRY_DATA)) {
+        if (phone.startsWith(code)) {
+          selectedCode = code;
+          phone = phone.substring(code.length).trim();
+          break;
         }
       }
+
+      currentCountryCode = selectedCode;
+      updateCountrySelect(selectedCode);
+      phoneInput.value = phone || "";
     } else {
-      phoneInput.value = data.phone || "";
+      updateCountrySelect("+84");
+      phoneInput.value = "";
     }
   }
 
-  // === CẬP NHẬT HỒ SƠ ===
-  saveBtn.addEventListener("click", async function () {
+  // === LƯU HỒ SƠ ===
+  saveBtn.addEventListener("click", async () => {
     if (isEmailEditing) {
-      alert("Vui lòng xác thực email trước!");
+      alert("Vui lòng xác thực email trước khi lưu!");
       return;
     }
 
     const fullname = fullnameInput.value.trim();
     const email = emailInput.value.trim();
-    const rawPhone = phoneInput.value.replace(/\D/g, "");
-    const rule = COUNTRY_RULES[currentCountryCode];
+    const phoneNumber = phoneInput.value.replace(/\D/g, "");
+    const fullPhone = phoneNumber ? currentCountryCode + phoneNumber : "";
 
-    // Validate
     if (!fullname || !email) {
       alert("Vui lòng nhập họ tên và email!");
       return;
     }
-
-    if (!rule) {
-      alert("Quốc gia không được hỗ trợ!");
-      return;
-    }
-
-    if (rawPhone.length < rule.min || rawPhone.length > rule.max) {
-      alert(`Số điện thoại ${rule.name} phải có ${rule.min} đến ${rule.max} số!`);
-      return;
-    }
-
-    const fullPhone = currentCountryCode + rawPhone;
 
     saveBtn.textContent = "Đang lưu...";
     saveBtn.disabled = true;
@@ -130,7 +146,7 @@ function initProfilePage() {
       const response = await fetch("http://localhost/tradeproxy/wordpress-6.8.3-vi/wordpress/wp-json/my-api/v1/user/profile/", {
         method: "POST",
         headers: {
-          "Authorization": "Bearer " + token,
+          "Authorization": `Bearer ${token}`,
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
@@ -147,7 +163,7 @@ function initProfilePage() {
       }
 
       alert("Cập nhật hồ sơ thành công!");
-      fetchUserProfile();
+      renderUserProfile({ display_name: fullname, email: email, phone: fullPhone });
 
     } catch (err) {
       console.error(err);
@@ -158,46 +174,42 @@ function initProfilePage() {
     }
   });
 
-  // === CHỌN QUỐC GIA + TỰ ĐỘNG ĐIỀN SỐ ĐẦU ===
+  // === CHỌN QUỐC GIA  ===
   countrySelect.addEventListener("click", (e) => {
     e.stopPropagation();
     countryDropdown.classList.toggle("show");
   });
 
   countryItems.forEach(item => {
-    item.addEventListener("click", function () {
-      const code = this.dataset.code;
-      const rule = COUNTRY_RULES[code];
-      if (!rule) return;
+    item.addEventListener("click", () => {
+      const code = item.dataset.code;
+      const data = COUNTRY_DATA[code];
+      if (!data) return;
+
+      const currentValue = phoneInput.value.trim();
+      const oldPrefix = COUNTRY_DATA[currentCountryCode]?.prefix || "";
+
+      // Case 1: Input trống → thêm prefix mới
+      if (!currentValue) {
+        phoneInput.value = data.prefix;
+      }
+      // Case 2: Chỉ có prefix cũ (90, 90 ) → thay bằng prefix mới
+      else if (currentValue === oldPrefix || currentValue === oldPrefix + " ") {
+        phoneInput.value = data.prefix;
+      }
+      // Case 3: Có số thật → giữ nguyên
+      else {
+        // Không thay đổi
+      }
 
       currentCountryCode = code;
-      updateCountrySelect(this);
-
-      // Tự động điền số đầu + placeholder
-      const clean = phoneInput.value.replace(/\D/g, "").replace(/^\d+/, "");
-      phoneInput.value = rule.prefix + clean.replace(new RegExp(`^${rule.prefix}`), "");
-      phoneInput.placeholder = rule.prefix + "x".repeat(rule.min);
-
+      updateCountrySelect(code);
       countryDropdown.classList.remove("show");
     });
   });
 
-  function updateCountrySelect(item) {
-    const flag = item.querySelector("img").src;
-    const code = item.querySelector(".country-code").textContent;
-
-    countrySelect.innerHTML = `
-      <img src="${flag}" alt="" class="country-flag">
-      <span class="country-code">${code}</span>
-      <i class="fas fa-chevron-down"></i>
-    `;
-
-    countryItems.forEach(i => i.classList.remove("active"));
-    item.classList.add("active");
-  }
-
   // Tìm kiếm quốc gia
-  countrySearch.addEventListener("input", (e) => {
+  document.getElementById("country-search")?.addEventListener("input", (e) => {
     const query = e.target.value.toLowerCase();
     countryItems.forEach(item => {
       const name = item.querySelector(".country-name").textContent.toLowerCase();
@@ -206,8 +218,12 @@ function initProfilePage() {
     });
   });
 
-  // Đóng dropdown
-  document.addEventListener("click", () => countryDropdown.classList.remove("show"));
+  // Đóng dropdown khi click ngoài
+  document.addEventListener("click", (e) => {
+    if (!e.target.closest(".phone-input")) {
+      countryDropdown.classList.remove("show");
+    }
+  });
 
   // === CHỈNH SỬA EMAIL + OTP ===
   editEmailBtn.addEventListener("click", () => {
@@ -248,20 +264,26 @@ function initProfilePage() {
     isEmailEditing = false;
   });
 
-
   document.getElementById("resend-otp").addEventListener("click", (e) => {
     e.preventDefault();
     alert("Mã OTP mới đã được gửi!");
   });
 
-  // === KHỞI CHẠY ===
+  // === KHỞI TẠO ===
+  updateCountrySelect("+84");
+
+  // Set prefix mặc định nếu input trống
+  if (!phoneInput.value.trim()) {
+    phoneInput.value = COUNTRY_DATA["+84"].prefix; // "90"
+  }
+
   fetchUserProfile();
 }
 
-// === XUẤT RA TOÀN CỤC ===
+// Export global
 window.initProfilePage = initProfilePage;
 
-// === TỰ CHẠY NẾU LOAD TRỰC TIẾP ===
+// Tự chạy nếu load trực tiếp
 if (document.getElementById("fullname")) {
   initProfilePage();
 }

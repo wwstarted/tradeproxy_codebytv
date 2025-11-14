@@ -89,4 +89,12 @@ function renderPagination(){
     const totalPages = Math.ceil(filteredPosts.length / POSTS_PER_PAGE);
     const startIndex = (currentPage -1)* POSTS_PER_PAGE;
     const endIndex = startIndex + POSTS_PER_PAGE;
+
+    const postsToShow = filterPosts.slice(startIndex,endIndex);
+
+    postsToShow.forEach(card =>{
+        card.style.display = 'flex';
+    })
+
+    
 }

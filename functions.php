@@ -19,18 +19,18 @@ use Firebase\JWT\Key;
  * Enqueue account scripts
  */
 function enqueue_account_scripts() {
-    // Chỉ load trên trang account
+    // load account content
     if (is_page('account')) {
         // Enqueue script
         wp_enqueue_script(
             'account-js',
             get_template_directory_uri() . '/js/account.js',
             array(),
-            '1.0.2', // Tăng version để clear cache
+            '1.0.2',
             true
         );
         
-        // Pass data từ PHP sang JavaScript
+        // data php => javascripts
         wp_localize_script('account-js', 'wpAccountData', array(
             'baseUrl' => home_url(),
             'accountUrl' => get_permalink(get_page_by_path('account')),
@@ -140,3 +140,20 @@ function update_user_profile($request) {
         ]
     ];
 }
+
+// on cors
+
+add_action('rest_api_init', function () {
+    remove_filter('rest_pre_serve_request', 'rest_send_cors_headers');
+    add_filter('rest_pre_serve_request', function ($value) {
+        header('Access-Control-Allow-Origin: *');
+        header('Access-Control-Allow-Methods: GET, POST, OPTIONS');
+        header('Access-Control-Allow-Headers: Authorization, Content-Type');
+        header('Access-Control-Allow-Credentials: true');
+        if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
+            http_response_code(200);
+            exit();
+        }
+        return $value;
+    });
+});
