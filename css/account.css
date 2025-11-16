@@ -1,17 +1,12 @@
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
 
-body {
+/* body {
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
     background-color: #f5f5f5;
     color: #333;
     line-height: 1.6;
-    overflow-y: scroll; /* Luôn hiển thị scrollbar dù có nội dung dài hay không */
+    overflow-y: scroll; 
 
-}
+} */
 
 .account-wrapper {
     max-width: 1400px;
@@ -23,7 +18,7 @@ body {
 }
 
 /* ============= SIDEBAR ============= */
-.sidebar {
+.sidebar-ac {
     background: #fff;
     border-radius: 8px;
     padding: 0;
@@ -33,11 +28,11 @@ body {
     top: 20px;
 }
 
-.sidebar-section {
+.sidebar-ac-section {
     border-bottom: 1px solid #f0f0f0;
 }
 
-.sidebar-section:last-child {
+.sidebar-ac-section:last-child {
     border-bottom: none;
 }
 
@@ -343,7 +338,7 @@ body {
         grid-template-columns: 1fr;
     }
     
-    .sidebar {
+    .sidebar-ac {
         position: static;
     }
 }

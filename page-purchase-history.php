@@ -1,10 +1,4 @@
 <style>
-    * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-    }
-
     /* ========== PAGE HEADER ========== */
     .page-header {
         margin-bottom: 30px;
@@ -117,7 +111,7 @@
         background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
     }
 
-    .product-info {
+    .product-info-pur {
         display: flex;
         flex-direction: column;
         gap: 4px;
@@ -274,7 +268,7 @@
     <div class="product-item">
         <div class="product-left">
             <div class="product-logo proxy9">9</div>
-            <div class="product-info">
+            <div class="product-info-pur">
                 <div class="product-name">9proxy</div>
                 <div class="product-type">50 ip</div>
             </div>
@@ -290,7 +284,7 @@
     <div class="product-item">
         <div class="product-left">
             <div class="product-logo pia">P</div>
-            <div class="product-info">
+            <div class="product-info-pur">
                 <div class="product-name">Pia</div>
                 <div class="product-type">100 ip</div>
             </div>
@@ -331,7 +325,7 @@
     <div class="product-item">
         <div class="product-left">
             <div class="product-logo proxy9">9</div>
-            <div class="product-info">
+            <div class="product-info-pur">
                 <div class="product-name">9proxy</div>
                 <div class="product-type">100 ip</div>
             </div>

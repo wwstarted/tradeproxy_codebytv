@@ -1,3 +1,5 @@
+document.addEventListener("DOMContentLoaded", function () {
+
 // Smooth scroll for anchor links
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function (e) {
@@ -346,3 +348,5 @@ animateOnScroll();
 addPrintButton();
 
 console.log('Blog detail page loaded successfully!');
+
+});

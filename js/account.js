@@ -1,3 +1,4 @@
+document.addEventListener("DOMContentLoaded", function () {
 // ===== account.js =====
 
 // Get WordPress data from PHP
@@ -92,7 +93,7 @@ async function loadPage(pageName) {
         setTimeout(() => {
             contentArea.innerHTML = html;
             
-            // === TRONG NỘI DUNG ĐÃ LOAD ===
+            // === THỰC THI CÁC SCRIPT TRONG NỘI DUNG ĐÃ LOAD ===
             const scripts = contentArea.querySelectorAll('script');
             scripts.forEach(oldScript => {
                 const newScript = document.createElement('script');
@@ -288,3 +289,4 @@ window.accountUtils = {
     loadPage,
     showNotification
 };
+});

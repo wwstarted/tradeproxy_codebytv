@@ -1,5 +1,5 @@
 /* Reset & Base Styles */
-* {
+/* * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
@@ -10,9 +10,9 @@ body {
     line-height: 1.6;
     color: #333;
     background-color: #f5f5f5;
-}
+} */
 
-.container {
+.blog-container {
     max-width: 1200px;
     margin: 0 auto;
     padding: 0 20px;
@@ -256,7 +256,7 @@ body {
 }
 
 /* Pagination Styles */
-.pagination {
+.pagination-bl {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -461,7 +461,7 @@ body {
     }
 
     /* Pagination */
-    .pagination {
+    .pagination-bl {
         gap: 10px;
         flex-wrap: wrap;
     }
@@ -578,7 +578,7 @@ body {
         font-size: 12px;
     }
 
-    .pagination {
+    .pagination-bl {
         gap: 8px;
     }
 
@@ -607,7 +607,7 @@ body {
     .categories-box,
     .post-badge,
     .post-link,
-    .pagination {
+    .pagination-bl {
         display: none;
     }
 

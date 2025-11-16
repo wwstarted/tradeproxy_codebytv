@@ -1,16 +1,7 @@
-<!DOCTYPE html>
-<html lang="vi">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Đăng nhập</title>
-    <!-- <link rel="stylesheet" href="/css/login.css"> -->
-    <link rel="stylesheet" href="<?php echo get_template_directory_uri(); ?>/css/login.css" />
-</head>
+<?php get_header(); ?>
 
 <body>
-    <div class="container">
+    <div class="login-container">
         <div class="image-section">
             <img src="<?php echo esc_url('https://tse4.mm.bing.net/th/id/OIP.NLuP6Q7V5dg3eSdpLxUt2QHaE7?pid=Api&P=0&h=220'); ?>"
                 alt="Login illustration">
@@ -207,9 +198,4 @@
         };
     </script>
 
-    <!-- <script src="/js/login.js"></script> -->
-    <script src="<?php echo get_stylesheet_directory_uri(); ?>/js/login.js"></script>
-
-</body>
-
-</html>
+<?php get_footer(); ?>

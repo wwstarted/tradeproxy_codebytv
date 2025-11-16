@@ -1,17 +1,7 @@
-<!DOCTYPE html>
-<html lang="vi">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kiến thức MMO</title>
-    <link rel="stylesheet" href="/css/blog.css">
-</head>
-
-<body>
+<?php get_header(); ?>
     <!-- Hero Banner Section -->
     <section class="hero-banner">
-        <div class="container">
+        <div class="blog-container">
             <h1 class="hero-title">Kiến thức MMO</h1>
             <p class="hero-summary">Chia sẻ các tips thuật, kiến thức, tut trong ngành Make Money Online!</p>
         </div>
@@ -19,7 +9,7 @@
 
     <!-- Main Content Section -->
     <section class="main-content">
-        <div class="container">
+        <div class="blog-container">
             <div class="content-wrapper">
                 <!-- Left Sidebar -->
                 <aside class="left-sidebar">
@@ -77,7 +67,7 @@
                                 <p class="post-summary">Bài viết hướng dẫn chi tiết các bước nạp gift quà tặng và mua
                                     gói proxy 4G/5G trên Global Proxies, từ nhập mã, chọn gói dịch vụ cho đến kích hoạt
                                     và sử dụng proxy.</p>
-                                <a href="#" class="post-link">Đọc tiếp →</a>
+                                <a href="<?php echo esc_url(home_url('/singleblog')) ?>" class="post-link">Đọc tiếp →</a>
                             </div>
                         </article>
 
@@ -93,7 +83,7 @@
                                 <p class="post-summary">Chi tiết cách cài đặt và sử dụng phần mềm PionLogin để tạo và
                                     quản lý nhiều profile trình duyệt an toàn, tránh bị phát hiện khi làm việc với nhiều
                                     tài khoản.</p>
-                                <a href="#" class="post-link">Đọc tiếp →</a>
+                                <a href="<?php echo esc_url(home_url('/singleblog')) ?>" class="post-link">Đọc tiếp →</a>
                             </div>
                         </article>
 
@@ -110,7 +100,7 @@
                                 <p class="post-summary">Tổng hợp các kiến thức nền tảng về quảng cáo Facebook, từ thiết
                                     lập tài khoản, tạo chiến dịch, đến tối ưu chi phí và đo lường hiệu quả quảng cáo.
                                 </p>
-                                <a href="#" class="post-link">Đọc tiếp →</a>
+                                <a href="<?php echo esc_url(home_url('/singleblog')) ?>" class="post-link">Đọc tiếp →</a>
                             </div>
                         </article>
 
@@ -126,7 +116,7 @@
                                 <p class="post-summary">Chia sẻ những mẹo và kinh nghiệm thực chiến để tăng tỷ lệ
                                     checkout thành công, bao gồm cách chọn proxy, profile setup và xử lý các tình huống
                                     phổ biến.</p>
-                                <a href="#" class="post-link">Đọc tiếp →</a>
+                                <a href="<?php echo esc_url(home_url('/singleblog')) ?>" class="post-link">Đọc tiếp →</a>
                             </div>
                         </article>
 
@@ -141,7 +131,7 @@
                                 <p class="post-summary">Hướng dẫn chi tiết cách thiết lập và tối ưu hóa chiến dịch
                                     Google ADS để đạt ROI tốt nhất, từ keyword research đến A/B testing và remarketing.
                                 </p>
-                                <a href="#" class="post-link">Đọc tiếp →</a>
+                                <a href="<?php echo esc_url(home_url('/singleblog')) ?>" class="post-link">Đọc tiếp →</a>
                             </div>
                         </article>
 
@@ -157,7 +147,7 @@
                                 <p class="post-summary">Hướng dẫn chi tiết cách thiết lập và tối ưu hóa chiến dịch
                                     Google ADS để đạt ROI tốt nhất, từ keyword research đến A/B testing và remarketing.
                                 </p>
-                                <a href="#" class="post-link">Đọc tiếp →</a>
+                                <a href="<?php echo esc_url(home_url('/singleblog')) ?>" class="post-link">Đọc tiếp →</a>
                             </div>
                         </article>
                     </div>
@@ -168,7 +158,7 @@
                     </div>
 
                     <!-- Pagination -->
-                    <div class="pagination" id="pagination"
+                    <div class="pagination-bl" id="pagination"
                         style="display: flex; justify-content: center; margin-top: 20px;">
                         <button id="prevBtn" class="pagination-btn">« Trước</button>
                         <div id="paginationNumbers" class="pagination-numbers"
@@ -182,7 +172,4 @@
     </section>
 
 
-    <script src="/js/blog.js"></script>
-</body>
-
-</html>
+    <?php get_footer(); ?>

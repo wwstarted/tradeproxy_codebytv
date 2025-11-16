@@ -1,3 +1,5 @@
+document.addEventListener("DOMContentLoaded", function () {
+
 // DOM Elements
 const searchInput = document.getElementById('searchInput');
 const searchBtn = document.querySelector('.search-btn');
@@ -208,6 +210,8 @@ function scrollToTop() {
         behavior: 'smooth'
     });
 }
+
+});
 
 // Add animation on page load
 document.addEventListener('DOMContentLoaded', () => {

@@ -1,16 +1,5 @@
-<!DOCTYPE html>
-<html lang="vi">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Đăng ký</title>
-    <!-- <link rel="stylesheet" href="/css/register.css"> -->
-    <link rel="stylesheet" href="<?php echo get_template_directory_uri(); ?>/css/register.css" />
-</head>
-
-<body>
-    <div class="container">
+<?php get_header(); ?>
+    <div class="rg-container">
         <!-- image -->
         <div class="image-section">
             <img src="<?php echo esc_url('https://tse4.mm.bing.net/th/id/OIP.NLuP6Q7V5dg3eSdpLxUt2QHaE7?pid=Api&P=0&h=220'); ?>"
@@ -143,9 +132,4 @@
     </div>
     <script src="https://www.google.com/recaptcha/api.js" async defer>
     </script>
-
-    <script src="<?php echo get_stylesheet_directory_uri(); ?>/js/register.js"></script>
-
-</body>
-
-</html>
+<?php get_footer(); ?>

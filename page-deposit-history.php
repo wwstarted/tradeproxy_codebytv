@@ -15,7 +15,7 @@
         <span class="status cancelled">Đã hủy</span>
       </div>
       <div class="row bottom-row">
-        <button class="btn btn-blue">Thanh toán</button>
+        <button class="btn-de btn-blue">Thanh toán</button>
         <span class="amount">50,000đ</span>
       </div>
     </div>
@@ -31,7 +31,7 @@
         <span class="status success">Hoàn thành</span>
       </div>
       <div class="row bottom-row">
-        <button class="btn btn-blue">Lặp lại</button>
+        <button class="btn-de btn-blue">Lặp lại</button>
         <span class="amount">100,000đ</span>
       </div>
     </div>
@@ -121,7 +121,7 @@
   color: #ef4444;
 }
 
-.btn {
+.btn-de {
   padding: 6px 18px;
   border-radius: 8px;
   border: none;

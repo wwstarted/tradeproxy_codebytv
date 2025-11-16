@@ -54,11 +54,6 @@
 </div>
 
 <style>
-       * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
     /* Password Form Styles */
     .password-form {
         background: white;

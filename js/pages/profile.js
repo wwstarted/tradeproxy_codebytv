@@ -4,7 +4,7 @@ function initProfilePage() {
   const token = localStorage.getItem("jwt_token");
   if (!token) {
     alert("Vui lòng đăng nhập!");
-    window.location.href = "/login";
+    window.location.href = wpAccountData.loginUrl;
     return;
   }
 
@@ -78,7 +78,7 @@ function initProfilePage() {
         if (response.status === 401) {
           localStorage.removeItem("jwt_token");
           alert("Phiên đăng nhập hết hạn!");
-          window.location.href = "/login";
+          window.location.href = wpAccountData.loginUrl;
           return;
         }
         const err = await response.json().catch(() => ({}));
