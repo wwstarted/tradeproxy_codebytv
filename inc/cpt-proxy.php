@@ -1,4 +1,4 @@
-<?php 
+<?php
 // ==================================== CPT proxy =================================
 function create_proxy_cpt()
 {
@@ -18,13 +18,13 @@ function create_proxy_cpt()
         'menu_position' => 20,
         'menu_icon' => 'dashicons-images-alt2',
         'supports' => array('title', 'thumbnail', 'custom-fields'),
-        'show_in_rest' => true 
+        'show_in_rest' => true
     );
 
     register_post_type('proxy', $args);
 }
 add_action('init', 'create_proxy_cpt');
-// ==================== METABOX - MAIN CONTENT ====================
+// ==================== METABOX - MAIN CONTENT ==============================================================
 function add_proxy_content_metabox()
 {
     add_meta_box(
@@ -45,8 +45,8 @@ function render_proxy_content_metabox($post)
     $desc = get_post_meta($post->ID, '_proxy_content', true);
 
     wp_editor(
-        $desc, 
-        'proxy_content', 
+        $desc,
+        'proxy_content',
         array(
             'textarea_name' => 'proxy_content',
             'media_buttons' => true, //chèn ảnh
@@ -67,7 +67,7 @@ function save_proxy_content_metabox($post_id)
 }
 add_action('save_post', 'save_proxy_content_metabox');
 
-// ====================================== proxy category taxonomy =============================
+// ====================================== proxy category taxonomy ============================================
 function create_proxy_category_taxonomy()
 {
     $labels = array(
@@ -92,7 +92,7 @@ function create_proxy_category_taxonomy()
         'hierarchical' => true, //  checkbox 
         'show_ui' => true,
         'show_admin_column' => true,
-        'show_in_rest' => true, 
+        'show_in_rest' => true,
         'rewrite' => array('slug' => 'proxy-category'),
     );
 
@@ -103,7 +103,8 @@ add_action('init', 'create_proxy_category_taxonomy');
 // ================================== logo category ==================================
 
 add_action('proxy_category_add_form_fields', 'proxy_category_custom_fields_add');
-function proxy_category_custom_fields_add() {
+function proxy_category_custom_fields_add()
+{
     ?>
     <div class="form-field">
         <label for="category_logo">Category Logo</label>
@@ -113,7 +114,8 @@ function proxy_category_custom_fields_add() {
 }
 
 add_action('proxy_category_edit_form_fields', 'proxy_category_custom_fields_edit');
-function proxy_category_custom_fields_edit($term) {
+function proxy_category_custom_fields_edit($term)
+{
     $value = get_term_meta($term->term_id, 'category_logo', true);
     ?>
     <tr class="form-field">
@@ -128,13 +130,14 @@ function proxy_category_custom_fields_edit($term) {
 
 add_action('created_proxy_category', 'proxy_category_custom_fields_save');
 add_action('edited_proxy_category', 'proxy_category_custom_fields_save');
-function proxy_category_custom_fields_save($term_id) {
+function proxy_category_custom_fields_save($term_id)
+{
     if (isset($_POST['category_logo'])) {
         update_term_meta($term_id, 'category_logo', sanitize_textarea_field($_POST['category_logo']));
     }
 }
 
-// ====================== them field vao endpoint ==========================
+// ====================== them field vao endpoint ======================================================================
 
 add_action('rest_api_init', function () {
     register_rest_field(
@@ -185,21 +188,25 @@ function proxy_home_info_callback($post)
     $advanced = isset($saved_data['advanced']) && is_array($saved_data['advanced']) ? $saved_data['advanced'] : array();
     $status = isset($saved_data['status']) && is_array($saved_data['status']) ? $saved_data['status'] : array();
     $price = isset($saved_data['price']) ? $saved_data['price'] : '';
+    $features_overview = isset($saved_data['features_overview']) && is_array($saved_data['features_overview']) ? $saved_data['features_overview'] : array();
     ?>
 
     <style>
         .provider-meta-box {
             padding: 20px;
         }
+
         .provider-field {
             margin-bottom: 25px;
         }
+
         .provider-field label {
             display: block;
             font-weight: 600;
             margin-bottom: 8px;
             font-size: 14px;
         }
+
         .provider-field input[type="text"],
         .provider-field input[type="number"],
         .provider-field textarea {
@@ -208,18 +215,22 @@ function proxy_home_info_callback($post)
             border: 1px solid #ddd;
             border-radius: 4px;
         }
+
         .provider-field textarea {
             min-height: 80px;
         }
+
         .repeatable-item {
             display: flex;
             gap: 10px;
             margin-bottom: 10px;
             align-items: center;
         }
+
         .repeatable-item input {
             flex: 1;
         }
+
         .btn-add,
         .btn-remove {
             padding: 8px 15px;
@@ -228,26 +239,232 @@ function proxy_home_info_callback($post)
             cursor: pointer;
             font-size: 13px;
         }
+
         .btn-add {
             background: #0073aa;
             color: white;
         }
+
         .btn-add:hover {
             background: #005a87;
         }
+
         .btn-remove {
             background: #dc3232;
             color: white;
             padding: 8px 12px;
         }
+
         .btn-remove:hover {
             background: #a00;
         }
+
         .field-description {
             font-size: 12px;
             color: #666;
             margin-top: 5px;
             font-style: italic;
+        }
+
+        .desc-meta-box {
+            padding: 20px;
+        }
+
+        .desc-section {
+            margin-bottom: 35px;
+            padding: 20px;
+            background: #f9f9f9;
+            border-radius: 8px;
+            border-left: 4px solid #0073aa;
+        }
+
+        .desc-section-title {
+            font-size: 16px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: #0073aa;
+            text-transform: uppercase;
+        }
+
+        .desc-field {
+            margin-bottom: 20px;
+        }
+
+        .desc-field label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+
+        .desc-field textarea {
+            width: 100%;
+            min-height: 100px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        .desc-repeatable-item {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 10px;
+            align-items: center;
+        }
+
+        .desc-repeatable-item input {
+            flex: 1;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        .desc-btn-add,
+        .desc-btn-remove {
+            padding: 8px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 13px;
+        }
+
+        .desc-btn-add {
+            background: #0073aa;
+            color: white;
+        }
+
+        .desc-btn-add:hover {
+            background: #005a87;
+        }
+
+        .desc-btn-remove {
+            background: #dc3232;
+            color: white;
+            padding: 8px 12px;
+        }
+
+        .desc-btn-remove:hover {
+            background: #a00;
+        }
+
+        .feature-group {
+            border: 2px solid #0073aa;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            background: white;
+        }
+
+        .feature-group-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #0073aa;
+        }
+
+        .feature-group-title {
+            font-weight: 700;
+            color: #0073aa;
+            font-size: 16px;
+        }
+
+        .feature-group-main-title {
+            margin-bottom: 15px;
+        }
+
+        .feature-group-main-title input {
+            width: 100%;
+            padding: 10px;
+            border: 2px solid #0073aa;
+            border-radius: 6px;
+            font-weight: 600;
+        }
+
+        .feature-items-list {
+            margin-top: 15px;
+            padding: 15px;
+            background: #f0fdf4;
+            border-radius: 6px;
+        }
+
+        .feature-item-group {
+            border: 2px solid #0073aa;
+            padding: 12px;
+            margin-bottom: 10px;
+            border-radius: 6px;
+            background: white;
+        }
+
+        .feature-item-group input,
+        .feature-item-group textarea {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            margin-bottom: 8px;
+        }
+
+        .feature-item-group textarea {
+            min-height: 50px;
+        }
+
+        .feature-item-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        #pricing-plans-metabox {
+            margin-bottom: 20px;
+        }
+
+        .pricing-plan-item {
+            border: 1px solid #ddd;
+            padding: 15px;
+            margin-bottom: 15px;
+            background: #f9f9f9;
+            border-radius: 4px;
+        }
+
+        .pricing-plan-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #e0e0e0;
+        }
+
+        .pricing-plan-title {
+            font-weight: bold;
+            font-size: 14px;
+            color: #333;
+        }
+
+        .pricing-plan-fields {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        .pricing-field {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .pricing-field label {
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+
+        .pricing-field input {
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 3px;
+            width: 100%;
         }
     </style>
 
@@ -362,13 +579,182 @@ function proxy_home_info_callback($post)
             <p class="field-description">Giá khởi điểm (USD)</p>
         </div>
 
-        <div class="provider-field"></div>
+        <div class="desc-section" id="features-overview-metabox-new">
+            <div class="desc-section-title">Price based on </div>
+
+            <div id="features-overview-container-new" class="features-container-unique">
+                <?php
+                // Lấy dữ liệu từ features_section thay vì features_overview
+                $proxy_data = get_post_meta($post->ID, '_proxy_data', true);
+                $proxy_data = maybe_unserialize($proxy_data);
+                $features_section = isset($proxy_data['features_section']) ? $proxy_data['features_section'] : array();
+
+                if (!empty($features_section)) {
+                    foreach ($features_section as $group_index => $feature_group) {
+                        $group_title = isset($feature_group['title']) ? $feature_group['title'] : '';
+                        $group_items = isset($feature_group['items']) && is_array($feature_group['items']) ? $feature_group['items'] : array();
+                        ?>
+                        <div class="feature-group" data-group-index="<?php echo $group_index; ?>">
+                            <div class="feature-group-header">
+                                <span class="feature-group-title">Proxy Group #<?php echo $group_index + 1; ?></span>
+                                <button type="button" class="desc-btn-remove remove-feature-group">✕</button>
+                            </div>
+
+                            <div class="feature-group-main-title">
+                                <label class="rating-label">Group Title</label>
+                                <input type="text" name="features_section_group_title[]"
+                                    value="<?php echo esc_attr($group_title); ?>" placeholder="Proxy Types">
+                            </div>
+
+                            <div class="feature-items-list">
+                                <label class="rating-label">Proxy in this Group</label>
+                                <div class="feature-items-container">
+                                    <?php
+                                    if (!empty($group_items)) {
+                                        foreach ($group_items as $item_index => $item) {
+                                            $item_title = isset($item['title']) ? $item['title'] : '';
+                                            $item_summary = isset($item['summary']) ? $item['summary'] : '';
+                                            ?>
+                                            <div class="feature-item-group">
+                                                <div class="feature-item-header">
+                                                    <label class="rating-label" style="margin: 0;">Item
+                                                        #<?php echo $item_index + 1; ?></label>
+                                                    <button type="button" class="desc-btn-remove remove-feature-item">✕</button>
+                                                </div>
+                                                <input type="text" name="features_section_item_title_<?php echo $group_index; ?>[]"
+                                                    value="<?php echo esc_attr($item_title); ?>" placeholder="Residential Proxies">
+                                                <textarea name="features_section_item_summary_<?php echo $group_index; ?>[]"
+                                                    placeholder="100M+ real residential IPs"><?php echo esc_textarea($item_summary); ?></textarea>
+                                            </div>
+                                            <?php
+                                        }
+                                    } else {
+                                        ?>
+                                        <div class="feature-item-group">
+                                            <div class="feature-item-header">
+                                                <label class="rating-label" style="margin: 0;">Item #1</label>
+                                                <button type="button" class="desc-btn-remove remove-feature-item">✕</button>
+                                            </div>
+                                            <input type="text" name="features_section_item_title_<?php echo $group_index; ?>[]" value=""
+                                                placeholder="Residential Proxies">
+                                            <textarea name="features_section_item_summary_<?php echo $group_index; ?>[]"
+                                                placeholder="100M+ real residential IPs"></textarea>
+                                        </div>
+                                        <?php
+                                    }
+                                    ?>
+                                </div>
+                                <button type="button" class="desc-btn-add add-feature-item" style="margin-top: 10px;">ADD</button>
+                            </div>
+                        </div>
+                        <?php
+                    }
+                } else {
+                    ?>
+                    <div class="feature-group" data-group-index="0">
+                        <div class="feature-group-header">
+                            <span class="feature-group-title">Proxys Group #1</span>
+                            <button type="button" class="desc-btn-remove remove-feature-group">✕</button>
+                        </div>
+
+                        <div class="feature-group-main-title">
+                            <label class="rating-label">Group Title</label>
+                            <input type="text" name="features_section_group_title[]" value="" placeholder="Proxy Types">
+                        </div>
+
+                        <div class="feature-items-list">
+                            <label class="rating-label">Proxy in this Group</label>
+                            <div class="feature-items-container">
+                                <div class="feature-item-group">
+                                    <div class="feature-item-header">
+                                        <label class="rating-label" style="margin: 0;">Item #1</label>
+                                        <button type="button" class="desc-btn-remove remove-feature-item">✕</button>
+                                    </div>
+                                    <input type="text" name="features_section_item_title_0[]" value=""
+                                        placeholder="Residential Proxies">
+                                    <textarea name="features_section_item_summary_0[]"
+                                        placeholder="100M+ real residential IPs"></textarea>
+                                </div>
+                            </div>
+                            <button type="button" class="desc-btn-add add-feature-item" style="margin-top: 10px;">ADD</button>
+                        </div>
+                    </div>
+                    <?php
+                }
+                ?>
+            </div>
+
+            <button type="button" class="desc-btn-add add-feature-group">ADD</button>
+        </div>
+        <div class="desc-section" id="pricing-plans-metabox">
+            <div class="desc-section-title">Pricing Plans</div>
+
+            <div id="pricing-plans-container">
+                <?php
+                // Lấy dữ liệu pricing plans
+                $proxy_data = get_post_meta($post->ID, '_proxy_data', true);
+                $proxy_data = maybe_unserialize($proxy_data);
+                $pricing_plans = isset($proxy_data['pricing_plans']) ? $proxy_data['pricing_plans'] : array();
+
+                if (!empty($pricing_plans)) {
+                    foreach ($pricing_plans as $plan_index => $plan) {
+                        $month = isset($plan['month']) ? $plan['month'] : '';
+                        $price = isset($plan['price']) ? $plan['price'] : '';
+                        ?>
+                        <div class="pricing-plan-item" data-plan-index="<?php echo $plan_index; ?>">
+                            <div class="pricing-plan-header">
+                                <span class="pricing-plan-title">Plan #<?php echo $plan_index + 1; ?></span>
+                                <button type="button" class="desc-btn-remove remove-pricing-plan">✕</button>
+                            </div>
+                            <div class="pricing-plan-fields">
+                                <div class="pricing-field">
+                                    <label class="rating-label">Month(s)</label>
+                                    <input type="number" name="pricing_plan_month[]" value="<?php echo esc_attr($month); ?>"
+                                        placeholder="3" min="1" step="1">
+                                </div>
+                                <div class="pricing-field">
+                                    <label class="rating-label">Price</label>
+                                    <input type="number" name="pricing_plan_price[]" value="<?php echo esc_attr($price); ?>"
+                                        placeholder="25.00" min="0" step="0.01">
+                                </div>
+                            </div>
+                        </div>
+                        <?php
+                    }
+                } else {
+                    ?>
+                    <div class="pricing-plan-item" data-plan-index="0">
+                        <div class="pricing-plan-header">
+                            <span class="pricing-plan-title">Plan #1</span>
+                            <button type="button" class="desc-btn-remove remove-pricing-plan">✕</button>
+                        </div>
+                        <div class="pricing-plan-fields">
+                            <div class="pricing-field">
+                                <label class="rating-label">Month(s)</label>
+                                <input type="number" name="pricing_plan_month[]" value="" placeholder="3" min="1" step="1">
+                            </div>
+                            <div class="pricing-field">
+                                <label class="rating-label">Price</label>
+                                <input type="number" name="pricing_plan_price[]" value="" placeholder="*1.0" min="0"
+                                    step="0.01">
+                            </div>
+                        </div>
+                    </div>
+                    <?php
+                }
+                ?>
+            </div>
+
+            <button type="button" class="desc-btn-add add-pricing-plan">ADD</button>
+        </div>
+
 
     </div>
-
     <script>
         jQuery(document).ready(function ($) {
-            // Preview logo
+            // ===================================================================
+            // === CÁC PHẦN KHÁC (logo, tag, advanced, status) - GIỮ NGUYÊN ===
+            // ===================================================================
             $('#proxy_logo').on('input', function () {
                 var logoUrl = $(this).val();
                 if (logoUrl) {
@@ -379,16 +765,14 @@ function proxy_home_info_callback($post)
                 }
             });
 
-            // Add Tag
             $('.add-tag').on('click', function () {
                 var html = '<div class="repeatable-item">' +
                     '<input type="text" name="proxy_tags[]" value="" placeholder="Nhập tag">' +
-                    '<button type="button" class="btn-remove remove-tag">✕</button>' +
+                    '<button type="button" class="btn-remove remove-tag">X</button>' +
                     '</div>';
                 $('#tags-container').append(html);
             });
 
-            // Remove Tag
             $(document).on('click', '.remove-tag', function () {
                 if ($('#tags-container .repeatable-item').length > 1) {
                     $(this).closest('.repeatable-item').remove();
@@ -397,16 +781,14 @@ function proxy_home_info_callback($post)
                 }
             });
 
-            // Add Advanced Feature
             $('.add-advanced').on('click', function () {
                 var html = '<div class="repeatable-item">' +
                     '<input type="text" name="proxy_advanced[]" value="" placeholder="Nhập feature">' +
-                    '<button type="button" class="btn-remove remove-advanced">✕</button>' +
+                    '<button type="button" class="btn-remove remove-advanced">X</button>' +
                     '</div>';
                 $('#advanced-container').append(html);
             });
 
-            // Remove Advanced Feature
             $(document).on('click', '.remove-advanced', function () {
                 if ($('#advanced-container .repeatable-item').length > 1) {
                     $(this).closest('.repeatable-item').remove();
@@ -415,16 +797,14 @@ function proxy_home_info_callback($post)
                 }
             });
 
-            // Add Status 
             $('.add-status').on('click', function () {
                 var html = '<div class="repeatable-item">' +
                     '<input type="text" name="proxy_status[]" value="" placeholder="Nhập status">' +
-                    '<button type="button" class="btn-remove remove-status">✕</button>' +
+                    '<button type="button" class="btn-remove remove-status">X</button>' +
                     '</div>';
                 $('#status-container').append(html);
             });
 
-            // Remove Status 
             $(document).on('click', '.remove-status', function () {
                 if ($('#status-container .repeatable-item').length > 1) {
                     $(this).closest('.repeatable-item').remove();
@@ -432,9 +812,174 @@ function proxy_home_info_callback($post)
                     alert('Phải có ít nhất 1 status!');
                 }
             });
+
+            // ======================== plan pricing ========================
+            jQuery(document).ready(function ($) {
+                var $metabox = $('#pricing-plans-metabox');
+                if (!$metabox.length) return;
+
+                var $container = $('#pricing-plans-container');
+
+                // === ADD PRICING PLAN ===
+                $metabox.on('click', '.add-pricing-plan', function (e) {
+                    e.stopImmediatePropagation();
+                    e.preventDefault();
+
+                    var count = $container.find('.pricing-plan-item').length;
+                    var html = '<div class="pricing-plan-item" data-plan-index="' + count + '">' +
+                        '<div class="pricing-plan-header">' +
+                        '<span class="pricing-plan-title">Plan #' + (count + 1) + '</span>' +
+                        '<button type="button" class="desc-btn-remove remove-pricing-plan">✕</button>' +
+                        '</div>' +
+                        '<div class="pricing-plan-fields">' +
+                        '<div class="pricing-field">' +
+                        '<label class="rating-label">Month(s)</label>' +
+                        '<input type="number" name="pricing_plan_month[]" value="" placeholder="3" min="1" step="1">' +
+                        '</div>' +
+                        '<div class="pricing-field">' +
+                        '<label class="rating-label">Price ($)</label>' +
+                        '<input type="number" name="pricing_plan_price[]" value="" placeholder="25.00" min="0" step="0.01">' +
+                        '</div>' +
+                        '</div>' +
+                        '</div>';
+
+                    $container.append(html);
+                    return false;
+                });
+
+                // === REMOVE PRICING PLAN ===
+                $metabox.on('click', '.remove-pricing-plan', function (e) {
+                    e.stopImmediatePropagation();
+                    if ($container.find('.pricing-plan-item').length > 1) {
+                        $(this).closest('.pricing-plan-item').remove();
+                        updatePlanNumbers();
+                    } else {
+                        alert('Phải có ít nhất 1 pricing plan!');
+                    }
+                    return false;
+                });
+
+                // === UPDATE PLAN NUMBERS ===
+                function updatePlanNumbers() {
+                    $container.find('.pricing-plan-item').each(function (index) {
+                        $(this).attr('data-plan-index', index);
+                        $(this).find('.pricing-plan-title').text('Plan #' + (index + 1));
+                    });
+                }
+
+                updatePlanNumbers();
+            });
+
+
+            // =================== Features Overview Section ================
+            var $metabox = $('#features-overview-metabox-new');
+            if (!$metabox.length) return;
+
+            var $container = $('#features-overview-container-new');
+
+            // === ADD GROUP ===
+            $metabox.on('click', '.add-feature-group', function (e) {
+                e.stopImmediatePropagation();
+                e.preventDefault();
+
+                var count = $container.find('.feature-group').length;
+                var html = '<div class="feature-group" data-group-index="' + count + '">' +
+                    '<div class="feature-group-header">' +
+                    '<span class="feature-group-title">Feature Group #' + (count + 1) + '</span>' +
+                    '<button type="button" class="desc-btn-remove remove-feature-group">✕</button>' +
+                    '</div>' +
+                    '<div class="feature-group-main-title">' +
+                    '<label class="rating-label">Group Title</label>' +
+                    '<input type="text" name="features_section_group_title[]" value="" placeholder="Proxy Types">' +
+                    '</div>' +
+                    '<div class="feature-items-list">' +
+                    '<label class="rating-label">Features in this Group</label>' +
+                    '<div class="feature-items-container">' +
+                    '<div class="feature-item-group">' +
+                    '<div class="feature-item-header">' +
+                    '<label class="rating-label" style="margin: 0;">Item #1</label>' +
+                    '<button type="button" class="desc-btn-remove remove-feature-item">✕</button>' +
+                    '</div>' +
+                    '<input type="text" name="features_section_item_title_' + count + '[]" value="" placeholder="Residential Proxies">' +
+                    '<textarea name="features_section_item_summary_' + count + '[]" placeholder="100M+ real residential IPs"></textarea>' +
+                    '</div>' +
+                    '</div>' +
+                    '<button type="button" class="desc-btn-add add-feature-item" style="margin-top: 10px;">ADD</button>' +
+                    '</div>' +
+                    '</div>';
+
+                $container.append(html);
+                return false;
+            });
+
+            // === ADD ITEM ===
+            $metabox.on('click', '.add-feature-item', function (e) {
+                e.stopImmediatePropagation();
+                e.preventDefault();
+
+                var $group = $(this).closest('.feature-group');
+                var groupIndex = $group.attr('data-group-index');
+                var $itemsContainer = $group.find('.feature-items-container');
+                var itemCount = $itemsContainer.find('.feature-item-group').length + 1;
+
+                var html = '<div class="feature-item-group">' +
+                    '<div class="feature-item-header">' +
+                    '<label class="rating-label" style="margin: 0;">Item #' + itemCount + '</label>' +
+                    '<button type="button" class="desc-btn-remove remove-feature-item">✕</button>' +
+                    '</div>' +
+                    '<input type="text" name="features_section_item_title_' + groupIndex + '[]" value="" placeholder="Feature Title">' +
+                    '<textarea name="features_section_item_summary_' + groupIndex + '[]" placeholder="Feature summary"></textarea>' +
+                    '</div>';
+
+                $itemsContainer.append(html);
+                return false;
+            });
+
+            // === REMOVE GROUP ===
+            $metabox.on('click', '.remove-feature-group', function (e) {
+                e.stopImmediatePropagation();
+                if ($container.find('.feature-group').length > 1) {
+                    $(this).closest('.feature-group').remove();
+                    updateGroupIndexes();
+                } else {
+                    alert('Phải có ít nhất 1 feature group!');
+                }
+                return false;
+            });
+
+            // === REMOVE ITEM ===
+            $metabox.on('click', '.remove-feature-item', function (e) {
+                e.stopImmediatePropagation();
+                var $itemsContainer = $(this).closest('.feature-items-container');
+                if ($itemsContainer.find('.feature-item-group').length > 1) {
+                    $(this).closest('.feature-item-group').remove();
+                    updateItemNumbers($itemsContainer);
+                } else {
+                    alert('Phải có ít nhất 1 item!');
+                }
+                return false;
+            });
+
+            // === CẬP NHẬT INDEX ===
+            function updateGroupIndexes() {
+                $container.find('.feature-group').each(function (index) {
+                    var $group = $(this);
+                    $group.attr('data-group-index', index);
+                    $group.find('.feature-group-title').text('Feature Group #' + (index + 1));
+                    $group.find('input[name^="features_section_item_title_"]').attr('name', 'features_section_item_title_' + index + '[]');
+                    $group.find('textarea[name^="features_section_item_summary_"]').attr('name', 'features_section_item_summary_' + index + '[]');
+                });
+            }
+
+            function updateItemNumbers($itemsContainer) {
+                $itemsContainer.find('.feature-item-group').each(function (index) {
+                    $(this).find('.feature-item-header label').first().text('Item #' + (index + 1));
+                });
+            }
+
+            updateGroupIndexes();
         });
     </script>
-
     <?php
 }
 
@@ -467,7 +1012,9 @@ function save_proxy_home_info($post_id)
         'rating' => 0,
         'advanced' => array(),
         'status' => array(),
-        'price' => 0
+        'price' => 0,
+        'pricing_plans' => array(),
+        'features_section' => array(),  // METABOX TRÊN - Features Overview Section
     );
 
     // Thu thập dữ liệu từ form
@@ -499,6 +1046,54 @@ function save_proxy_home_info($post_id)
     // Thêm xử lý price
     if (isset($_POST['proxy_price'])) {
         $proxy_data['price'] = floatval($_POST['proxy_price']);
+    }
+    if (isset($_POST['pricing_plan_month']) && is_array($_POST['pricing_plan_month'])) {
+        $months = $_POST['pricing_plan_month'];
+        $prices = isset($_POST['pricing_plan_price']) ? $_POST['pricing_plan_price'] : array();
+
+        foreach ($months as $index => $month) {
+            if (!empty($month) && isset($prices[$index]) && !empty($prices[$index])) {
+                $proxy_data['pricing_plans'][] = array(
+                    'month' => absint($month),  // Chuyển thành số nguyên dương
+                    'price' => floatval($prices[$index])  // Chuyển thành số thực
+                );
+            }
+        }
+    }
+
+    // =========================================================================
+    // THU THẬP METABOX TRÊN: Features Overview Section (features_section)
+    // =========================================================================
+    if (isset($_POST['features_section_group_title']) && is_array($_POST['features_section_group_title'])) {
+        $group_titles = $_POST['features_section_group_title'];
+
+        foreach ($group_titles as $group_index => $group_title) {
+            if (!empty($group_title)) {
+                // Thu thập items cho group này
+                $group_items = array();
+                $item_titles_key = 'features_section_item_title_' . $group_index;
+                $item_summaries_key = 'features_section_item_summary_' . $group_index;
+
+                if (isset($_POST[$item_titles_key]) && is_array($_POST[$item_titles_key])) {
+                    $item_titles = $_POST[$item_titles_key];
+                    $item_summaries = isset($_POST[$item_summaries_key]) ? $_POST[$item_summaries_key] : array();
+
+                    foreach ($item_titles as $item_index => $item_title) {
+                        if (!empty($item_title)) {
+                            $group_items[] = array(
+                                'title' => wp_kses_post($item_title),
+                                'summary' => isset($item_summaries[$item_index]) ? wp_kses_post($item_summaries[$item_index]) : ''
+                            );
+                        }
+                    }
+                }
+
+                $proxy_data['features_section'][] = array(
+                    'title' => wp_kses_post($group_title),
+                    'items' => $group_items
+                );
+            }
+        }
     }
 
     // Serialize dữ liệu và lưu vào 1 meta key
@@ -535,28 +1130,29 @@ function proxy_desc_callback($post)
     }
 
     // Lấy features_overview từ saved_data
-    $features_overview = isset($saved_data['features_overview']) && is_array($saved_data['features_overview']) 
-        ? $saved_data['features_overview'] 
+    $features_overview = isset($saved_data['features_overview']) && is_array($saved_data['features_overview'])
+        ? $saved_data['features_overview']
         : array();
     $perfect_for = isset($saved_data['perfect_for']) && is_array($saved_data['perfect_for']) ? $saved_data['perfect_for'] : array();
 
 
     ?>
-    
-
     <style>
         .provider-meta-box {
             padding: 20px;
         }
+
         .provider-field {
             margin-bottom: 25px;
         }
+
         .provider-field label {
             display: block;
             font-weight: 600;
             margin-bottom: 8px;
             font-size: 14px;
         }
+
         .provider-field input[type="text"],
         .provider-field input[type="number"],
         .provider-field textarea {
@@ -565,9 +1161,11 @@ function proxy_desc_callback($post)
             border: 1px solid #ddd;
             border-radius: 4px;
         }
+
         .provider-field textarea {
             min-height: 80px;
         }
+
         .feature-group {
             border: 2px solid #0073aa;
             padding: 20px;
@@ -679,6 +1277,7 @@ function proxy_desc_callback($post)
             font-size: 14px;
             color: #333;
         }
+
         /* commit & achieve */
 
         .perfect-group {
@@ -738,7 +1337,7 @@ function proxy_desc_callback($post)
 
     <div class="provider-meta-box">
 
-          <div class="desc-section">
+        <div class="desc-section">
             <div class="desc-section-title">Commitment and achievement</div>
 
             <div id="perfect-for-container">
@@ -751,7 +1350,7 @@ function proxy_desc_callback($post)
                         ?>
                         <div class="perfect-group" data-perfect-index="<?php echo $pf_index; ?>">
                             <div class="perfect-group-header">
-                               <span class="perfect-group-title">Use Case #<?php echo (int)$pf_index + 1; ?></span>
+                                <span class="perfect-group-title">Use Case #<?php echo (int) $pf_index + 1; ?></span>
                                 <button type="button" class="desc-btn-remove remove-perfect-group">✕</button>
                             </div>
 
@@ -840,7 +1439,8 @@ function proxy_desc_callback($post)
                                             ?>
                                             <div class="feature-item-group">
                                                 <div class="feature-item-header">
-                                                    <label class="rating-label" style="margin: 0;">Item #<?php echo $item_index + 1; ?></label>
+                                                    <label class="rating-label" style="margin: 0;">Item
+                                                        #<?php echo $item_index + 1; ?></label>
                                                     <button type="button" class="desc-btn-remove remove-feature-item">✕</button>
                                                 </div>
                                                 <input type="text" name="feature_item_title_<?php echo $group_index; ?>[]"
@@ -901,23 +1501,35 @@ function proxy_desc_callback($post)
 
             <button type="button" class="desc-btn-add add-feature-group">ADD</button>
         </div>
-       
-        <div class="provider-field"></div>
 
     </div>
 
     <script>
         jQuery(document).ready(function ($) {
-            // Add Feature Group
-            $('.add-feature-group').on('click', function () {
-                var count = $('#features-overview-container .feature-group').length;
+            // ===================================================================
+            // === METABOX: Proxy Details - CHỈ XỬ LÝ METABOX NÀY ===
+            // ===================================================================
+
+            // Tìm container của Proxy Details metabox
+            var $container = $('#features-overview-container');
+            if (!$container.length) return;
+
+            // Lấy parent metabox để scope events
+            var $metabox = $container.closest('.desc-section');
+
+            // === ADD FEATURE GROUP ===
+            $metabox.on('click', '.add-feature-group', function (e) {
+                e.stopImmediatePropagation();
+                e.preventDefault();
+
+                var count = $container.find('.feature-group').length;
                 var html = '<div class="feature-group" data-group-index="' + count + '">' +
                     '<div class="feature-group-header">' +
                     '<span class="feature-group-title">Details Group #' + (count + 1) + '</span>' +
                     '<button type="button" class="desc-btn-remove remove-feature-group">✕</button>' +
                     '</div>' +
                     '<div class="feature-group-main-title">' +
-                    '<label class="rating-label">Group Title</label>' +
+                    '<label class="rating-label">Details Title</label>' +
                     '<input type="text" name="feature_group_title[]" value="" placeholder="Proxy Types">' +
                     '</div>' +
                     '<div class="feature-items-list">' +
@@ -934,21 +1546,27 @@ function proxy_desc_callback($post)
                     '<button type="button" class="desc-btn-add add-feature-item" style="margin-top: 10px;">ADD ITEM</button>' +
                     '</div>' +
                     '</div>';
-                $('#features-overview-container').append(html);
+                $container.append(html);
+                return false;
             });
 
-            // Remove Feature Group
-            $(document).on('click', '.remove-feature-group', function () {
-                if ($('#features-overview-container .feature-group').length > 1) {
+            // === REMOVE FEATURE GROUP ===
+            $metabox.on('click', '.remove-feature-group', function (e) {
+                e.stopImmediatePropagation();
+                if ($container.find('.feature-group').length > 1) {
                     $(this).closest('.feature-group').remove();
                     updateFeatureGroupNumbers();
                 } else {
                     alert('Phải có ít nhất 1 feature group!');
                 }
+                return false;
             });
 
-            // Add Feature Item
-            $(document).on('click', '.add-feature-item', function () {
+            // === ADD FEATURE ITEM ===
+            $metabox.on('click', '.add-feature-item', function (e) {
+                e.stopImmediatePropagation();
+                e.preventDefault();
+
                 var featureGroup = $(this).closest('.feature-group');
                 var groupIndex = featureGroup.attr('data-group-index');
                 var itemsContainer = featureGroup.find('.feature-items-container');
@@ -962,10 +1580,12 @@ function proxy_desc_callback($post)
                     '<input type="text" name="feature_item_title_' + groupIndex + '[]" value="" placeholder="Residential Proxies">' +
                     '</div>';
                 itemsContainer.append(html);
+                return false;
             });
 
-            // Remove Feature Item
-            $(document).on('click', '.remove-feature-item', function () {
+            // === REMOVE FEATURE ITEM ===
+            $metabox.on('click', '.remove-feature-item', function (e) {
+                e.stopImmediatePropagation();
                 var itemsContainer = $(this).closest('.feature-items-container');
                 if (itemsContainer.find('.feature-item-group').length > 1) {
                     $(this).closest('.feature-item-group').remove();
@@ -973,14 +1593,15 @@ function proxy_desc_callback($post)
                 } else {
                     alert('Phải có ít nhất 1 item!');
                 }
+                return false;
             });
 
-            // Update Feature Group Numbers
+            // === UPDATE FEATURE GROUP NUMBERS ===
             function updateFeatureGroupNumbers() {
-                $('#features-overview-container .feature-group').each(function (index) {
+                $container.find('.feature-group').each(function (index) {
                     $(this).attr('data-group-index', index);
                     $(this).find('.feature-group-title').text('Details Group #' + (index + 1));
-                    
+
                     // Update input names for items in this group
                     $(this).find('.feature-items-container input').each(function () {
                         var name = $(this).attr('name');
@@ -990,14 +1611,14 @@ function proxy_desc_callback($post)
                 });
             }
 
-            // Update Feature Item Numbers
+            // === UPDATE FEATURE ITEM NUMBERS ===
             function updateFeatureItemNumbers(container) {
                 container.find('.feature-item-group').each(function (index) {
                     $(this).find('.feature-item-header label').text('Item #' + (index + 1));
                 });
             }
 
-             // update perfect for groups number
+            // === PERFECT FOR SECTION ===
             function updatePerfectForNumbers() {
                 $('#perfect-for-container .perfect-group').each(function (index) {
                     $(this).attr('data-perfect-index', index);
@@ -1039,6 +1660,8 @@ function proxy_desc_callback($post)
                 }
             });
 
+            // Initialize
+            updateFeatureGroupNumbers();
         });
     </script>
 
@@ -1055,12 +1678,10 @@ function save_proxy_desc($post_id)
     ) {
         return;
     }
-
     // check autosave
     if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) {
         return;
     }
-
     // phân quyền
     if (!current_user_can('edit_post', $post_id)) {
         return;
@@ -1116,7 +1737,7 @@ function save_proxy_desc($post_id)
         foreach ($pf_titles as $pf_index => $pf_title) {
             // Trim title
             $pf_title = trim($pf_title);
-            
+
             if (!empty($pf_title)) {
                 $perfect_for[] = array(
                     'title' => sanitize_text_field($pf_title),
@@ -1162,7 +1783,7 @@ function get_proxy_data_for_api($object)
     if (!empty($proxy_data) && is_string($proxy_data)) {
         $proxy_data = maybe_unserialize($proxy_data);
     }
-    
+
     // proxy_content
     $proxy_content = get_post_meta($proxy_id, '_proxy_content', true);
 
@@ -1177,11 +1798,13 @@ function get_proxy_data_for_api($object)
             'advanced' => isset($proxy_data['advanced']) ? $proxy_data['advanced'] : array(),
             'status' => isset($proxy_data['status']) ? $proxy_data['status'] : array(),
             'price' => isset($proxy_data['price']) ? floatval($proxy_data['price']) : 0,
-            
+            'features_section' => isset($proxy_data['features_section']) ? $proxy_data['features_section'] : array(),
+            'pricing_plans' => isset($proxy_data['pricing_plans']) ? $proxy_data['pricing_plans'] : array(),
+
             // Description fields
             'features_overview' => isset($proxy_data['features_overview']) ? $proxy_data['features_overview'] : array(),
             'perfect_for' => isset($proxy_data['perfect_for']) ? $proxy_data['perfect_for'] : array(),
-            
+
             // Main Content field
             'content' => !empty($proxy_content) ? $proxy_content : ''
         );
@@ -1197,12 +1820,14 @@ function get_proxy_data_for_api($object)
         'advanced' => array(),
         'status' => array(),
         'price' => 0,
-        
+        'pricing_plans' => array(),
+        'features_section' => array(),
+
         // Description defaults
         'features_overview' => array(),
         'perfect_for' => array(),
 
-        
+
         // Main Content default
         'content' => !empty($proxy_content) ? $proxy_content : ''
     );

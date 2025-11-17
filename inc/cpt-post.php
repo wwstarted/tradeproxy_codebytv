@@ -59,12 +59,13 @@ function create_post_category_taxonomy(){
 }
 add_action('init','create_post_category_taxonomy');
 
+
 // ==================== METABOX - MAIN CONTENT ====================
 function add_post_content_metabox()
 {
     add_meta_box(
         'post_content_box',             // ID
-        'Post Main Content',          // Tiêu đề box
+        'post Main Content',          // Tiêu đề box
         'render_post_content_metabox',  // Callback 
         'cpt_post',                     // CPT
         'normal',                    // Vị trí
@@ -80,8 +81,8 @@ function render_post_content_metabox($post)
     $desc = get_post_meta($post->ID, '_post_content', true);
 
     wp_editor(
-        $desc, 
-        'post_content', 
+        $desc,
+        'post_content',
         array(
             'textarea_name' => 'post_content',
             'media_buttons' => true, //chèn ảnh
@@ -331,5 +332,65 @@ function save_post_description($post_id){
     update_post_meta($post_id, '_post_data', maybe_serialize($post_data));
 }
 add_action('save_post','save_post_description');
+
+// ========================= rest api ==============================
+// ==================== REST API ====================
+function add_post_data_to_rest_api()
+{
+    register_rest_field('cpt_post', 'post_data', array(
+        'get_callback' => 'get_post_data_for_api',
+        'update_callback' => null,
+        'schema' => array(
+            'description' => 'post data (unserialized)',
+            'type' => 'object'
+        )
+    ));
+}
+add_action('rest_api_init', 'add_post_data_to_rest_api');
+
+// Callback 
+function get_post_data_for_api($object)
+{
+    $post_id = $object['id'];
+
+    // meta key '_post_data'
+    $post_data = get_post_meta($post_id, '_post_data', true);
+
+
+    if (!empty($post_data) && is_string($post_data)) {
+        $post_data = maybe_unserialize($post_data);
+    }
+    
+    // post_content
+    $post_content = get_post_meta($post_id, '_post_content', true);
+
+
+    if (is_array($post_data)) {
+        return array(
+            // Home Info fields
+            'tags' => isset($post_data['tags']) ? $post_data['tags'] : array(),
+            'thumbnail' => isset($post_data['thumbnail']) ? $post_data['thumbnail'] : '',
+            'summary' => isset($post_data['summary']) ? $post_data['summary'] : '',
+            'date' => isset($post_data['date']) ? $post_data['date'] : '',
+            
+            // Main Content field
+            'content' => !empty($post_content) ? $post_content : ''
+        );
+    }
+    // Return default structure
+    return array(
+        // Home Info defaults
+        'tags' => array(),
+        'thumbnail' => '',
+        'summary' => '',
+        'date' => '',
+
+        // Main Content default
+        'content' => !empty($post_content) ? $post_content : ''
+    );
+}
+
+
+
 
 
