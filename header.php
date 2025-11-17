@@ -127,7 +127,7 @@
                                             <i class="fa-regular fa-user"></i>
                                             <span>Tài khoản của tôi</span>
                                         </a>
-                                        <a href="#" class="user-menu-item">
+                                        <a href="<?php echo esc_url(home_url('/purchase-history')) ?>" class="user-menu-item">
                                             <i class="fa-regular fa-clock"></i>
                                             <span>Lịch sử mua hàng</span>
                                         </a>
