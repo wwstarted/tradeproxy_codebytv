@@ -54,7 +54,7 @@
   margin-bottom: 30px;
 }
 
-.btn {
+.btn-detail-provider {
   padding: 10px 24px;
   border-radius: 8px;
   font-size: 14px;
@@ -64,13 +64,13 @@
   border: none;
 }
 
-.btn-primary {
+.btn-primary-detail-provider {
   background: white;
   color: #333;
   border: 1px solid #e5e7eb;
 }
 
-.btn-primary:hover {
+.btn-primary-detail-provider:hover {
   background: #f9fafb;
 }
 
@@ -219,7 +219,7 @@
   margin-bottom: 16px;
 }
 
-.cta-banner .btn {
+.cta-banner .btn-detail-provider {
   background: white;
   color: #3b82f6;
   padding: 12px 32px;
@@ -227,7 +227,7 @@
   margin-top: 20px;
 }
 
-.cta-banner .btn:hover {
+.cta-banner .btn-detail-provider:hover {
   background: #f9fafb;
 }
 
@@ -255,10 +255,6 @@
 }
 
 @media (max-width: 640px) {
-  .main-content {
-    padding: 20px 16px;
-  }
-
   .left-content {
     padding: 20px;
   }
@@ -267,7 +263,7 @@
     flex-direction: column;
   }
 
-  .btn {
+  .btn-detail-provider {
     width: 100%;
   }
 }

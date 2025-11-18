@@ -1,6 +1,6 @@
 /* Main Content Styles */
 .product-detail-container {
-  max-width: 90%;
+  max-width: 80%;
   margin: 0 auto;
   display: grid;
   grid-template-columns: 1fr 380px;
@@ -12,7 +12,7 @@
 .product-info {
   background: white;
   border-radius: 12px;
-  padding: 30px;
+  padding: 20px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
 }
 
@@ -71,12 +71,6 @@
   gap: 12px;
   font-size: 14px;
   color: #4b5563;
-}
-
-.product-meta span {
-  display: flex;
-  align-items: center;
-  gap: 5px;
 }
 
 .product-meta a {
@@ -180,7 +174,7 @@
 
 .pricing-card {
   background: white;
-  border-radius: 12px;
+  border-radius: 20px;
   padding: 25px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
   margin-bottom: 20px;
@@ -476,7 +470,7 @@
 
 /* Slide card proxies bottom */
 .detail-proxy-carousel-section {
-  max-width: 90%;
+  max-width: 80%;
   margin: 0 auto;
   padding: 40px 0;
 }
@@ -685,11 +679,19 @@
   right: 0;
 }
 
-@media (max-width: 1024px) {
-  .detail-carousel-container {
-    padding: 0 50px;
+@media (min-width: 3840px) {
+  .detail-proxy-card {
+    max-width: 300px;
   }
+}
 
+@media (min-width: 2560px) {
+  .detail-proxy-card {
+    max-width: 300px;
+  }
+}
+
+@media (max-width: 1024px) {
   .detail-proxy-card {
     flex: 0 0 calc(50% - 15px);
   }
@@ -701,13 +703,8 @@
     margin-bottom: 20px;
   }
 
-  .detail-carousel-container {
-    padding: 0 40px;
-  }
-
   .detail-proxy-card {
-    flex: 0 0 100%;
-    min-width: 280px;
+    flex: 0 0 calc(50% - 15px);
   }
 
   .detail-cards-wrapper {
@@ -717,12 +714,21 @@
 
 @media (max-width: 480px) {
   .detail-carousel-container {
-    padding: 0 30px;
+    padding: 0;
+  }
+
+  .detail-carousel-nav-button.detail-prev,
+  .detail-carousel-nav-button.detail-next {
+    display: none;
   }
 
   .detail-carousel-nav-button {
     width: 40px;
     height: 40px;
     font-size: 16px;
+  }
+
+  .product-meta span {
+    text-align: left;
   }
 }

@@ -403,10 +403,6 @@
 
 /* Small Mobile */
 @media (max-width: 480px) {
-  .main-content {
-    padding-top: 0;
-  }
-
   .proxy-row {
     margin: 0 12px 12px 12px;
     padding: 16px;
@@ -656,6 +652,7 @@
   gap: 30px;
   transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   touch-action: pan-y;
+  max-width: 280px;
 }
 
 .card {
@@ -949,22 +946,7 @@
   box-shadow: 0 6px 20px rgba(0, 123, 243, 0.3);
 }
 
-/* Responsive */
-@media (max-width: 1024px) {
-  .countries-grid {
-    grid-template-columns: repeat(3, 1fr);
-    gap: 20px;
-  }
-}
-
 @media (max-width: 768px) {
-  .proxy-world-section {
-    padding: 40px 24px;
-  }
-
-  .world-title {
-    font-size: 24px;
-  }
 
   .world-description {
     font-size: 14px;
@@ -995,14 +977,6 @@
 }
 
 @media (max-width: 480px) {
-  .proxy-world-section {
-    padding: 30px 16px;
-  }
-
-  .world-title {
-    font-size: 20px;
-  }
-
   .countries-grid {
     grid-template-columns: 1fr;
     gap: 12px;
@@ -1145,11 +1119,6 @@
 
 /* Responsive */
 @media (max-width: 768px) {
-  .partners-title {
-    font-size: 24px;
-    margin-bottom: 40px;
-  }
-
   .partners-row {
     gap: 20px;
   }
@@ -1170,10 +1139,6 @@
 }
 
 @media (max-width: 480px) {
-  .partners-title {
-    font-size: 20px;
-  }
-
   .partner-card {
     padding: 24px 32px;
     min-width: 200px;
@@ -1194,3 +1159,553 @@
     max-width: 300px;
   }
 }
+
+/* ========================================
+   RESPONSIVE CHO MÀN HÌNH 2K (2560px)
+======================================== */
+@media (min-width: 2560px) {
+  /* Container chung */
+  .container {
+    max-width: 2200px;
+    margin: 0 auto;
+  }
+
+  /* Hero Section */
+  .hero-main {
+    max-width: 85%;
+  }
+
+  /* Proxy Table */
+  .proxy-table-header,
+  .proxy-row {
+    grid-template-columns: 3fr 1fr 1fr 1fr 1.5fr;
+    padding: 24px 32px;
+    gap: 24px;
+  }
+
+  .proxy-logo {
+    width: 80px;
+    height: 80px;
+    border-radius: 16px;
+  }
+
+  .proxy-details h3 {
+    font-size: 20px;
+  }
+
+  .proxy-details p {
+    font-size: 16px;
+  }
+
+  .proxy-select {
+    padding: 12px 40px 12px 20px;
+    font-size: 16px;
+  }
+
+  .proxy-badge {
+    padding: 8px 16px;
+    font-size: 15px;
+  }
+
+  .proxy-price-main {
+    font-size: 22px;
+  }
+
+  .proxy-price-sub {
+    font-size: 15px;
+  }
+
+  .proxy-btn-cart {
+    padding: 14px;
+    font-size: 18px;
+  }
+
+  .proxy-btn-buy {
+    padding: 14px 32px;
+    font-size: 16px;
+  }
+
+  .feature-card {
+    padding: 50px 40px;
+    border-radius: 20px;
+  }
+
+  .icon-container {
+    width: 100px;
+    height: 100px;
+    margin-bottom: 30px;
+  }
+
+  .feature-card h3 {
+    font-size: 1.8rem;
+    margin-bottom: 20px;
+  }
+
+  .feature-card p {
+    font-size: 1.1rem;
+    line-height: 1.8;
+  }
+
+  .commit-subtitle {
+    font-size: 18px;
+    margin-bottom: 30px;
+  }
+
+  .commit-feature-icon {
+    width: 90px;
+    height: 90px;
+    border-radius: 24px;
+    margin-right: 30px;
+  }
+
+  .commit-feature-icon svg {
+    width: 45px;
+    height: 45px;
+  }
+
+  .commit-feature-content h3 {
+    font-size: 26px;
+    margin-bottom: 16px;
+  }
+
+  .commit-feature-content p {
+    font-size: 17px;
+    line-height: 1.8;
+  }
+
+  .carousel-container {
+    padding: 0 80px;
+  }
+
+  .card {
+    min-width: 380px;
+    max-width: 380px;
+    border-radius: 24px;
+  }
+
+  .card-header {
+    padding: 20px;
+  }
+
+  .card-logo {
+    width: 60px;
+    height: 60px;
+  }
+
+  .card-title {
+    font-size: 1.8rem;
+  }
+
+  .card-description {
+    font-size: 1rem;
+  }
+
+  .card-price {
+    padding: 25px;
+    font-size: 1.6rem;
+  }
+
+  .card-body {
+    padding: 40px;
+  }
+
+  .features-plans li {
+    padding: 15px 0;
+    font-size: 1.05rem;
+  }
+
+  .btn-buy {
+    padding: 18px 40px;
+    font-size: 1.2rem;
+  }
+
+  .world-description {
+    font-size: 18px;
+    max-width: 1200px;
+  }
+
+  .countries-grid {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 40px;
+    margin-bottom: 50px;
+  }
+
+  .country-card {
+    padding: 25px;
+    gap: 20px;
+    border-radius: 16px;
+  }
+
+  .country-flag {
+    width: 56px;
+    height: 56px;
+  }
+
+  .country-name {
+    font-size: 18px;
+  }
+
+  .country-ips {
+    font-size: 16px;
+  }
+
+  .partners-row {
+    gap: 40px;
+  }
+
+  .partner-card {
+    padding: 25px 60px;
+    min-width: 320px;
+    border-radius: 20px;
+  }
+
+  .partner-logo {
+    width: 56px;
+    height: 56px;
+  }
+
+  .partner-name {
+    font-size: 20px;
+  }
+
+  .view-all-btn {
+    padding: 16px 50px;
+    font-size: 18px;
+  }
+
+  /* Navigation Buttons */
+  .nav-button {
+    width: 50px;
+    height: 50px;
+    font-size: 28px;
+  }
+
+  .nav-button.prev {
+    left: 10px;
+  }
+
+  .nav-button.next {
+    right: 10px;
+  }
+  .hero-image {
+    /* text-align: center; */
+    /* margin: auto; */
+    display: flex;
+    justify-content: center;
+  }
+}
+
+/* ========================================
+   RESPONSIVE CHO MÀN HÌNH 4K (3840px)
+======================================== */
+@media (min-width: 3840px) {
+  .hero-image {
+    /* text-align: center; */
+    /* margin: auto; */
+    display: flex;
+    justify-content: center;
+  }
+
+  /* Container chung */
+  .container {
+    max-width: 100%;
+    margin: 0 auto;
+  }
+
+  /* Hero Section */
+  .hero-main {
+    max-width: 90%;
+  }
+
+  /* Proxy Table */
+  .proxy-table-header,
+  .proxy-row {
+    grid-template-columns: 3.5fr 1fr 1fr 1fr 1.5fr;
+    padding: 36px 48px;
+    gap: 32px;
+  }
+
+  .proxy-logo {
+    width: 120px;
+    height: 120px;
+    border-radius: 20px;
+    padding: 12px;
+  }
+
+  .proxy-details h3 {
+    font-size: 28px;
+    margin-bottom: 8px;
+  }
+
+  .proxy-details p {
+    font-size: 20px;
+    line-height: 1.6;
+  }
+
+  .proxy-select {
+    padding: 16px 48px 16px 24px;
+    font-size: 20px;
+    border-radius: 12px;
+  }
+
+  .proxy-badge {
+    padding: 10px 20px;
+    font-size: 18px;
+  }
+
+  .proxy-price-main {
+    font-size: 32px;
+    margin-bottom: 8px;
+  }
+
+  .proxy-price-sub {
+    font-size: 18px;
+    gap: 6px;
+  }
+
+  .proxy-price-sub i {
+    font-size: 16px;
+  }
+
+  .proxy-btn-cart {
+    padding: 18px;
+    font-size: 24px;
+  }
+
+  .proxy-btn-buy {
+    padding: 18px 40px;
+    font-size: 20px;
+  }
+
+  .proxy-search-input {
+    padding: 16px 20px 16px 56px;
+    font-size: 18px;
+    border-radius: 12px;
+  }
+
+  .proxy-search-icon {
+    left: 48px;
+    font-size: 18px;
+  }
+
+  /* List Proxy Buttons */
+  .list-proxy button {
+    font-size: 1.4rem;
+    padding: 8px 20px;
+  }
+
+  .list-proxy button img {
+    width: 40px;
+    height: 40px;
+  }
+
+  .feature-card {
+    padding: 70px 60px;
+    border-radius: 28px;
+  }
+
+  .icon-container {
+    width: 140px;
+    height: 140px;
+    margin-bottom: 40px;
+  }
+
+  .feature-card h3 {
+    font-size: 2.5rem;
+    margin-bottom: 25px;
+  }
+
+  .feature-card p {
+    font-size: 1.5rem;
+    line-height: 2;
+  }
+
+  /* Commit Section */
+  .commit-section {
+    gap: 40px;
+  }
+
+  .commit-subtitle {
+    font-size: 24px;
+    margin-bottom: 40px;
+    line-height: 1.8;
+  }
+
+  .commit-feature {
+    margin-bottom: 30px;
+  }
+
+  .commit-feature-icon {
+    width: 120px;
+    height: 120px;
+    border-radius: 32px;
+    margin-right: 40px;
+  }
+
+  .commit-feature-icon svg {
+    width: 60px;
+    height: 60px;
+  }
+
+  .commit-feature-content h3 {
+    font-size: 36px;
+    margin-bottom: 20px;
+  }
+
+  .commit-feature-content p {
+    font-size: 22px;
+    line-height: 2;
+  }
+
+  .carousel-container {
+    padding: 0 120px;
+  }
+
+  .cards-wrapper {
+    gap: 50px;
+  }
+
+  .card {
+    min-width: 520px;
+    max-width: 520px;
+    border-radius: 32px;
+  }
+
+  .card-header {
+    padding: 30px;
+    border-radius: 0 0 50% 50% / 0 0 40px 40px;
+  }
+
+  .card-logo {
+    width: 90px;
+    height: 90px;
+  }
+
+  .card-title {
+    font-size: 2.5rem;
+    margin-bottom: 15px;
+  }
+
+  .card-description {
+    font-size: 1.4rem;
+    line-height: 1.7;
+  }
+
+  .card-price {
+    padding: 35px;
+    font-size: 2.2rem;
+  }
+
+  .card-body {
+    padding: 50px;
+  }
+
+  .features-plans li {
+    padding: 20px 0;
+    gap: 16px;
+    font-size: 1.4rem;
+  }
+
+  .features-plans li::before {
+    width: 32px;
+    height: 32px;
+    font-size: 18px;
+  }
+
+  .btn-buy {
+    padding: 24px 50px;
+    border-radius: 16px;
+    font-size: 1.6rem;
+  }
+
+  /* Countries Grid */
+  .world-header {
+    margin-bottom: 70px;
+  }
+
+  .world-description {
+    font-size: 24px;
+    max-width: 1600px;
+    line-height: 1.8;
+  }
+
+  .countries-grid {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 50px;
+    margin-bottom: 60px;
+  }
+
+  .country-card {
+    padding: 32px;
+    gap: 24px;
+    border-radius: 20px;
+  }
+
+  .country-flag {
+    width: 72px;
+    height: 72px;
+  }
+
+  .country-name {
+    font-size: 24px;
+    margin-bottom: 6px;
+  }
+
+  .country-ips {
+    font-size: 20px;
+  }
+  
+  .partners-carousel {
+    margin-bottom: 50px;
+  }
+
+  .partners-row {
+    gap: 60px;
+  }
+
+  .partner-card {
+    padding: 32px 80px;
+    min-width: 450px;
+    border-radius: 24px;
+    gap: 28px;
+  }
+
+  .partner-logo {
+    width: 72px;
+    height: 72px;
+  }
+
+  .partner-name {
+    font-size: 28px;
+  }
+
+  .view-all-btn {
+    width: 280px;
+    padding: 20px 60px;
+    border-radius: 16px;
+    font-size: 22px;
+    margin-top: 60px;
+  }
+
+  /* Navigation Buttons */
+  .nav-button {
+    width: 70px;
+    height: 70px;
+    font-size: 36px;
+  }
+
+  .nav-button.prev {
+    left: 20px;
+  }
+
+  .nav-button.next {
+    right: 20px;
+  }
+}
+
+.hero-image {
+    /* text-align: center; */
+    /* margin: auto; */
+    display: flex;
+    justify-content: center;
+  }

@@ -65,7 +65,7 @@ relatedProducts.forEach((product) => {
 });
 
 // Buy Now Button
-const buyNowBtn = document.querySelector(".btn-primary");
+const buyNowBtn = document.querySelector(".btn-primary-px");
 if (buyNowBtn) {
   buyNowBtn.addEventListener("click", function () {
     // Add your purchase logic here

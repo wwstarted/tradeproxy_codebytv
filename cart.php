@@ -25,7 +25,7 @@ Template Name: Cart Page
                     <div>
                         <input type="checkbox" class="cart-checkbox" id="selectAll" />
                     </div>
-                    <div>Tên mặt hàng</div>
+                    <div class="cart-name-product">Tên mặt hàng</div>
                     <div>Số lượng</div>
                     <div>Giá</div>
                     <div>Thành tiền</div>
@@ -77,7 +77,7 @@ Template Name: Cart Page
                     <div class="cart-price">
                         <div class="cart-price-mobile">
                             <div class="original-price">50,000đ</div>
-                            <div class="discount-badge">
+                            <div class="discount-badge-cart">
                                 <img
                                     src="https://tradeproxy.vn/images/icon/tether.png"
                                     alt="" />
@@ -124,7 +124,7 @@ Template Name: Cart Page
                             placeholder="Nhập mã giảm giá"
                             id="discountCode" />
                         <button class="discount-btn" id="applyDiscount">
-                            Xác nhận mã
+                            Xác nhận
                         </button>
                         <div
                             class="discount-tooltip"
@@ -235,10 +235,10 @@ Template Name: Cart Page
         </div>
 
         <div class="payment-modal-footer">
-            <button class="payment-topup-btn">
+            <a href="<?php echo esc_url(home_url('/account/#wallet')) ?>" class="payment-topup-btn">
                 <i class="fa-solid fa-wallet"></i>
                 Nạp tiền vào ví
-            </button>
+            </a>
             <div class="payment-actions">
                 <button class="payment-cancel-btn" id="cancelPayment">Huỷ</button>
                 <a href="<?php echo esc_url(home_url('/payment')) ?>" class="payment-confirm-btn" id="confirmPayment">

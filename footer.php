@@ -1,6 +1,6 @@
 <!-- Footer -->
 <footer class="footer">
-    <div class="footer-container">
+    <div class="footer-container max-w-[80%] m-auto py-20">
         <!-- CTA Section -->
         <div class="footer-cta">
             <h2 class="footer-cta-title">

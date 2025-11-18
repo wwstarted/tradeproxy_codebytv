@@ -1,7 +1,3 @@
-// ============================================
-// PROVIDER PAGE FUNCTIONALITY
-// ============================================
-
 document.addEventListener("DOMContentLoaded", async function () {
 
     // API Endpoints
@@ -12,7 +8,6 @@ document.addEventListener("DOMContentLoaded", async function () {
     // DOM Elements
     const filterTabs = document.querySelector('.filter-tabs');
     const providerGrid = document.querySelector('.provider-grid');
-    const ctaButton = document.querySelector('.cta-button');
     const paginationContainer = document.createElement('div');
     
     // Insert pagination after provider grid
@@ -39,37 +34,12 @@ document.addEventListener("DOMContentLoaded", async function () {
     const paginationNumbers = document.getElementById('paginationNumbers');
 
     // Pagination settings
-    const PROVIDERS_PER_PAGE = 9;
+    const PROVIDERS_PER_PAGE = 12;
     let currentPage = 1;
     let currentCategory = 'all';
     let allProviders = [];
     let filteredProviders = [];
     let categories = [];
-
-    // Add CSS animations dynamically
-    const style = document.createElement("style");
-    style.textContent = ` 
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-            }
-            to {
-                opacity: 1;
-            }
-        }
-    `;
-    document.head.appendChild(style);
 
     // Fetch Categories
     async function fetchCategories() {
@@ -114,18 +84,13 @@ document.addEventListener("DOMContentLoaded", async function () {
             tab.addEventListener('click', (e) => {
                 e.preventDefault();
                 
-                // Remove active class from all tabs
+                // Update active tab
                 tabs.forEach(t => t.classList.remove('active'));
-                
-                // Add active class to clicked tab
                 tab.classList.add('active');
                 
                 // Get selected category
                 currentCategory = tab.dataset.category;
                 currentPage = 1;
-                
-                // Log filter applied
-                console.log('Filter applied:', currentCategory);
                 
                 // Filter and paginate
                 filterProviders();
@@ -182,6 +147,12 @@ document.addEventListener("DOMContentLoaded", async function () {
             `;
             
             providerGrid.appendChild(card);
+            
+            // Add staggered animation
+            setTimeout(() => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(20px)';
+            }, 0);
         });
     }
 
@@ -234,7 +205,6 @@ document.addEventListener("DOMContentLoaded", async function () {
         allCards.forEach(card => {
             card.style.display = 'none';
             card.style.opacity = '0';
-            card.style.animation = 'none';
         });
         
         // Calculate pagination
@@ -242,11 +212,16 @@ document.addEventListener("DOMContentLoaded", async function () {
         const startIndex = (currentPage - 1) * PROVIDERS_PER_PAGE;
         const endIndex = startIndex + PROVIDERS_PER_PAGE;
         
-        // Show cards for current page with fadeInUp animation
+        // Show cards for current page with animation
         const cardsToShow = filteredProviders.slice(startIndex, endIndex);
         cardsToShow.forEach((card, index) => {
             card.style.display = 'block';
-            card.style.animation = `fadeInUp 0.5s ease ${index * 0.05}s both`;
+            
+            setTimeout(() => {
+                card.style.transition = 'opacity 0.4s ease, transform 0.4s ease';
+                card.style.opacity = '1';
+                card.style.transform = 'translateY(0)';
+            }, index * 50);
         });
         
         // Update prev/next buttons
@@ -346,20 +321,10 @@ document.addEventListener("DOMContentLoaded", async function () {
         });
     }
 
-    // Smooth scroll for CTA button
-    if (ctaButton) {
-        ctaButton.addEventListener('click', function () {
-            console.log('CTA button clicked - Redirect to registration page');
-            // Add your registration page URL here if needed
-            // window.location.href = '/register';
-        });
-    }
-
     // Initialize
     async function init() {
         await fetchCategories();
         await fetchProviders();
-        console.log('Provider page loaded successfully!');
     }
 
     // Start the app

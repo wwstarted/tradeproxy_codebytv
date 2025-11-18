@@ -8,7 +8,7 @@
 
 <!-- Main content -->
 <div class="main-content bg-[#f9fdff]">
-    <div class="product-container">
+    <div class="product-container max-w-[80%] m-auto pt-10 pb-10">
         <!-- Header -->
         <div class="product-header-section">
             <h1 class="product-title">Danh sách sản phẩm</h1>

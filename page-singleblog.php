@@ -1,8 +1,4 @@
-<?php
-/*
-Template Name: Single post Page
-*/
-?>
+
 
 <?php get_header(); ?>
 
@@ -10,13 +6,15 @@ Template Name: Single post Page
     <!-- Left Content --> 
     <div class="left-content">
         <!-- Breadcrumb -->
-        <nav class="breadcrumb-single-posts">
+        <nav class="breadcrumb-single-post">
             <a href="#">Trang chủ</a>
             <span class="separator">&gt;</span>
             <a href="#">Công nghệ</a>
             <span class="separator">&gt;</span>
             <span class="current">OMOCaptcha - Nền tảng tự động giải Captcha</span>
         </nav>
+
+        <div class="blog-content">
         <!-- Title -->
         <h1 class="article-title">OMOCaptcha – Nền tảng tự động giải Captcha hàng đầu cho lập trình viên và doanh nghiệp</h1>
 
@@ -24,7 +22,7 @@ Template Name: Single post Page
         <div class="article-meta">
             <div class="author-info">
                 <img src="https://images.unsplash.com/photo-1644088379091-d574269d422f?q=80&w=1393&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Author" class="author-avatar">
-                <span class="author-name">Pixel Perfect</span>
+                <span class="author-name">9proxy</span>
             </div>
             <div class="date-info">
                 <i class="far fa-calendar"></i>
@@ -60,6 +58,8 @@ Template Name: Single post Page
             <p><strong>*IICaptcha</strong></p>
         </div>
 
+        </div>
+
         <!-- Contact Section -->
         <div class="contact-section">
             <div class="contact-content">
@@ -74,7 +74,7 @@ Template Name: Single post Page
                         <span>Facebook</span>
                     </a>
                 </div>
-            </div>
+            </div>  
         </div>
     </div>
 
@@ -83,7 +83,7 @@ Template Name: Single post Page
         <!-- Related Posts -->
         <div class="sidebar-section related-posts">
             <h3 class="sidebar-title">BÀI VIẾT LIÊN QUAN</h3>
-            <div class="post-list">
+            <div class="post-list-lq">
                 <article class="post-item">
                     <img src="https://images.unsplash.com/photo-1644088379091-d574269d422f?q=80&w=1393&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Post thumbnail">
                     <div class="post-info">

@@ -2,8 +2,9 @@
 
 <!-- Main -->
 <div class="main-content bg-[#f9fdff]">
+
     <!-- hero section -->
-    <div class="hero-main m-auto max-w-[70%]">
+    <div class="m-auto max-w-[80%]">
         <div class="hero-title text-2xl font-bold text-center mb-5">
             Nơi cung cấp Proxy của các hãng lớn với
             <div class="text-[#007BF3]">mức chiết khấu đại lý giá rẻ</div>
@@ -14,8 +15,9 @@
                 alt="" />
         </div>
     </div>
+
     <!-- content section -->
-    <div class="m-auto max-w-[90%] pb-10">
+    <div class="m-auto max-w-[80%] pb-10">
         <!-- list proxy section  -->
         <div class="pt-10 pb-10">
             <div class="container list-proxy hide-scrollbar pb-10">
@@ -25,7 +27,7 @@
                 </div>
                 <div
                     id="scrollContainer"
-                    class="flex overflow-x-auto whitespace-nowrap space-x-4 p-2 hide-scrollbar cursor-grab select-none">
+                    class="flex overflow-x-auto whitespace-nowrap space-x-4 hide-scrollbar cursor-grab select-none">
                     <button
                         class="pt-1 pb-1 pl-3 pr-3 bg-[#007BF3] text-lg text-white rounded-xl border-1 flex-shrink-0">
                         tất cả
@@ -920,9 +922,10 @@
                 </div>
             </div>
 
-            <button class="view-all-btn">Xem tất cả tài nguyên</button>
+            <button class="view-all-btn">Xem tất cả</button>
         </div>
     </div>
+
     <!-- Partners section -->
     <div class="partners-section pb-10">
         <h2 class="partners-title">
@@ -1125,6 +1128,7 @@
 
         <a href="<?php echo esc_url(home_url('/providers')) ?>" class="view-all-btn">Xem tất cả</a>
     </div>
+
 </div>
 
 <!-- Footer -->

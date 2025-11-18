@@ -8,7 +8,7 @@ Template Name: Detail provider Page
 
 <!-- Main -->
 <div class="main-content bg-[#f9fdff]">
-    <div class="container max-w-[90%] mx-auto pt-10 pb-10">
+    <div class="container max-w-[80%] mx-auto pt-10 pb-10">
         <!-- Breadcrumb -->
         <div class="breadcrumb">
             <a href="#">Chương trình đối tác</a> > Bitbrowser
@@ -24,10 +24,10 @@ Template Name: Detail provider Page
                 <span class="tag-label">Toàn cầu</span>
 
                 <div class="action-buttons">
-                    <a href="https://www.bitbrowser.net/" class="btn btn-primary">
+                    <a href="https://www.bitbrowser.net/" class="btn-detail-provider btn-primary-detail-provider">
                         <i class="fas fa-plus"></i> Tìm hiểu thêm
                     </a>
-                    <a href="https://www.bitbrowser.net/" class="btn btn-secondary">
+                    <a href="https://www.bitbrowser.net/" class="btn-detail-provider btn-secondary-detail-provider">
                         <i class="fas fa-link"></i> Liên hệ chúng tôi
                     </a>
                 </div>
@@ -101,7 +101,7 @@ Template Name: Detail provider Page
         <!-- CTA Banner -->
         <div class="cta-banner">
             <h2>Kết nối và phát triển cùng với TradeProxy</h2>
-            <a href="#" class="btn">Đăng ký ngay</a>
+            <a href="<?php echo esc_url(home_url('/register')) ?>" class="btn-detail-provider">Đăng ký ngay</a>
         </div>
     </div>
 </div>

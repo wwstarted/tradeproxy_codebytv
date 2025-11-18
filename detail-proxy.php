@@ -174,7 +174,7 @@ Template Name: Detail Proxy Page
 
                 <!-- Action Buttons -->
                 <div class="action-buttons">
-                    <button class="btn-primary-proxy">
+                    <button class="btn-primary-px">
                         <i class="fa-solid fa-credit-card"></i>
                         Mua ngay
                     </button>

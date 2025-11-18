@@ -1,14 +1,8 @@
-<?php
-/*
-Template Name: Register Page
-*/
-?>
 <?php get_header(); ?>
-
-<div class="register-container">
+<div class="rg-container">
     <!-- image -->
     <div class="image-section">
-        <img src="<?php echo esc_url('https://tradeproxy.vn/images/background/bg_register.webp'); ?>"
+        <img src="<?php echo esc_url('https://tse4.mm.bing.net/th/id/OIP.NLuP6Q7V5dg3eSdpLxUt2QHaE7?pid=Api&P=0&h=220'); ?>"
             alt="Register illustration">
     </div>
 
@@ -115,8 +109,8 @@ Template Name: Register Page
                 </div>
                 <div class="input-group">
                     <label for="confirmPassword">Xác nhận mật khẩu*</label>
-                    <input type="password" name="confirmPassword" id="confirmPassword"
-                        placeholder="Xác nhận mật khẩu" required>
+                    <input type="password" name="confirmPassword" id="confirmPassword" placeholder="Xác nhận mật khẩu"
+                        required>
                 </div>
 
                 <div class="g-recaptcha" data-sitekey="6LfNxwksAAAAALrxpsJlGqGllZ2P-UF9Wmk-5VSc"></div>
@@ -136,7 +130,6 @@ Template Name: Register Page
         </div>
     </div>
 </div>
-
-<script src="https://www.google.com/recaptcha/api.js" async defer></script>
-
+<script src="https://www.google.com/recaptcha/api.js" async defer>
+</script>
 <?php get_footer(); ?>

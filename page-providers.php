@@ -1,8 +1,3 @@
-<?php
-/*
-Template Name: Providers Page
-*/
-?>
 
 <?php get_header(); ?>
 
@@ -24,7 +19,7 @@ Template Name: Providers Page
         <!-- Provider Cards Grid -->
         <div class="provider-grid">
             <!-- Card 1: BitBrowser -->
-            <a href="<?php echo esc_url(home_url('/detail-provider')) ?>" class="provider-card">
+            <a href="<?php echo esc_url(home_url('/provider-detail')) ?>" class="provider-card">
                 <div class="provider-card-header">
                     <div class="provider-logo">
                         <img
@@ -40,7 +35,7 @@ Template Name: Providers Page
             </a>
 
             <!-- Card 2: Gemlogin -->
-            <a href="<?php echo esc_url(home_url('/detail-provider')) ?>" class="provider-card">
+            <a href="<?php echo esc_url(home_url('/provider-detail')) ?>" class="provider-card">
                 <div class="provider-card-header">
                     <div class="provider-logo">
                         <img
@@ -56,7 +51,7 @@ Template Name: Providers Page
             </a>
 
             <!-- Card 3: Genlogin -->
-            <a href="<?php echo esc_url(home_url('/detail-provider')) ?>" class="provider-card">
+            <a href="<?php echo esc_url(home_url('/provider-detail')) ?>" class="provider-card">
                 <div class="provider-card-header">
                     <div class="provider-logo">
                         <img
@@ -73,7 +68,7 @@ Template Name: Providers Page
             </a>
 
             <!-- Card 4: Nocaptcha AI -->
-            <a href="<?php echo esc_url(home_url('/detail-provider')) ?>" class="provider-card">
+            <a href="<?php echo esc_url(home_url('/provider-detail')) ?>" class="provider-card">
                 <div class="provider-card-header">
                     <div class="provider-logo">
                         <img
@@ -90,7 +85,7 @@ Template Name: Providers Page
             </a>
 
             <!-- Card 5: VMlogin -->
-            <a href="<?php echo esc_url(home_url('/detail-provider')) ?>" class="provider-card">
+            <a href="<?php echo esc_url(home_url('/provider-detail')) ?>" class="provider-card">
                 <div class="provider-card-header">
                     <div class="provider-logo">
                         <img
@@ -106,7 +101,7 @@ Template Name: Providers Page
             </a>
 
             <!-- Card 6: DuoPlus -->
-            <a href="<?php echo esc_url(home_url('/detail-provider')) ?>" class="provider-card">
+            <a href="<?php echo esc_url(home_url('/provider-detail')) ?>" class="provider-card">
                 <div class="provider-card-header">
                     <div class="provider-logo">
                         <img
@@ -122,7 +117,7 @@ Template Name: Providers Page
             </a>
 
             <!-- Card 7: Undetectable -->
-            <a href="<?php echo esc_url(home_url('/detail-provider')) ?>" class="provider-card">
+            <a href="<?php echo esc_url(home_url('/provider-detail')) ?>" class="provider-card">
                 <div class="provider-card-header">
                     <div class="provider-logo">
                         <img
@@ -139,7 +134,7 @@ Template Name: Providers Page
             </a>
 
             <!-- Card 8: MostLogin -->
-            <a href="<?php echo esc_url(home_url('/detail-provider')) ?>" class="provider-card">
+            <a href="<?php echo esc_url(home_url('/provider-detail')) ?>" class="provider-card">
                 <div class="provider-card-header">
                     <div class="provider-logo">
                         <img
@@ -159,7 +154,7 @@ Template Name: Providers Page
         <!-- CTA Section -->
         <div class="provider-cta">
             <h2>Kết nối và phát triển cùng với TradeProxy</h2>
-            <a href="#" class="cta-button">Đăng ký ngay</a>
+            <a href="<?php echo esc_url(home_url('/register')) ?>" class="cta-button">Đăng ký ngay</a>
         </div>
     </div>
 </div>
