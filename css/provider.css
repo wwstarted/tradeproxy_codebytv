@@ -193,14 +193,14 @@
 }
 
 /* Pagination */
-.pagination {
+.pagination-pr {
     display: flex;
     align-items: center;
     gap: 8px;
 }
 
 /* Pagination Button (Prev/Next) */
-.pagination-btn {
+.pagination-btn-pr {
     width: 40px;
     height: 40px;
     border: 1px solid #e0e0e0;
@@ -214,13 +214,13 @@
     color: #333;
 }
 
-.pagination-btn:hover:not(:disabled) {
+.pagination-btn-pr:hover:not(:disabled) {
     background: #f5f5f5;
     border-color: #0066cc;
     color: #0066cc;
 }
 
-.pagination-btn:disabled {
+.pagination-btn-pr:disabled {
     opacity: 0.4;
     cursor: not-allowed;
 }

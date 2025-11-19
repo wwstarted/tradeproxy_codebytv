@@ -249,3 +249,27 @@ add_filter('template_include', function ($template) {
 
     return $template;
 });
+
+
+function my_provider_rewrite_rules(){
+    add_rewrite_rule(
+        '^providers/([^/]+)/?$',
+        'index.php?post_type=provider&name=$matches[1]',
+        'top'
+    );
+}
+add_action('init','my_provider_rewrite_rules');
+
+add_filter('template_include', function($template){
+    if(is_singular('provider')){
+        $tpl = locate_template('page-provider-detail.php');
+        if($tpl) return $tpl;
+    }
+
+    if(is_page('providers')){
+        $tpl = locate_template('page-providers.php');
+        if ($tpl) return $tpl;
+    }
+
+    return $template;
+});

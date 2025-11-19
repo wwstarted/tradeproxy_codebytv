@@ -160,11 +160,21 @@
 
                 <!-- Pagination -->
                 <div class="pagination-bl" id="pagination"
-                    style="display: flex; justify-content: center; margin-top: 20px; margin-bottom: 20px;">
-                    <button id="prevBtn" class="pagination-btn">« Trước</button>
+                    style="display: flex; justify-content: center; margin-top: 20px; margin-bottom: 40px;">
+                    <button id="prevBtn" class="pagination-btn">
+                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                            <path d="M12.5 15L7.5 10L12.5 5" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round" />
+                        </svg>
+                    </button>
                     <div id="paginationNumbers" class="pagination-numbers"
                         style="display: flex; gap: 6px; margin: 0 10px;"></div>
-                    <button id="nextBtn" class="pagination-btn">Sau »</button>
+                    <button id="nextBtn" class="pagination-btn">
+                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                            <path d="M7.5 15L12.5 10L7.5 5" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round" />
+                        </svg>
+                    </button>
                 </div>
             </main>
         </div>

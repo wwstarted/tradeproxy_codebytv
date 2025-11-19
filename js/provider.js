@@ -7,7 +7,7 @@ document.addEventListener("DOMContentLoaded", async function () {
     // API Endpoints
     const API_BASE = 'http://localhost/tradeproxy/wordpress-6.8.3-vi/wordpress/wp-json/wp/v2';
     const CATEGORIES_API = `${API_BASE}/provider_category`;
-    const PROVIDERS_API = `${API_BASE}/provider`;
+    const PROVIDERS_API = `${API_BASE}/provider?per_page=100`;
 
     // DOM Elements
     const filterTabs = document.querySelector('.filter-tabs');
@@ -18,14 +18,14 @@ document.addEventListener("DOMContentLoaded", async function () {
     // Insert pagination after provider grid
     paginationContainer.className = 'pagination-container';
     paginationContainer.innerHTML = `
-        <div class="pagination" id="pagination">
-            <button class="pagination-btn" id="prevBtn">
+        <div class="pagination-pr" id="pagination-pr">
+            <button class="pagination-btn-pr" id="prevBtn">
                 <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
                     <path d="M12.5 15L7.5 10L12.5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                 </svg>
             </button>
             <div class="pagination-numbers" id="paginationNumbers"></div>
-            <button class="pagination-btn" id="nextBtn">
+            <button class="pagination-btn-pr" id="nextBtn">
                 <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
                     <path d="M7.5 15L12.5 10L7.5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                 </svg>
@@ -39,7 +39,7 @@ document.addEventListener("DOMContentLoaded", async function () {
     const paginationNumbers = document.getElementById('paginationNumbers');
 
     // Pagination settings
-    const PROVIDERS_PER_PAGE = 9;
+    const PROVIDERS_PER_PAGE = 12;
     let currentPage = 1;
     let currentCategory = 'all';
     let allProviders = [];
