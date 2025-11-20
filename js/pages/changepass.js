@@ -1,5 +1,80 @@
 // ===== changepassword.js =====
+console.log("🔐 [ChangePassword] Script loaded");
+
 const API_CHANGE_PASSWORD_URL = wpAccountData.restUrl + 'my-api/v1/user/change-password/';
+
+// ========== TOGGLE PASSWORD VISIBILITY (GLOBAL) ==========
+window.togglePassword = function(inputId, button) {
+  console.log("👁️ togglePassword called for:", inputId);
+  const input = document.getElementById(inputId);
+  const icon = button.querySelector('i');
+
+  if (!input || !icon) {
+    console.error("❌ Input or icon not found!");
+    return;
+  }
+
+  if (input.type === 'password') {
+    input.type = 'text';
+    icon.classList.remove('fa-eye');
+    icon.classList.add('fa-eye-slash');
+    console.log("✅ Password visible");
+  } else {
+    input.type = 'password';
+    icon.classList.remove('fa-eye-slash');
+    icon.classList.add('fa-eye');
+    console.log("✅ Password hidden");
+  }
+};
+console.log("✅ togglePassword defined:", typeof window.togglePassword);
+
+// ========== CHECK PASSWORD STRENGTH (GLOBAL) ==========
+window.checkPasswordStrength = function(password) {
+  const strengthIndicator = document.getElementById('password-strength');
+  const strengthFill = document.getElementById('strength-fill');
+  const strengthText = document.getElementById('strength-text');
+
+  if (!strengthIndicator || !strengthFill || !strengthText) return;
+
+  if (password.length === 0) {
+    strengthIndicator.classList.remove('show');
+    return;
+  }
+
+  strengthIndicator.classList.add('show');
+
+  let strength = 0;
+
+  // Check length
+  if (password.length >= 8) strength++;
+  if (password.length >= 12) strength++;
+
+  // Check for lowercase and uppercase
+  if (/[a-z]/.test(password) && /[A-Z]/.test(password)) strength++;
+
+  // Check for numbers
+  if (/\d/.test(password)) strength++;
+
+  // Check for special characters
+  if (/[!@#$%^&*(),.?":{}|<>]/.test(password)) strength++;
+
+  // Update UI
+  strengthFill.className = 'strength-fill';
+
+  if (strength <= 2) {
+    strengthFill.classList.add('weak');
+    strengthText.textContent = 'Mật khẩu yếu';
+    strengthText.style.color = '#f44336';
+  } else if (strength <= 4) {
+    strengthFill.classList.add('medium');
+    strengthText.textContent = 'Mật khẩu trung bình';
+    strengthText.style.color = '#ff9800';
+  } else {
+    strengthFill.classList.add('strong');
+    strengthText.textContent = 'Mật khẩu mạnh';
+    strengthText.style.color = '#4CAF50';
+  }
+};
 
 function initChangePasswordPage() {
   const token = localStorage.getItem("jwt_token");
@@ -20,71 +95,10 @@ function initChangePasswordPage() {
   const currentPasswordInput = document.getElementById("current-password");
   const newPasswordInput = document.getElementById("new-password");
   const confirmPasswordInput = document.getElementById("confirm-password");
+  const saveBtn = document.querySelector(".btn-save");
   const strengthIndicator = document.getElementById("password-strength");
   const strengthFill = document.getElementById("strength-fill");
   const strengthText = document.getElementById("strength-text");
-
-  // ========== TOGGLE PASSWORD VISIBILITY ==========
-  window.togglePassword = function(inputId, button) {
-    const input = document.getElementById(inputId);
-    const icon = button.querySelector('i');
-
-    if (!input || !icon) return;
-
-    if (input.type === 'password') {
-      input.type = 'text';
-      icon.classList.remove('fa-eye');
-      icon.classList.add('fa-eye-slash');
-    } else {
-      input.type = 'password';
-      icon.classList.remove('fa-eye-slash');
-      icon.classList.add('fa-eye');
-    }
-  };
-
-  // ========== CHECK PASSWORD STRENGTH ==========
-  window.checkPasswordStrength = function(password) {
-    if (!strengthIndicator || !strengthFill || !strengthText) return;
-
-    if (password.length === 0) {
-      strengthIndicator.classList.remove('show');
-      return;
-    }
-
-    strengthIndicator.classList.add('show');
-
-    let strength = 0;
-
-    // Check length
-    if (password.length >= 8) strength++;
-    if (password.length >= 12) strength++;
-
-    // Check for lowercase and uppercase
-    if (/[a-z]/.test(password) && /[A-Z]/.test(password)) strength++;
-
-    // Check for numbers
-    if (/\d/.test(password)) strength++;
-
-    // Check for special characters
-    if (/[!@#$%^&*(),.?":{}|<>]/.test(password)) strength++;
-
-    // Update UI
-    strengthFill.className = 'strength-fill';
-
-    if (strength <= 2) {
-      strengthFill.classList.add('weak');
-      strengthText.textContent = 'Mật khẩu yếu';
-      strengthText.style.color = '#f44336';
-    } else if (strength <= 4) {
-      strengthFill.classList.add('medium');
-      strengthText.textContent = 'Mật khẩu trung bình';
-      strengthText.style.color = '#ff9800';
-    } else {
-      strengthFill.classList.add('strong');
-      strengthText.textContent = 'Mật khẩu mạnh';
-      strengthText.style.color = '#4CAF50';
-    }
-  };
 
   // ========== VALIDATE PASSWORD ==========
   function validatePasswordInput(password, confirmPassword) {
@@ -150,11 +164,8 @@ function initChangePasswordPage() {
       return;
     }
 
-    // Get save button
-    const saveBtn = document.querySelector('.btn-save');
     if (!saveBtn) return;
 
-    const originalText = saveBtn.textContent;
     saveBtn.textContent = 'Đang lưu...';
     saveBtn.disabled = true;
 
@@ -173,12 +184,9 @@ function initChangePasswordPage() {
         }),
       });
 
-      const result = await response.json();
-      console.log("📦 [ChangePassword] Response:", result);
-
       if (!response.ok) {
-        // Handle specific error cases
         if (response.status === 401) {
+          const result = await response.json().catch(() => ({}));
           if (result.message && result.message.includes('mật khẩu cũ')) {
             throw new Error('Mật khẩu cũ không đúng');
           }
@@ -187,8 +195,12 @@ function initChangePasswordPage() {
           window.location.href = wpAccountData.loginUrl;
           return;
         }
-        throw new Error(result.message || "Đổi mật khẩu thất bại");
+        const err = await response.json().catch(() => ({}));
+        throw new Error(err.message || `Lỗi ${response.status}`);
       }
+
+      const result = await response.json();
+      console.log("📦 [ChangePassword] Response:", result);
 
       // Success
       alert("✅ Đổi mật khẩu thành công!");
@@ -225,7 +237,7 @@ function initChangePasswordPage() {
       console.error("❌ [ChangePassword] Error:", err);
       alert(err.message || "Lỗi kết nối server");
     } finally {
-      saveBtn.textContent = originalText;
+      saveBtn.textContent = 'Lưu';
       saveBtn.disabled = false;
     }
   };
@@ -254,8 +266,3 @@ function initChangePasswordPage() {
 
 // Export global
 window.initChangePasswordPage = initChangePasswordPage;
-
-// Auto run if elements exist
-if (document.getElementById("current-password")) {
-  initChangePasswordPage();
-}

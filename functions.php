@@ -33,9 +33,13 @@ function tradeproxy_theme_enqueue_assets()
     wp_enqueue_style('tradeproxy-forgetpass', get_template_directory_uri() . '/css/forgetpass.css', array(), filemtime(get_stylesheet_directory() . '/css/forgetpass.css'));
     wp_enqueue_style('tradeproxy-user-account', get_template_directory_uri() . '/css/user-account.css', array(), filemtime(get_stylesheet_directory() . '/css/user-account.css'));
     wp_enqueue_style('tradeproxy-profile', get_template_directory_uri() . '/css/pages/profile.css', array(), filemtime(get_stylesheet_directory() . '/css/pages/profile.css'));
+    wp_enqueue_style('tradeproxy-changepass', get_template_directory_uri() . '/css/pages/changepass.css', array(), filemtime(get_stylesheet_directory() . '/css/pages/changepass.css'));
+
+
 
 
     // Gọi file JS trong thư mục /js/
+    // wp_enqueue_script('auth-login', get_template_directory_uri() . '/js/auth-login.js', array('jquery'), filemtime(get_template_directory() . '/js/auth-login.js'), true);
     wp_enqueue_script('tradeproxy-header', get_template_directory_uri() . '/js/header.js', array('jquery'), filemtime(get_template_directory() . '/js/header.js'), true);
     wp_enqueue_script('tradeproxy-home', get_template_directory_uri() . '/js/home.js', array('jquery'), filemtime(get_template_directory() . '/js/home.js'), true);
     wp_enqueue_script('tradeproxy-proxies', get_template_directory_uri() . '/js/product-proxy.js', array('jquery'), filemtime(get_template_directory() . '/js/product-proxy.js'), true);
@@ -52,7 +56,7 @@ function tradeproxy_theme_enqueue_assets()
     wp_enqueue_script('tradeproxy-forgetpass', get_template_directory_uri() . '/js/forgetpass.js', array('jquery'), filemtime(get_template_directory() . '/js/forgetpass.js'), true);
     wp_enqueue_script('tradeproxy-user-account', get_template_directory_uri() . '/js/user-account.js', array('jquery'), filemtime(get_template_directory() . '/js/user-account.js'), true);
     wp_enqueue_script('tradeproxy-profile', get_template_directory_uri() . '/js/pages/profile.js', array('jquery'), filemtime(get_template_directory() . '/js/pages/profile.js'), true);
-
+    wp_enqueue_script('tradeproxy-changepass', get_template_directory_uri() . '/js/pages/changepass.js', array('jquery'), filemtime(get_template_directory() . '/js/pages/changepass.js'), true);
 }
 
 add_action('wp_enqueue_scripts', 'tradeproxy_theme_enqueue_assets');
@@ -166,34 +170,34 @@ add_action('wp_ajax_load_account_page', 'load_account_page_callback');
 add_action('wp_ajax_nopriv_load_account_page', 'load_account_page_callback');
 
 
-function update_user_profile($request) {
-    $user_id = get_current_user_id();
-    if (!$user_id) return new WP_Error('no_auth', 'Unauthorized', ['status' => 401]);
+// function update_user_profile($request) {
+//     $user_id = get_current_user_id();
+//     if (!$user_id) return new WP_Error('no_auth', 'Unauthorized', ['status' => 401]);
 
-    $display_name = sanitize_text_field($request['display_name']);
-    $email = sanitize_email($request['email']);
-    $phone = sanitize_text_field($request['phone']);
+//     $display_name = sanitize_text_field($request['display_name']);
+//     $email = sanitize_email($request['email']);
+//     $phone = sanitize_text_field($request['phone']);
 
-    // Cập nhật user
-    wp_update_user([
-        'ID' => $user_id,
-        'display_name' => $display_name,
-        'user_email' => $email,
-    ]);
+//     // Cập nhật user
+//     wp_update_user([
+//         'ID' => $user_id,
+//         'display_name' => $display_name,
+//         'user_email' => $email,
+//     ]);
 
-    // Lưu phone vào user meta
-    update_user_meta($user_id, 'phone', $phone);
+//     // Lưu phone vào user meta
+//     update_user_meta($user_id, 'phone', $phone);
 
-    return [
-        'success' => true,
-        'message' => 'Cập nhật thành công',
-        'data' => [
-            'display_name' => $display_name,
-            'email' => $email,
-            'phone' => $phone,
-        ]
-    ];
-}
+//     return [
+//         'success' => true,
+//         'message' => 'Cập nhật thành công',
+//         'data' => [
+//             'display_name' => $display_name,
+//             'email' => $email,
+//             'phone' => $phone,
+//         ]
+//     ];
+// }
 
 // on cors
 
@@ -271,5 +275,18 @@ add_filter('template_include', function($template){
         if ($tpl) return $tpl;
     }
 
+    return $template;
+});
+
+add_filter('template_include', function($template){
+    if(is_singular('provider')){
+        $tpl = locate_template('page-provider-detail.php');
+        if($tpl) return $tpl;
+    }
+
+    if(is_page('providers')){
+        $tpl = locate_template('page-providers.php');
+        if($tpl) return $tpl;
+    }
     return $template;
 });

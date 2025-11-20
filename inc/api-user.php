@@ -1,5 +1,5 @@
 <?php
-// /inc/api-user.php
+// /inc/api-user.php - SỬA LẠI
 
 use Firebase\JWT\JWT;
 use Firebase\JWT\Key;
@@ -13,22 +13,49 @@ if (!defined('JWT_SECRET_KEY')) {
  * User API Endpoints
  */
 add_action('rest_api_init', function () {
-    // GET
+    // ===== PROFILE ENDPOINTS =====
+    // GET Profile
     register_rest_route('my-api/v1', '/user/profile', [
         'methods' => 'GET',
         'callback' => 'get_current_user_profile',
         'permission_callback' => 'check_jwt_authentication'
     ]);
 
-    // POST
+    // POST Profile (Update)
     register_rest_route('my-api/v1', '/user/profile', [
         'methods' => 'POST',
         'callback' => 'update_current_user_profile',
         'permission_callback' => 'check_jwt_authentication'
     ]);
+
+    // ===== CHANGE PASSWORD ENDPOINT =====
+    register_rest_route('my-api/v1', '/user/change-password', [
+        'methods' => 'POST',
+        'callback' => 'change_user_password',
+        'permission_callback' => 'check_jwt_authentication',
+        'args' => [
+            'current_password' => [
+                'required' => true,
+                'type' => 'string',
+                'sanitize_callback' => 'sanitize_text_field',
+            ],
+            'new_password' => [
+                'required' => true,
+                'type' => 'string',
+                'sanitize_callback' => 'sanitize_text_field',
+            ],
+        ]
+    ]);
+
+    // ===== WALLET ENDPOINT =====
+    register_rest_route('my-api/v1', '/wallet/balance', [
+        'methods' => 'GET',
+        'callback' => 'get_wallet_balance',
+        'permission_callback' => 'check_jwt_authentication'
+    ]);
 });
 
-// === KIỂM TRA JWT ===
+// ===== JWT AUTHENTICATION =====
 function check_jwt_authentication()
 {
     $auth_header = '';
@@ -60,7 +87,7 @@ function check_jwt_authentication()
     }
 }
 
-// === get user data ===
+// ===== GET USER PROFILE =====
 function get_current_user_profile()
 {
     global $current_user_id;
@@ -77,7 +104,7 @@ function get_current_user_profile()
     ];
 }
 
-// === update user data ===
+// ===== UPDATE USER PROFILE =====
 function update_current_user_profile($request)
 {
     global $current_user_id;
@@ -94,7 +121,7 @@ function update_current_user_profile($request)
     // EMAIL
     if (isset($params['email'])) {
         $new_email = sanitize_email($params['email']);
-        $current_user = wp_get_current_user();
+        $current_user = get_userdata($current_user_id);
         $current_email = $current_user->user_email;
 
         if ($new_email !== $current_email) {
@@ -104,12 +131,12 @@ function update_current_user_profile($request)
             if (email_exists($new_email)) {
                 return new WP_Error('email_exists', 'Email đã được sử dụng', ['status' => 400]);
             }
+            
+            wp_update_user([
+                'ID' => $current_user_id,
+                'user_email' => $new_email
+            ]);
         }
-
-        wp_update_user([
-            'ID' => $current_user_id,
-            'user_email' => $new_email
-        ]);
     }
 
     // PHONE
@@ -122,7 +149,7 @@ function update_current_user_profile($request)
         update_user_meta($current_user_id, 'phone', $phone);
     }
 
-    // return new data
+    // Return updated data
     $user = get_userdata($current_user_id);
     return [
         'success' => true,
@@ -135,7 +162,97 @@ function update_current_user_profile($request)
     ];
 }
 
-// === JWT HELPER ===
+// ===== CHANGE PASSWORD =====
+function change_user_password($request)
+{
+    global $current_user_id;
+    
+    if (!$current_user_id) {
+        return new WP_Error(
+            'unauthorized',
+            'Phiên đăng nhập hết hạn',
+            ['status' => 401]
+        );
+    }
+
+    $user = get_userdata($current_user_id);
+    if (!$user) {
+        return new WP_Error(
+            'user_not_found',
+            'Không tìm thấy người dùng',
+            ['status' => 404]
+        );
+    }
+
+    // Lấy dữ liệu từ request
+    $params = $request->get_json_params();
+    $current_password = $params['current_password'] ?? '';
+    $new_password = $params['new_password'] ?? '';
+
+    // ===== VALIDATION =====
+    
+    // 1. Kiểm tra mật khẩu cũ
+    if (!wp_check_password($current_password, $user->user_pass, $current_user_id)) {
+        return new WP_Error(
+            'invalid_password',
+            'Mật khẩu cũ không đúng',
+            ['status' => 401]
+        );
+    }
+
+    // 2. Kiểm tra mật khẩu mới không được trùng mật khẩu cũ
+    if ($current_password === $new_password) {
+        return new WP_Error(
+            'same_password',
+            'Mật khẩu mới không được trùng với mật khẩu cũ',
+            ['status' => 400]
+        );
+    }
+
+    // 3. Kiểm tra độ dài mật khẩu mới
+    if (strlen($new_password) < 8) {
+        return new WP_Error(
+            'weak_password',
+            'Mật khẩu mới phải có ít nhất 8 ký tự',
+            ['status' => 400]
+        );
+    }
+
+    // 4. Kiểm tra độ mạnh mật khẩu
+    if (!preg_match('/[a-z]/', $new_password) || 
+        !preg_match('/[A-Z]/', $new_password) || 
+        !preg_match('/[0-9]/', $new_password)) {
+        return new WP_Error(
+            'weak_password',
+            'Mật khẩu phải chứa chữ hoa, chữ thường và số',
+            ['status' => 400]
+        );
+    }
+
+    // ===== CẬP NHẬT MẬT KHẨU =====
+    wp_set_password($new_password, $current_user_id);
+
+    // ===== LOG ACTIVITY =====
+    error_log(sprintf(
+        '[CHANGE_PASSWORD] User ID: %d, Email: %s, Time: %s',
+        $current_user_id,
+        $user->user_email,
+        current_time('mysql')
+    ));
+
+    // ===== TRẢ VỀ RESPONSE =====
+    return new WP_REST_Response([
+        'success' => true,
+        'message' => 'Đổi mật khẩu thành công',
+        'data' => [
+            'user_id' => $current_user_id,
+            'email' => $user->user_email,
+            'changed_at' => current_time('mysql')
+        ]
+    ], 200);
+}
+
+// ===== JWT HELPERS =====
 function generate_jwt_token($user_id)
 {
     $payload = [
@@ -152,7 +269,24 @@ function verify_jwt_token($token)
     return JWT::decode($token, new Key(JWT_SECRET_KEY, 'HS256'));
 }
 
-// ================ wallet ===================
+// ===== WALLET FUNCTIONS =====
+function get_wallet_balance() {
+    global $current_user_id;
+    $balance = (float) get_user_meta($current_user_id, 'wallet_balance', true);
+    return [
+        'balance' => $balance,
+        'formatted' => number_format($balance, 0, ',', '.') . ' VND'
+    ];
+}
+
+function my_wallet_adjust($user_id, $amount) {
+    $current = (float) get_user_meta($user_id, 'wallet_balance', true);
+    $new = $current + $amount;
+    update_user_meta($user_id, 'wallet_balance', $new > 0 ? $new : 0);
+    return $new;
+}
+
+// ===== WALLET INIT =====
 add_action('init', function() {
     register_post_type('wallet_transaction', [
         'labels' => ['name' => 'Giao dịch ví'],
@@ -164,40 +298,12 @@ add_action('init', function() {
     ]);
 });
 
-// /inc/wallet-init.php
 add_action('user_register', function($user_id) {
     update_user_meta($user_id, 'wallet_balance', 0);
 });
 
-// Cho user cũ (khi login lần đầu)
 add_action('wp_login', function($user_login, $user) {
     if (!metadata_exists('user', $user->ID, 'wallet_balance')) {
         update_user_meta($user->ID, 'wallet_balance', 0);
     }
 }, 10, 2);
-
-function my_wallet_adjust($user_id, $amount) {
-    $current = (float) get_user_meta($user_id, 'wallet_balance', true);
-    $new = $current + $amount;
-    update_user_meta($user_id, 'wallet_balance', $new > 0 ? $new : 0);
-    return $new;
-}
-
-// /inc/api-wallet.php
-add_action('rest_api_init', function() {
-    register_rest_route('my-api/v1', '/wallet/balance', [
-        'methods' => 'GET',
-        'callback' => 'get_wallet_balance',
-        'permission_callback' => 'check_jwt_authentication' // bạn đã có
-    ]);
-});
-
-function get_wallet_balance() {
-    global $current_user_id;
-    $balance = (float) get_user_meta($current_user_id, 'wallet_balance', true);
-    return [
-        'balance' => $balance,
-        'formatted' => number_format($balance, 0, ',', '.') . ' VND'
-    ];
-}
-
