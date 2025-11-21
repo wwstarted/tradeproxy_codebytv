@@ -162,44 +162,29 @@
 
     <!-- ========== CUSTOM GOOGLE BUTTON STYLE ========== -->
     <style>
-        /* ========== CUSTOM GOOGLE BUTTON STYLE (PERFECT MATCH) ========== */
+        /* ========== CUSTOM GOOGLE BUTTON STYLE (FIXED) ========== */
 
         /* Container Google button - full width */
         #g_id_signin {
             width: 100% !important;
             display: flex !important;
-            justify-content: stretch !important;
-            align-items: stretch !important;
+            justify-content: center !important;
         }
 
-        /* Wrapper bên trong - full width */
+        /* Wrapper bên trong */
         #g_id_signin>div {
             width: 100% !important;
-            display: flex !important;
         }
 
-        /* 
-   iframe của Google button 
-   Match CHÍNH XÁC với .btn-primary:
-   - padding: 14px 20px (top/bottom 14px + border 1px = 16px mỗi bên)
-   - font-size: 16px
-   - Total height ≈ 16 + 16 + 16 (line-height) + 2 (border) = 50px
-*/
+        /* iframe của Google button - Match với button Đăng nhập */
         #g_id_signin iframe {
             width: 100% !important;
             height: 50px !important;
-            /* Match với button .btn-primary */
+            /* Tăng chiều cao để match button trên */
             min-height: 50px !important;
             max-height: 50px !important;
             border-radius: 8px !important;
-            /* Giống .btn */
-            border: none !important;
-        }
-
-        /* Form wrapper - no extra margin */
-        #googleLoginForm {
-            margin-top: 0 !important;
-            width: 100%;
+            /* Bo góc giống button trên */
         }
 
         /* Ẩn One Tap popup */
@@ -207,22 +192,21 @@
             display: none !important;
         }
 
-        /* Ẩn credential picker nếu xuất hiện */
-        #credential_picker_container,
-        .g_id_signin {
+        /* Ẩn credential_picker_container nếu xuất hiện */
+        #credential_picker_container {
             display: none !important;
         }
 
-        /* Override Google's default styles */
-        #g_id_signin div[role="button"] {
-            width: 100% !important;
+        /* Optional: Thêm margin cho form Google */
+        #googleLoginForm {
+            margin-top: 0 !important;
         }
     </style>
 
     <!-- ========== GOOGLE SIGN-IN SCRIPT ========== -->
     <script src="https://accounts.google.com/gsi/client" async defer></script>
     <script>
-        // ========== GOOGLE SIGN-IN SCRIPT (FIXED - FORCE PROMPT) ==========
+        // ========== GOOGLE SIGN-IN SCRIPT (FIXED) ==========
         const GOOGLE_CLIENT_ID = "338423940617-c7m265a6kd3v5nror80iomqlb2jrv5hi.apps.googleusercontent.com";
 
         function handleCredentialResponse(response) {
@@ -233,38 +217,29 @@
         window.addEventListener('load', function () {
             if (typeof google !== 'undefined' && google.accounts) {
 
-                // Initialize Google Sign-In
+                // Initialize
                 google.accounts.id.initialize({
                     client_id: GOOGLE_CLIENT_ID,
                     callback: handleCredentialResponse,
-                    auto_select: false,          // TẮT auto select
-                    cancel_on_tap_outside: true,
-                    ux_mode: 'popup',            // Dùng popup thay vì redirect
-                    context: 'signin'            // Context là signin
+                    auto_select: false,
+                    cancel_on_tap_outside: true
                 });
 
-                // TẮT HOÀN TOÀN One Tap và Auto Select
+                // off onetab & selected
                 google.accounts.id.disableAutoSelect();
                 google.accounts.id.cancel();
 
-                // Xóa cookies Google cũ (nếu có)
-                document.cookie.split(";").forEach(function (c) {
-                    if (c.trim().startsWith('g_state')) {
-                        document.cookie = c.replace(/^ +/, "").replace(/=.*/, "=;expires=" + new Date().toUTCString() + ";path=/");
-                    }
-                });
-
-                // Render button với config STANDARD để luôn hiện text
+                // Render button
                 google.accounts.id.renderButton(
                     document.getElementById("g_id_signin"),
                     {
-                        type: "standard",           // QUAN TRỌNG: standard type
-                        theme: "outline",           // Viền outline
-                        size: "large",              // Kích thước large
-                        text: "signin_with",        // Text: "Sign in with Google"
-                        shape: "rectangular",       // Hình chữ nhật
-                        logo_alignment: "left",     // Logo bên trái
-                        width: "400"                // Width 400px
+                        theme: "outline",
+                        size: "large",
+                        type: "standard",
+                        text: "signin_with",
+                        shape: "rectangular",
+                        logo_alignment: "left",
+                        width: 400
                     }
                 );
             }

@@ -14,14 +14,14 @@ if (!defined('JWT_SECRET_KEY')) {
  */
 add_action('rest_api_init', function () {
     // ===== PROFILE ENDPOINTS =====
-    // GET Profile
+    // GET
     register_rest_route('my-api/v1', '/user/profile', [
         'methods' => 'GET',
         'callback' => 'get_current_user_profile',
         'permission_callback' => 'check_jwt_authentication'
     ]);
 
-    // POST Profile (Update)
+    // POST
     register_rest_route('my-api/v1', '/user/profile', [
         'methods' => 'POST',
         'callback' => 'update_current_user_profile',
@@ -29,6 +29,7 @@ add_action('rest_api_init', function () {
     ]);
 
     // ===== CHANGE PASSWORD ENDPOINT =====
+    // POST (update password)
     register_rest_route('my-api/v1', '/user/change-password', [
         'methods' => 'POST',
         'callback' => 'change_user_password',
@@ -149,7 +150,7 @@ function update_current_user_profile($request)
         update_user_meta($current_user_id, 'phone', $phone);
     }
 
-    // Return updated data
+    // Return
     $user = get_userdata($current_user_id);
     return [
         'success' => true,

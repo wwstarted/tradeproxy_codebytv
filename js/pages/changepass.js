@@ -243,6 +243,29 @@ function initChangePasswordPage() {
   };
 
   // ========== EVENT LISTENERS ==========
+  
+  // ===== TOGGLE PASSWORD BUTTONS =====
+  // Attach event listeners thay vì dùng onclick inline
+  document.querySelectorAll('.toggle-password').forEach(button => {
+    button.addEventListener('click', function() {
+      const wrapper = this.closest('.password-input-wrapper');
+      const input = wrapper.querySelector('.form-input');
+      const icon = this.querySelector('i');
+      
+      if (!input || !icon) return;
+      
+      if (input.type === 'password') {
+        input.type = 'text';
+        icon.classList.remove('fa-eye');
+        icon.classList.add('fa-eye-slash');
+      } else {
+        input.type = 'password';
+        icon.classList.remove('fa-eye-slash');
+        icon.classList.add('fa-eye');
+      }
+    });
+  });
+  
   // Auto-check strength when typing
   if (newPasswordInput) {
     newPasswordInput.addEventListener('input', (e) => {
@@ -260,8 +283,6 @@ function initChangePasswordPage() {
       });
     }
   });
-
-  console.log("🔐 [ChangePassword] Page initialized");
 }
 
 // Export global

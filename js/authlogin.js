@@ -45,7 +45,7 @@ const AuthModule = {
 
   // Redirect về trang login
   redirectToLogin(message = "Vui lòng đăng nhập để tiếp tục!") {
-    // Lưu URL hiện tại để redirect về sau khi login
+    // save url 
     const currentUrl = window.location.href;
     localStorage.setItem("redirect_after_login", currentUrl);
 
@@ -56,7 +56,7 @@ const AuthModule = {
     window.location.href = wpAccountData.loginUrl || "/login";
   },
 
-  // Redirect về trang đã lưu sau khi login thành công
+  // Redirect 
   redirectAfterLogin(defaultUrl = "/") {
     const redirectUrl = localStorage.getItem("redirect_after_login") || defaultUrl;
     localStorage.removeItem("redirect_after_login");
@@ -66,16 +66,16 @@ const AuthModule = {
   // ======== HÀM CHÍNH: Require Auth cho trang ========
   requireAuth(options = {}) {
     const {
-      verifyWithServer = false,  // Có cần verify với server không
-      redirectUrl = null,         // URL redirect tùy chỉnh
-      onAuthFail = null,          // Callback khi auth fail
+      verifyWithServer = false,  
+      redirectUrl = null,        
+      onAuthFail = null,        
       message = "Vui lòng đăng nhập để truy cập trang này!"
     } = options;
 
     return new Promise(async (resolve, reject) => {
-      // Bước 1: Kiểm tra token trong localStorage
+      // check localStorage jwt_token
       if (!this.isAuthenticated()) {
-        console.log("❌ [Auth] Không tìm thấy token");
+        console.log("[Auth] Không tìm thấy token");
         
         if (onAuthFail) {
           onAuthFail();
@@ -89,7 +89,7 @@ const AuthModule = {
 
       console.log("✅ [Auth] Token found");
 
-      // Bước 2: Verify với server (nếu cần)
+      // verify
       if (verifyWithServer) {
         console.log("🔍 [Auth] Verifying token with server...");
         
@@ -119,7 +119,7 @@ const AuthModule = {
   // Logout user
   logout(redirectUrl = "/") {
     this.removeToken();
-    localStorage.removeItem("user_data"); // Xóa thêm data user nếu có
+    localStorage.removeItem("user_data"); 
     alert("Đã đăng xuất thành công!");
     window.location.href = redirectUrl;
   }

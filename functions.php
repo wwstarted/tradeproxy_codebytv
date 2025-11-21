@@ -278,15 +278,4 @@ add_filter('template_include', function($template){
     return $template;
 });
 
-add_filter('template_include', function($template){
-    if(is_singular('provider')){
-        $tpl = locate_template('page-provider-detail.php');
-        if($tpl) return $tpl;
-    }
 
-    if(is_page('providers')){
-        $tpl = locate_template('page-providers.php');
-        if($tpl) return $tpl;
-    }
-    return $template;
-});

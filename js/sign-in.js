@@ -17,7 +17,6 @@ togglePassword.addEventListener("click", function () {
   }
 });
 
-// Xử lý form đăng nhập
 const loginForm = document.getElementById("loginForm");
 
 loginForm.addEventListener("submit", function (e) {
@@ -26,7 +25,7 @@ loginForm.addEventListener("submit", function (e) {
   const email = document.getElementById("email").value;
   const password = document.getElementById("password").value;
 
-  // Kiểm tra validation
+  //validation
   if (!email || !password) {
     alert("Vui lòng điền đầy đủ thông tin!");
     return;
