@@ -4,7 +4,7 @@ const passwordInput = document.getElementById("password");
 const eyeSlash = document.querySelector(".eye-slash");
 
 togglePassword.addEventListener("click", function () {
-  // Đổi type của input
+  // type input
   const type =
     passwordInput.getAttribute("type") === "password" ? "text" : "password";
   passwordInput.setAttribute("type", type);
@@ -31,14 +31,14 @@ loginForm.addEventListener("submit", function (e) {
     return;
   }
 
-  // Kiểm tra định dạng email
+  // verify email
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   if (!emailRegex.test(email)) {
     alert("Email không hợp lệ!");
     return;
   }
 
-  // Xử lý đăng nhập thực tế ở đây
+  // 
   console.log("Đăng nhập với:", { email, password });
   alert("Đăng nhập thành công! (Demo)");
 

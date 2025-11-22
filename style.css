@@ -1,5 +1,5 @@
 /*
-Theme Name: Trade Proxy 2.0
+Theme Name: Trade Proxy 1.1
 Theme URI: https://example.com/
 Author: Lê Nguyễn Hoài Phúc
 Author URI: https://hoai-phuc.com/about
@@ -20,7 +20,6 @@ body {
   overflow-x: hidden !important;
   overflow-y: auto !important;
   min-height: 100vh;
-
 }
 
 .wrapper {
@@ -51,7 +50,7 @@ body {
   background-color: white;
   transition: all 0.3s ease;
   box-shadow: none;
-  width: 100%;
+  margin: auto;
 }
 
 /* Khi scroll, chuyển thành fixed */
@@ -1123,4 +1122,35 @@ body {
     padding: 10px 10px 10px 32px;
     font-size: 13px;
   }
+}
+
+.cart-icon {
+  position: relative;
+  cursor: pointer;
+  padding-right: 17px;
+}
+
+.cart-icon-link {
+  position: relative;
+  display: inline-block;
+}
+
+.cart-count {
+  position: absolute;
+  top: -5px;
+  right: -8px;
+  background: #ef4444;
+  color: white;
+  border-radius: 50%;
+  width: 15px;
+  height: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 10px;
+  font-weight: bold;
+}
+
+.cart-count.bounce {
+  animation: bounce 0.5s ease;
 }

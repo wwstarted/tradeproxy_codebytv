@@ -1,275 +1,257 @@
-<?php get_header(); ?>
+<?php
+// ========== XỬ LÝ LOGIN TRƯỚC KHI OUTPUT BẤT KỲ HTML NÀO ==========
+$login_error = '';
+
+// ========== GOOGLE LOGIN HANDLER ==========
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['credential'])) {
+    $id_token = sanitize_text_field($_POST['credential']);
+
+    // Verify token với Google
+    $response = wp_remote_get("https://oauth2.googleapis.com/tokeninfo?id_token={$id_token}");
+    $body = wp_remote_retrieve_body($response);
+    $user_data = json_decode($body, true);
+
+    if (isset($user_data['email'])) {
+        $email = $user_data['email'];
+
+        // Check user exists
+        $user = get_user_by('email', $email);
+        if (!$user) {
+            // Create new user
+            $userdata = [
+                'user_login' => $email,
+                'user_email' => $email,
+                'first_name' => $user_data['given_name'] ?? '',
+                'last_name' => $user_data['family_name'] ?? '',
+                'role' => 'subscriber',
+                'user_pass' => wp_generate_password()
+            ];
+            $user_id = wp_insert_user($userdata);
+            $user = get_user_by('id', $user_id);
+        }
+
+        // Set timezone Việt Nam
+        date_default_timezone_set('Asia/Ho_Chi_Minh');
+        
+        // Login user vào WordPress
+        wp_set_current_user($user->ID);
+        wp_set_auth_cookie($user->ID);
+        do_action('wp_login', $user->user_login, $user);
+        
+        // Generate JWT token
+        $token = generate_jwt_token($user->ID);
+
+        // Save token to cookie (httpOnly cho bảo mật)
+        setcookie(
+            "jwt_token",
+            $token,
+            time() + (7 * 24 * 60 * 60), // 7 ngày
+            "/",
+            "",
+            false,
+            true
+        );
+
+        // Lưu token vào cookie để JS có thể đọc và lưu vào localStorage
+        setcookie("pending_jwt_token", $token, time() + 60, "/", "", false, false);
+        
+        // Chuyển hướng ngay lập tức
+        wp_redirect(home_url('/account'));
+        exit;
+    } else {
+        $login_error = 'Google login thất bại.';
+    }
+}
+
+// ========== EMAIL + PASSWORD LOGIN HANDLER ==========
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login_email'])) {
+    $email = sanitize_email($_POST['login_email']);
+    $password = $_POST['login_password'];
+
+    if (empty($email) || empty($password)) {
+        $login_error = 'Vui lòng nhập đầy đủ thông tin.';
+    } else {
+        $user_obj = get_user_by('email', $email);
+        if ($user_obj) {
+            $user = wp_authenticate($user_obj->user_login, $password);
+        } else {
+            $user = new WP_Error('invalid_user', 'Email không tồn tại.');
+        }
+
+        if (is_wp_error($user)) {
+            $login_error = 'Email hoặc mật khẩu không đúng.';
+        } else {
+            // Set timezone Việt Nam
+            date_default_timezone_set('Asia/Ho_Chi_Minh');
+            
+            // Login user vào WordPress
+            wp_set_current_user($user->ID);
+            wp_set_auth_cookie($user->ID);
+            do_action('wp_login', $user->user_login, $user);
+            
+            // Generate JWT token
+            $token = generate_jwt_token($user->ID);
+
+            // Save token to cookie (httpOnly cho bảo mật)
+            setcookie(
+                "jwt_token",
+                $token,
+                time() + (7 * 24 * 60 * 60), // 7 ngày
+                "/",
+                "",
+                false,
+                true
+            );
+
+            // Lưu token vào cookie để JS có thể đọc và lưu vào localStorage
+            setcookie("pending_jwt_token", $token, time() + 60, "/", "", false, false);
+            
+            // Chuyển hướng ngay lập tức
+            wp_redirect(home_url('/account'));
+            exit;
+        }
+    }
+}
+
+// ========== BẮT ĐẦU OUTPUT HTML ==========
+get_header(); 
+?>
 
 <body>
-    <div class="login-container">
-        <div class="image-section">
-            <img src="<?php echo esc_url('https://tse4.mm.bing.net/th/id/OIP.NLuP6Q7V5dg3eSdpLxUt2QHaE7?pid=Api&P=0&h=220'); ?>"
-                alt="Login illustration">
-        </div>
+    <div class="login-content">
+        <div class="login-container">
+            <div class="image-section">
+                <img src="<?php echo esc_url('https://tradeproxy.vn/images/background/bg_login.webp'); ?>"
+                    alt="Login illustration">
+            </div>
 
-        <div class="form-section">
-            <div class="form-box">
-                <h1 class="title">Đăng nhập</h1>
-                <p class="welcome-text">Chào mừng bạn đã quay trở lại!</p>
+            <div class="form-section">
+                <div class="form-box">
+                    <h1 class="title">Đăng nhập</h1>
+                    <p class="welcome-text">Chào mừng bạn đã quay trở lại!</p>
 
-                <?php
-                // ========== GOOGLE LOGIN HANDLER ==========
-                if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['credential'])) {
-                    $id_token = sanitize_text_field($_POST['credential']);
+                    <?php if (!empty($login_error)): ?>
+                        <div class="login-message error" style="padding-bottom:15px;">
+                            <?php echo esc_html($login_error); ?>
+                        </div>
+                    <?php endif; ?>
 
-                    // Verify token với Google
-                    $response = wp_remote_get("https://oauth2.googleapis.com/tokeninfo?id_token={$id_token}");
-                    $body = wp_remote_retrieve_body($response);
-                    $user_data = json_decode($body, true);
+                    <!-- ========== EMAIL LOGIN FORM ========== -->
+                    <form id="loginForm" method="post">
+                        <div class="input-group">
+                            <label for="login_email">Email *</label>
+                            <input type="email" name="login_email" id="login_email" placeholder="Nhập email" required>
+                        </div>
 
-                    if (isset($user_data['email'])) {
-                        $email = $user_data['email'];
+                        <div class="input-group">
+                            <label for="login_password">Mật khẩu *</label>
+                            <input type="password" name="login_password" id="login_password" placeholder="Mật khẩu"
+                                required>
+                        </div>
 
-                        // Check user exists
-                        $user = get_user_by('email', $email);
-                        if (!$user) {
-                            // Create new user
-                            $userdata = [
-                                'user_login' => $email,
-                                'user_email' => $email,
-                                'first_name' => $user_data['given_name'] ?? '',
-                                'last_name' => $user_data['family_name'] ?? '',
-                                'role' => 'subscriber',
-                                'user_pass' => wp_generate_password()
-                            ];
-                            $user_id = wp_insert_user($userdata);
-                            $user = get_user_by('id', $user_id);
-                        }
+                        <div class="forgot-password">
+                            <a href="<?php echo esc_url(home_url('/forgetpassword')) ?>">Quên mật khẩu?</a>
+                        </div>
 
-                        // Login user
-                        wp_set_current_user($user->ID);
-                        wp_set_auth_cookie($user->ID);
-                        do_action('wp_login', $user->user_login, $user);
+                        <button type="submit" class="btn btn-primary">Đăng nhập</button>
+                    </form>
 
-                        // Generate JWT token
-                        $token = generate_jwt_token($user->ID);
+                    <!-- Divider -->
+                    <div class="divider"><span>Hoặc</span></div>
 
-                        // Save token to cookie
-                        setcookie(
-                            "jwt_token",
-                            $token,
-                            time() + (7 * 24 * 60 * 60),
-                            "/",
-                            "",
-                            false,
-                            true
-                        );
+                    <!-- ========== GOOGLE SIGN-IN ========== -->
+                    <form id="googleLoginForm" method="post" style="margin-top: 20px;">
+                        <input type="hidden" name="credential" id="google_credential">
 
-                        echo "<script>
-                            localStorage.setItem('jwt_token', '{$token}');
-                            window.location.href = '" . home_url('/account') . "';
-                        </script>";
-                        exit;
-                    } else {
-                        echo '<div class="login-message error" style="padding-bottom:15px;">Google login thất bại.</div>';
-                    }
-                }
+                        <!-- Google Sign-In Button Container -->
+                        <div id="g_id_signin" style="width: 100%;"></div>
+                    </form>
 
-                // ========== EMAIL + PASSWORD LOGIN HANDLER ==========
-                if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login_email'])) {
-                    $email = sanitize_email($_POST['login_email']);
-                    $password = $_POST['login_password'];
-                    $errors = [];
+                    <p class="signup-link">
+                        Chưa có tài khoản? <a href="<?php echo get_permalink(get_page_by_path('register')); ?>">Đăng
+                            ký</a>
+                    </p>
 
-                    if (empty($email) || empty($password)) {
-                        $errors[] = 'Vui lòng nhập đầy đủ thông tin.';
-                    } else {
-                        $user_obj = get_user_by('email', $email);
-                        if ($user_obj) {
-                            $user = wp_authenticate($user_obj->user_login, $password);
-                        } else {
-                            $user = new WP_Error('invalid_user', 'Email không tồn tại.');
-                        }
-
-                        if (is_wp_error($user)) {
-                            $errors[] = 'Email hoặc mật khẩu không đúng.';
-                        } else {
-                            wp_set_current_user($user->ID);
-                            wp_set_auth_cookie($user->ID);
-                            do_action('wp_login', $user->user_login, $user);
-
-                            $token = generate_jwt_token($user->ID);
-
-                            setcookie(
-                                "jwt_token",
-                                $token,
-                                time() + (7 * 24 * 60 * 60),
-                                "/",
-                                "",
-                                false,
-                                true
-                            );
-
-                            echo "<script>
-                                localStorage.setItem('jwt_token', '{$token}');
-                                window.location.href = '" . home_url('/account') . "';
-                            </script>";
-                            exit;
-                        }
-                    }
-
-                    if (!empty($errors)) {
-                        foreach ($errors as $error) {
-                            echo '<div class="login-message error" style="padding-bottom:15px;">' . $error . '</div>';
-                        }
-                    }
-                }
-                ?>
-
-                <!-- ========== EMAIL LOGIN FORM ========== -->
-                <form id="loginForm" method="post">
-                    <div class="input-group">
-                        <label for="login_email">Email *</label>
-                        <input type="email" name="login_email" id="login_email" placeholder="Nhập email" required>
-                    </div>
-
-                    <div class="input-group">
-                        <label for="login_password">Mật khẩu *</label>
-                        <input type="password" name="login_password" id="login_password" placeholder="Mật khẩu"
-                            required>
-                    </div>
-
-                    <div class="forgot-password">
-                        <a href="<?php echo home_url('/forgetpassword') ?>">Quên mật khẩu?</a>
-                    </div>
-
-                    <button type="submit" class="btn btn-primary">Đăng nhập</button>
-                </form>
-
-                <!-- Divider -->
-                <div class="divider"><span>Hoặc</span></div>
-
-                <!-- ========== GOOGLE SIGN-IN (RIÊNG BIỆT) ========== -->
-                <form id="googleLoginForm" method="post" style="margin-top: 20px;">
-                    <input type="hidden" name="credential" id="google_credential">
-
-                    <!-- Google Sign-In Button Container -->
-                    <div id="g_id_signin" style="width: 100%;"></div>
-                </form>
-
-                <p class="signup-link">
-                    Chưa có tài khoản?
-                    <a href="<?php echo get_permalink(get_page_by_path('register')); ?>">Đăng ký</a>
-                </p>
+                </div>
             </div>
         </div>
     </div>
 
     <!-- ========== CUSTOM GOOGLE BUTTON STYLE ========== -->
     <style>
-        /* ========== CUSTOM GOOGLE BUTTON STYLE (PERFECT MATCH) ========== */
-
-        /* Container Google button - full width */
+        /*button Google full width */
         #g_id_signin {
             width: 100% !important;
-            display: flex !important;
-            justify-content: stretch !important;
-            align-items: stretch !important;
         }
 
-        /* Wrapper bên trong - full width */
         #g_id_signin>div {
             width: 100% !important;
-            display: flex !important;
         }
 
-        /* 
-   iframe của Google button 
-   Match CHÍNH XÁC với .btn-primary:
-   - padding: 14px 20px (top/bottom 14px + border 1px = 16px mỗi bên)
-   - font-size: 16px
-   - Total height ≈ 16 + 16 + 16 (line-height) + 2 (border) = 50px
-*/
         #g_id_signin iframe {
             width: 100% !important;
-            height: 50px !important;
-            /* Match với button .btn-primary */
-            min-height: 50px !important;
-            max-height: 50px !important;
-            border-radius: 8px !important;
-            /* Giống .btn */
-            border: none !important;
+            height: 44px !important;
+            min-height: 44px !important;
         }
 
-        /* Form wrapper - no extra margin */
-        #googleLoginForm {
-            margin-top: 0 !important;
-            width: 100%;
-        }
-
-        /* Ẩn One Tap popup */
+        /* ================= GOOGLE SIGN-IN SCRIPT ================ */
         #g_id_onload {
             display: none !important;
-        }
-
-        /* Ẩn credential picker nếu xuất hiện */
-        #credential_picker_container,
-        .g_id_signin {
-            display: none !important;
-        }
-
-        /* Override Google's default styles */
-        #g_id_signin div[role="button"] {
-            width: 100% !important;
         }
     </style>
 
     <!-- ========== GOOGLE SIGN-IN SCRIPT ========== -->
     <script src="https://accounts.google.com/gsi/client" async defer></script>
     <script>
-        // ========== GOOGLE SIGN-IN SCRIPT (FIXED - FORCE PROMPT) ==========
-        const GOOGLE_CLIENT_ID = "338423940617-c7m265a6kd3v5nror80iomqlb2jrv5hi.apps.googleusercontent.com";
+        // Kiểm tra và lưu token vào localStorage từ cookie khi trang account load
+        window.addEventListener('load', function() {
+            const pendingToken = getCookie('pending_jwt_token');
+            if (pendingToken) {
+                localStorage.setItem('jwt_token', pendingToken);
+                // Xóa cookie tạm
+                document.cookie = 'pending_jwt_token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+            }
+        });
+
+        function getCookie(name) {
+            const value = `; ${document.cookie}`;
+            const parts = value.split(`; ${name}=`);
+            if (parts.length === 2) return parts.pop().split(';').shift();
+            return null;
+        }
+
+        const GOOGLE_CLIENT_ID = "1039910145576-cthvk2plbd1l3320nd3ieibvb5bb3o13.apps.googleusercontent.com";
 
         function handleCredentialResponse(response) {
             document.getElementById('google_credential').value = response.credential;
             document.getElementById('googleLoginForm').submit();
         }
 
-        window.addEventListener('load', function () {
+        window.addEventListener('load', function() {
             if (typeof google !== 'undefined' && google.accounts) {
-
-                // Initialize Google Sign-In
                 google.accounts.id.initialize({
                     client_id: GOOGLE_CLIENT_ID,
                     callback: handleCredentialResponse,
-                    auto_select: false,          // TẮT auto select
+                    auto_select: false,
                     cancel_on_tap_outside: true,
-                    ux_mode: 'popup',            // Dùng popup thay vì redirect
-                    context: 'signin'            // Context là signin
+                    prompt_parent_id: 'g_id_signin'
                 });
 
-                // TẮT HOÀN TOÀN One Tap và Auto Select
                 google.accounts.id.disableAutoSelect();
                 google.accounts.id.cancel();
-
-                // Xóa cookies Google cũ (nếu có)
-                document.cookie.split(";").forEach(function (c) {
-                    if (c.trim().startsWith('g_state')) {
-                        document.cookie = c.replace(/^ +/, "").replace(/=.*/, "=;expires=" + new Date().toUTCString() + ";path=/");
-                    }
-                });
-
-                // Render button với config STANDARD để luôn hiện text
+                
+                // RENDER BUTTON CHUẨN GOOGLE
                 google.accounts.id.renderButton(
-                    document.getElementById("g_id_signin"),
-                    {
-                        type: "standard",           // QUAN TRỌNG: standard type
-                        theme: "outline",           // Viền outline
-                        size: "large",              // Kích thước large
-                        text: "signin_with",        // Text: "Sign in with Google"
-                        shape: "rectangular",       // Hình chữ nhật
-                        logo_alignment: "left",     // Logo bên trái
-                        width: "400"                // Width 400px
+                    document.getElementById("g_id_signin"), {
+                        theme: "outline",
+                        size: "large",
+                        width: "100%", 
+                        text: "signin_with",
+                        shape: "rectangular"
                     }
                 );
             }
         });
     </script>
-
 
     <?php get_footer(); ?>

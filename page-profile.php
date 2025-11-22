@@ -38,7 +38,7 @@
             <label class="form-label">Số điện thoại</label>
             <div class="form-input-wrapper phone-input">
                 <div class="country-select" id="country-select">
-                    <img src="https://flagcdn.com/w40/vn.png" alt="Vietnam" class="country-flag">
+                    <img src="https://flagcdn.com/w40/vn.png" alt="Vietnam" class="country-flag-change-pass">
                     <span class="country-code">+84</span>
                     <i class="fas fa-chevron-down"></i>
                 </div>
@@ -50,42 +50,42 @@
                     </div>
                     <div class="country-list">
                         <div class="country-item active" data-code="+84" data-flag="vn">
-                            <img src="https://flagcdn.com/w40/vn.png" alt="Vietnam" class="country-flag">
+                            <img src="https://flagcdn.com/w40/vn.png" alt="Vietnam" class="country-flag-change-pass">
                             <span class="country-name">Vietnam</span>
                             <span class="country-code">+84</span>
                         </div>
                         <div class="country-item" data-code="+1" data-flag="us">
-                            <img src="https://flagcdn.com/w40/us.png" alt="United States" class="country-flag">
+                            <img src="https://flagcdn.com/w40/us.png" alt="United States" class="country-flag-change-pass">
                             <span class="country-name">United States</span>
                             <span class="country-code">+1</span>
                         </div>
                         <div class="country-item" data-code="+44" data-flag="gb">
-                            <img src="https://flagcdn.com/w40/gb.png" alt="United Kingdom" class="country-flag">
+                            <img src="https://flagcdn.com/w40/gb.png" alt="United Kingdom" class="country-flag-change-pass">
                             <span class="country-name">United Kingdom</span>
                             <span class="country-code">+44</span>
                         </div>
                         <div class="country-item" data-code="+86" data-flag="cn">
-                            <img src="https://flagcdn.com/w40/cn.png" alt="China" class="country-flag">
+                            <img src="https://flagcdn.com/w40/cn.png" alt="China" class="country-flag-change-pass">
                             <span class="country-name">China</span>
                             <span class="country-code">+86</span>
                         </div>
                         <div class="country-item" data-code="+81" data-flag="jp">
-                            <img src="https://flagcdn.com/w40/jp.png" alt="Japan" class="country-flag">
+                            <img src="https://flagcdn.com/w40/jp.png" alt="Japan" class="country-flag-change-pass">
                             <span class="country-name">Japan</span>
                             <span class="country-code">+81</span>
                         </div>
                         <div class="country-item" data-code="+82" data-flag="kr">
-                            <img src="https://flagcdn.com/w40/kr.png" alt="South Korea" class="country-flag">
+                            <img src="https://flagcdn.com/w40/kr.png" alt="South Korea" class="country-flag-change-pass">
                             <span class="country-name">South Korea</span>
                             <span class="country-code">+82</span>
                         </div>
                         <div class="country-item" data-code="+65" data-flag="sg">
-                            <img src="https://flagcdn.com/w40/sg.png" alt="Singapore" class="country-flag">
+                            <img src="https://flagcdn.com/w40/sg.png" alt="Singapore" class="country-flag-change-pass">
                             <span class="country-name">Singapore</span>
                             <span class="country-code">+65</span>
                         </div>
                         <div class="country-item" data-code="+66" data-flag="th">
-                            <img src="https://flagcdn.com/w40/th.png" alt="Thailand" class="country-flag">
+                            <img src="https://flagcdn.com/w40/th.png" alt="Thailand" class="country-flag-change-pass">
                             <span class="country-name">Thailand</span>
                             <span class="country-code">+66</span>
                         </div>

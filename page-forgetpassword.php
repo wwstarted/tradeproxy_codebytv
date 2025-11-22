@@ -1,8 +1,10 @@
 <?php get_header(); ?>
-    <div class="login-container">
+
+<div class="forgetpass-content">
+    <div class="forgetpass-container">
         <!-- image -->
         <div class="image-section">
-            <img src="https://tse4.mm.bing.net/th/id/OIP.NLuP6Q7V5dg3eSdpLxUt2QHaE7?pid=Api&P=0&h=220"
+            <img src="https://tradeproxy.vn/images/background/bg_login.webp"
                 alt="Forgot password illustration">
         </div>
 
@@ -76,6 +78,9 @@
             </div>
         </div>
     </div>
-    <script src="https://www.google.com/recaptcha/api.js" async defer>
-    </script>
-    <?php get_footer(); ?>
+</div>
+
+<script src="https://www.google.com/recaptcha/api.js" async defer>
+</script>
+
+<?php get_footer(); ?>

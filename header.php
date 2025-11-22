@@ -31,7 +31,7 @@
         <!-- Header -->
         <header class="header">
             <div class="header-top w-full bg-[#007BF3]">
-                <div class="max-w-[90%] mx-auto">
+                <div class="max-w-[80%] mx-auto">
                     <div class="pt-2 pb-2 flex justify-between items-center gap-2">
                         <i class="fa-solid fa-bell text-white text-xl"></i>
                         <div class="flex-1 overflow-hidden">
@@ -44,7 +44,7 @@
                 </div>
             </div>
             <div class="header-navigate w-full bg-white">
-                <div class="m-auto max-w-[90%]">
+                <div class="m-auto max-w-[80%]">
                     <div class="flex justify-between items-center pt-2 pb-2">
                         <a href="<?php echo esc_url(home_url('/')); ?>" class="w-30">
                             <img src="<?php echo get_template_directory_uri(); ?>/images/trade-proxy.svg" alt="" />
@@ -55,7 +55,7 @@
                             <ul class="flex gap-2 items-center">
                                 <li>
                                     <a class="capitalize pt-2 pb-2 pl-4 pr-4 rounded-md hover:bg-[#f7f8f9]"
-                                        href="<?php echo esc_url(home_url('/proxy')); ?>">mua proxy</a>
+                                        href="<?php echo esc_url(home_url('/proxies')); ?>">mua proxy</a>
                                 </li>
                                 <li>
                                     <a class="capitalize pt-2 pb-2 pl-4 pr-4 rounded-md hover:bg-[#f7f8f9]"
@@ -70,10 +70,14 @@
                                         href="<?php echo esc_url(home_url('/contact')); ?>">liên hệ</a>
                                 </li>
                                 <li>
-                                    <a class="capitalize pt-2 pb-2 pl-4 pr-4"
-                                        href="<?php echo esc_url(home_url('/cart')); ?>">
-                                        <i class="fa-solid fa-cart-shopping"></i>
-                                    </a>
+                                    <div class="cart-icon">
+                                        <a href="<?php echo wc_get_cart_url(); ?>" class="cart-icon-link">
+                                            <i class="fa-solid fa-cart-shopping"></i>
+                                            <span class="cart-count" id="cart-count">
+                                                <?php echo WC()->cart->get_cart_contents_count(); ?>
+                                            </span>
+                                        </a>
+                                    </div>
                                 </li>
                                 <li class="flex items-center relative group">
                                     <div class="flex items-center cursor-pointer">
@@ -98,12 +102,11 @@
                                         </button>
                                     </nav>
                                 </li>
-
                                 <!-- ===== USER DROPDOWN (khi đã login) ===== -->
                                 <li class="user-dropdown" id="userDropdown" style="display: none">
                                     <div class="user-trigger" id="userTrigger">
                                         <div class="user-avatar">
-                                            <img src="https://images.unsplash.com/photo-1728577740843-5f29c7586afe?q=80&w=880&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                                            <img src="https://images.unsplash.com/photo-1728577740843-5f29c7586af….0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
                                                 alt="" />
                                         </div>
                                         <span class="user-name">luoinghe</span>
@@ -165,7 +168,7 @@
             <!-- ===== MOBILE USER INFO (khi đã login) ===== -->
             <div class="mobile-user-info" id="mobileUserInfo">
                 <div class="user-avatar">
-                    <img src="https://plus.unsplash.com/premium_photo-1671656349218-5218444643d8?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                    <img src="https://plus.unsplash.com/premium_photo-1671656349218-52184….0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
                         alt="" />
                 </div>
                 <div class="mobile-user-details">
@@ -269,7 +272,7 @@
 
             <!-- ===== AUTH BUTTONS (khi chưa login) ===== -->
             <div class="mobile-menu-buttons" id="mobileAuthButtons">
-                <a href="<?php echo esc_url(home_url('/sign-in')); ?>" class="mobile-btn mobile-btn-login">Đăng nhập</a>
+                <a href="<?php echo esc_url(home_url('/login')); ?>" class="mobile-btn mobile-btn-login">Đăng nhập</a>
                 <a href="<?php echo esc_url(home_url('/register')); ?>" class="mobile-btn mobile-btn-register">Đăng
                     ký</a>
             </div>
