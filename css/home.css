@@ -1,1706 +1,1588 @@
 /* Ẩn scrollbar */
+
 .hide-scrollbar {
-  -ms-overflow-style: none;
-  scrollbar-width: none;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
 }
+
 .hide-scrollbar::-webkit-scrollbar {
-  display: none;
+    display: none;
 }
+
 
 /* Cursor khi drag */
+
 .dragging {
-  cursor: grabbing !important;
+    cursor: grabbing !important;
 }
 
+
 /* list proxy */
+
 .dropdown-arrow {
-  transition: transform 0.3s;
+    transition: transform 0.3s;
 }
 
 .dropdown-arrow.open {
-  transform: rotate(180deg);
+    transform: rotate(180deg);
 }
 
+
 /* Proxy table list */
+
+
 /* Proxy Table Layout */
+
 .proxy-table-container {
-  background: white;
-  border-radius: 12px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-  overflow: hidden;
-  margin-top: 20px;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    margin-top: 20px;
 }
 
 .proxy-table-header {
-  display: grid;
-  grid-template-columns: 2.5fr 1fr 1fr 1fr 1.5fr;
-  padding: 16px 24px;
-  background: #f3f4f6;
-  border-bottom: 1px solid #e5e7eb;
-  font-weight: 500;
-  color: #374151;
-  font-size: 14px;
+    display: grid;
+    grid-template-columns: 2.5fr 1fr 1fr 1fr 1.5fr;
+    padding: 16px 24px;
+    background: #f3f4f6;
+    border-bottom: 1px solid #e5e7eb;
+    font-weight: 500;
+    color: #374151;
+    font-size: 14px;
 }
 
 .proxy-search-wrapper {
-  padding: 16px 24px;
-  border-bottom: 1px solid #e5e7eb;
-  position: relative;
+    padding: 16px 24px;
+    border-bottom: 1px solid #e5e7eb;
+    position: relative;
 }
 
 .proxy-search-input {
-  width: 100%;
-  padding: 10px 16px 10px 40px;
-  border: 1px solid #d1d5db;
-  border-radius: 8px;
-  outline: none;
-  font-size: 14px;
-  transition: all 0.2s;
+    width: 100%;
+    padding: 10px 16px 10px 40px;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    outline: none;
+    font-size: 14px;
+    transition: all 0.2s;
 }
 
 .proxy-search-input:focus {
-  border-color: #007bf3;
-  box-shadow: 0 0 0 3px rgba(0, 123, 243, 0.1);
+    border-color: #007bf3;
+    box-shadow: 0 0 0 3px rgba(0, 123, 243, 0.1);
 }
 
 .proxy-search-icon {
-  position: absolute;
-  left: 36px;
-  top: 50%;
-  transform: translateY(-50%);
-  color: #9ca3af;
-  font-size: 14px;
+    position: absolute;
+    left: 36px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #9ca3af;
+    font-size: 14px;
 }
 
 .proxy-table-body {
-  background: white;
+    background: white;
 }
 
 .proxy-row {
-  display: grid;
-  grid-template-columns: 2.5fr 1fr 1fr 1fr 1.5fr;
-  padding: 24px;
-  border-bottom: 1px solid #e5e7eb;
-  transition: background-color 0.2s;
-  align-items: center;
-  gap: 16px;
+    display: grid;
+    grid-template-columns: 2.5fr 1fr 1fr 1fr 1.5fr;
+    padding: 24px;
+    border-bottom: 1px solid #e5e7eb;
+    transition: background-color 0.2s;
+    align-items: center;
+    gap: 16px;
 }
 
 .proxy-row:hover {
-  background-color: #f9fafb;
+    background-color: #f9fafb;
 }
 
 .proxy-row:last-child {
-  border-bottom: none;
+    border-bottom: none;
 }
 
 .proxy-info {
-  display: flex;
-  align-items: center;
-  gap: 16px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
 }
 
 .proxy-logo {
-  width: 64px;
-  height: 64px;
-  border-radius: 12px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.07);
-  background: white; /* Thêm background trắng để ảnh nổi bật */
-  padding: 8px; /* Thêm padding để ảnh không bị sát viền */
-  overflow: hidden; /* Đảm bảo ảnh không tràn ra ngoài */
+    width: 64px;
+    height: 64px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.07);
+    background: white;
+    /* Thêm background trắng để ảnh nổi bật */
+    padding: 8px;
+    /* Thêm padding để ảnh không bị sát viền */
+    overflow: hidden;
+    /* Đảm bảo ảnh không tràn ra ngoài */
 }
 
 .proxy-logo img {
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
 }
 
 .proxy-details h3 {
-  font-weight: 600;
-  color: #007bf3;
-  font-size: 16px;
-  margin-bottom: 4px;
+    font-weight: 600;
+    color: #007bf3;
+    font-size: 16px;
+    margin-bottom: 4px;
 }
 
 .proxy-details p {
-  color: #6b7280;
-  font-size: 13px;
-  line-height: 1.4;
+    color: #6b7280;
+    font-size: 13px;
+    line-height: 1.4;
 }
 
 .proxy-quantity {
-  text-align: center;
+    text-align: center;
 }
 
 .proxy-select {
-  padding: 8px 32px 8px 16px;
-  border: 1px solid #d1d5db;
-  border-radius: 8px;
-  background: white;
-  cursor: pointer;
-  outline: none;
-  font-size: 14px;
-  appearance: none;
-  background-image: url("data:image/svg+xml,%3Csvg width='10' height='6' viewBox='0 0 10 6' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1L5 5L9 1' stroke='%236B7280' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
-  background-repeat: no-repeat;
-  background-position: right 12px center;
-  transition: all 0.2s;
+    padding: 8px 32px 8px 16px;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    background: white;
+    cursor: pointer;
+    outline: none;
+    font-size: 14px;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg width='10' height='6' viewBox='0 0 10 6' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1L5 5L9 1' stroke='%236B7280' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    transition: all 0.2s;
 }
 
 .proxy-select:focus {
-  border-color: #007bf3;
-  box-shadow: 0 0 0 3px rgba(0, 123, 243, 0.1);
+    border-color: #007bf3;
+    box-shadow: 0 0 0 3px rgba(0, 123, 243, 0.1);
 }
 
 .proxy-status {
-  text-align: center;
+    text-align: center;
 }
 
 .proxy-badge {
-  display: inline-flex;
-  align-items: center;
-  padding: 6px 12px;
-  border-radius: 100px;
-  font-size: 13px;
-  font-weight: 500;
+    display: inline-flex;
+    align-items: center;
+    padding: 6px 12px;
+    border-radius: 100px;
+    font-size: 13px;
+    font-weight: 500;
 }
 
 .proxy-badge.available {
-  background-color: #d1fae5;
-  color: #065f46;
+    background-color: #d1fae5;
+    color: #065f46;
 }
 
 .proxy-badge.out-of-stock {
-  background-color: #fee2e2;
-  color: #991b1b;
+    background-color: #fee2e2;
+    color: #991b1b;
 }
 
 .proxy-price {
-  text-align: center;
+    text-align: center;
 }
 
 .proxy-price-main {
-  font-weight: bold;
-  color: #ec4899;
-  font-size: 18px;
-  margin-bottom: 4px;
+    font-weight: bold;
+    color: #ec4899;
+    font-size: 18px;
+    margin-bottom: 4px;
 }
 
 .proxy-price-sub {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 4px;
-  color: #6b7280;
-  font-size: 13px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    color: #6b7280;
+    font-size: 13px;
 }
 
 .proxy-price-sub i {
-  font-size: 12px;
+    font-size: 12px;
 }
 
 .proxy-actions {
-  display: flex;
-  gap: 8px;
-  justify-content: flex-end;
+    display: flex;
+    gap: 8px;
+    justify-content: flex-end;
 }
 
 .proxy-btn-cart {
-  padding: 12px;
-  border: 1px solid #007bf3;
-  color: #007bf3;
-  border-radius: 8px;
-  background: white;
-  cursor: pointer;
-  transition: all 0.2s;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+    padding: 12px;
+    border: 1px solid #007bf3;
+    color: #007bf3;
+    border-radius: 8px;
+    background: white;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .proxy-btn-cart:hover {
-  background-color: #eff6ff;
+    background-color: #eff6ff;
 }
 
 .proxy-btn-cart:disabled {
-  border-color: #d1d5db;
-  color: #9ca3af;
-  cursor: not-allowed;
-  background: white;
+    border-color: #d1d5db;
+    color: #9ca3af;
+    cursor: not-allowed;
+    background: white;
 }
 
 .proxy-btn-buy {
-  padding: 12px 24px;
-  background-color: #007bf3;
-  color: white;
-  font-weight: 500;
-  border-radius: 8px;
-  border: none;
-  cursor: pointer;
-  transition: all 0.2s;
-  font-size: 14px;
-  white-space: nowrap;
+    padding: 12px 24px;
+    background-color: #007bf3;
+    color: white;
+    font-weight: 500;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-size: 14px;
+    white-space: nowrap;
 }
 
 .proxy-btn-buy:hover {
-  background-color: #0369a1;
-  transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(0, 123, 243, 0.3);
+    background-color: #0369a1;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(0, 123, 243, 0.3);
 }
 
 .proxy-btn-buy:disabled {
-  background-color: #d1d5db;
-  color: #6b7280;
-  cursor: not-allowed;
-  transform: none;
-  box-shadow: none;
+    background-color: #d1d5db;
+    color: #6b7280;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
 }
+
 
 /* Responsive - Tablet và Mobile */
+
 @media (max-width: 1024px) {
-  .proxy-table-header {
-    display: none;
-  }
-
-  .proxy-search-wrapper {
-    padding: 16px;
-  }
-
-  .proxy-search-icon {
-    left: 28px;
-  }
-
-  .proxy-row {
-    grid-template-columns: 1fr;
-    padding: 20px;
-    gap: 0;
-    background: white;
-    border: 1px solid #e5e7eb;
-    border-radius: 12px;
-    margin: 0 16px 16px 16px;
-  }
-
-  .proxy-table-body {
-    padding: 16px 0;
-    background: #f9fafb;
-  }
-
-  .proxy-row:hover {
-    background: white;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-  }
-
-  /* Info section */
-  .proxy-info {
-    padding-bottom: 16px;
-    border-bottom: 1px solid #f3f4f6;
-    margin-bottom: 16px;
-  }
-
-  .proxy-logo {
-    width: 48px;
-    height: 48px;
-  }
-
-  .proxy-logo span {
-    font-size: 18px !important;
-  }
-
-  .proxy-details h3 {
-    font-size: 15px;
-  }
-
-  .proxy-details p {
-    font-size: 12px;
-  }
-
-  /* Quantity */
-  .proxy-quantity {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 12px 0;
-    border-bottom: 1px solid #f3f4f6;
-  }
-
-  .proxy-quantity::before {
-    content: "Số lượng";
-    font-size: 13px;
-    color: #6b7280;
-  }
-
-  .proxy-select {
-    width: auto;
-    min-width: 100px;
-  }
-
-  /* Status */
-  .proxy-status {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 12px 0;
-    border-bottom: 1px solid #f3f4f6;
-  }
-
-  .proxy-status::before {
-    content: "Hiện có";
-    font-size: 13px;
-    color: #6b7280;
-  }
-
-  /* Price */
-  .proxy-price {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 12px 0;
-    border-bottom: 1px solid #f3f4f6;
-  }
-
-  .proxy-price::before {
-    content: "Giá";
-    font-size: 13px;
-    color: #6b7280;
-  }
-
-  .proxy-price-wrapper {
-    text-align: right;
-  }
-
-  .proxy-price-main {
-    font-size: 20px;
-    margin-bottom: 4px;
-  }
-
-  .proxy-price-sub {
-    justify-content: flex-end;
-  }
-
-  /* Actions */
-  .proxy-actions {
-    padding-top: 16px;
-    gap: 12px;
-  }
-
-  .proxy-btn-cart {
-    flex: 0 0 48px;
-    height: 48px;
-  }
-
-  .proxy-btn-buy {
-    flex: 1;
-    padding: 12px 20px;
-    font-size: 15px;
-    font-weight: 600;
-  }
+    .proxy-table-header {
+        display: none;
+    }
+    .proxy-search-wrapper {
+        padding: 16px;
+    }
+    .proxy-search-icon {
+        left: 28px;
+    }
+    .proxy-row {
+        grid-template-columns: 1fr;
+        padding: 20px;
+        gap: 0;
+        background: white;
+        border: 1px solid #e5e7eb;
+        border-radius: 12px;
+        margin: 0 16px 16px 16px;
+    }
+    .proxy-table-body {
+        padding: 16px 0;
+        background: #f9fafb;
+    }
+    .proxy-row:hover {
+        background: white;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    }
+    /* Info section */
+    .proxy-info {
+        padding-bottom: 16px;
+        border-bottom: 1px solid #f3f4f6;
+        margin-bottom: 16px;
+    }
+    .proxy-logo {
+        width: 48px;
+        height: 48px;
+    }
+    .proxy-logo span {
+        font-size: 18px !important;
+    }
+    .proxy-details h3 {
+        font-size: 15px;
+    }
+    .proxy-details p {
+        font-size: 12px;
+    }
+    /* Quantity */
+    .proxy-quantity {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 12px 0;
+        border-bottom: 1px solid #f3f4f6;
+    }
+    .proxy-quantity::before {
+        content: "Số lượng";
+        font-size: 13px;
+        color: #6b7280;
+    }
+    .proxy-select {
+        width: auto;
+        min-width: 100px;
+    }
+    /* Status */
+    .proxy-status {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 12px 0;
+        border-bottom: 1px solid #f3f4f6;
+    }
+    .proxy-status::before {
+        content: "Hiện có";
+        font-size: 13px;
+        color: #6b7280;
+    }
+    /* Price */
+    .proxy-price {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 12px 0;
+        border-bottom: 1px solid #f3f4f6;
+    }
+    .proxy-price::before {
+        content: "Giá";
+        font-size: 13px;
+        color: #6b7280;
+    }
+    .proxy-price-wrapper {
+        text-align: right;
+    }
+    .proxy-price-main {
+        font-size: 20px;
+        margin-bottom: 4px;
+    }
+    .proxy-price-sub {
+        justify-content: flex-end;
+    }
+    /* Actions */
+    .proxy-actions {
+        padding-top: 16px;
+        gap: 12px;
+    }
+    .proxy-btn-cart {
+        flex: 0 0 48px;
+        height: 48px;
+    }
+    .proxy-btn-buy {
+        flex: 1;
+        padding: 12px 20px;
+        font-size: 15px;
+        font-weight: 600;
+    }
 }
+
 
 /* Small Mobile */
+
 @media (max-width: 480px) {
-  .proxy-row {
-    margin: 0 12px 12px 12px;
-    padding: 16px;
-  }
-
-  .proxy-info {
-    gap: 12px;
-  }
-
-  .proxy-logo {
-    width: 44px;
-    height: 44px;
-  }
-
-  .proxy-details h3 {
-    font-size: 14px;
-  }
-
-  .proxy-details p {
-    font-size: 11px;
-  }
-
-  .proxy-select {
-    max-width: 100%;
-  }
-
-  .proxy-actions {
-    flex-direction: row;
-  }
-
-  .proxy-btn-cart {
-    flex: 0 0 52px;
-    height: 52px;
-  }
-
-  .proxy-btn-buy {
-    height: 52px;
-  }
-
-  .hero-main {
-    max-width: 100% !important;
-    padding-top: 0 !important;
-  }
-
-  .hero-title {
-    display: none;
-  }
+    .proxy-row {
+        margin: 0 12px 12px 12px;
+        padding: 16px;
+    }
+    .proxy-info {
+        gap: 12px;
+    }
+    .proxy-logo {
+        width: 44px;
+        height: 44px;
+    }
+    .proxy-details h3 {
+        font-size: 14px;
+    }
+    .proxy-details p {
+        font-size: 11px;
+    }
+    .proxy-select {
+        max-width: 100%;
+    }
+    .proxy-actions {
+        flex-direction: row;
+    }
+    .proxy-btn-cart {
+        flex: 0 0 52px;
+        height: 52px;
+    }
+    .proxy-btn-buy {
+        height: 52px;
+    }
+    .hero-main {
+        max-width: 100% !important;
+        padding-top: 0 !important;
+    }
+    .hero-title {
+        display: none;
+    }
 }
 
+
 /* Guides section */
+
 .features {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 30px;
-  margin-top: 40px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+    margin-top: 40px;
 }
 
 .feature-card {
-  background: white;
-  border-radius: 16px;
-  padding: 40px 30px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+    background: white;
+    border-radius: 16px;
+    padding: 40px 30px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .feature-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+    transform: translateY(-5px);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
 }
 
 .icon-container {
-  width: 80px;
-  height: 80px;
-  margin: 0 auto 25px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+    width: 80px;
+    height: 80px;
+    margin: 0 auto 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .icon-container svg {
-  width: 100%;
-  height: 100%;
+    width: 100%;
+    height: 100%;
 }
 
 .feature-card h3 {
-  font-size: 1.5rem;
-  color: #1e293b;
-  margin-bottom: 15px;
-  font-weight: 600;
+    font-size: 1.5rem;
+    color: #1e293b;
+    margin-bottom: 15px;
+    font-weight: 600;
 }
 
 .feature-card p {
-  color: #64748b;
-  line-height: 1.7;
-  font-size: 1rem;
+    color: #64748b;
+    line-height: 1.7;
+    font-size: 1rem;
 }
 
 @media (max-width: 768px) {
-  .header h1 {
-    font-size: 2rem;
-  }
-
-  .header p {
-    font-size: 1rem;
-  }
-
-  .features {
-    grid-template-columns: 1fr;
-    gap: 20px;
-  }
-
-  .feature-card {
-    padding: 30px 25px;
-  }
+    .header h1 {
+        font-size: 2rem;
+    }
+    .header p {
+        font-size: 1rem;
+    }
+    .features {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+    .feature-card {
+        padding: 30px 25px;
+    }
 }
 
 @media (max-width: 480px) {
-  .header h1 {
-    font-size: 1.75rem;
-  }
-
-  .feature-card {
-    padding: 25px 20px;
-  }
+    .header h1 {
+        font-size: 1.75rem;
+    }
+    .feature-card {
+        padding: 25px 20px;
+    }
 }
 
+
 /* Commit section */
+
 .commit-section {
-  display: flex;
-  align-items: center;
-  gap: 20px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
 }
 
 .commit-left-section {
-  flex: 1;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background: linear-gradient(180deg, #f8f9ff 0%, #ffffff 100%);
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(180deg, #f8f9ff 0%, #ffffff 100%);
 }
 
 .commit-left-section img {
-  max-width: 100%;
-  height: auto;
-  filter: drop-shadow(0 10px 30px rgba(0, 0, 0, 0.1));
+    max-width: 100%;
+    height: auto;
+    filter: drop-shadow(0 10px 30px rgba(0, 0, 0, 0.1));
 }
 
 .commit-right-section {
-  flex: 1;
+    flex: 1;
 }
 
 .commit-title {
-  font-size: 24px;
-  font-weight: 700;
-  color: #1a1a1a;
-  line-height: 1.3;
+    font-size: 24px;
+    font-weight: 700;
+    color: #1a1a1a;
+    line-height: 1.3;
 }
 
 .commit-title .commit-highlight {
-  color: #2196f3;
+    color: #2196f3;
 }
 
 .commit-subtitle {
-  font-size: 16px;
-  color: #666;
-  margin-bottom: 20px;
-  line-height: 1.6;
+    font-size: 16px;
+    color: #666;
+    margin-bottom: 20px;
+    line-height: 1.6;
 }
 
 .commit-feature {
-  display: flex;
-  align-items: flex-start;
-  margin-bottom: 20px;
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 20px;
 }
 
 .commit-feature-icon {
-  width: 70px;
-  height: 70px;
-  background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
-  border-radius: 20px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-right: 25px;
-  flex-shrink: 0;
+    width: 70px;
+    height: 70px;
+    background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 25px;
+    flex-shrink: 0;
 }
 
 .commit-feature-icon svg {
-  width: 35px;
-  height: 35px;
-  fill: #2196f3;
+    width: 35px;
+    height: 35px;
+    fill: #2196f3;
 }
 
 .commit-feature-content h3 {
-  font-size: 22px;
-  color: #1a1a1a;
-  margin-bottom: 12px;
-  font-weight: 700;
+    font-size: 22px;
+    color: #1a1a1a;
+    margin-bottom: 12px;
+    font-weight: 700;
 }
 
 .commit-feature-content p {
-  font-size: 15px;
-  color: #666;
-  line-height: 1.7;
+    font-size: 15px;
+    color: #666;
+    line-height: 1.7;
 }
 
 @media (max-width: 968px) {
-  .commit-section {
-    flex-direction: column;
-  }
-
-  .commit-header {
-    order: 1;
-    text-align: center;
-  }
-
-  .commit-left-section {
-    display: none;
-  }
-
-  .commit-features {
-    order: 3;
-  }
+    .commit-section {
+        flex-direction: column;
+    }
+    .commit-header {
+        order: 1;
+        text-align: center;
+    }
+    .commit-left-section {
+        display: none;
+    }
+    .commit-features {
+        order: 3;
+    }
 }
 
+
 /* Pricing plans */
+
 .Plans-title {
-  text-align: center;
-  font-size: 24px;
-  font-weight: bold;
-  margin-bottom: 20px;
-  color: #1a1a1a;
+    text-align: center;
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: #1a1a1a;
 }
 
 .Plans-title .highlight {
-  color: #007bf3;
+    color: #007bf3;
 }
 
 .carousel-container {
-  position: relative;
-  overflow: hidden;
-  padding: 0 60px;
+    position: relative;
+    overflow: hidden;
+    padding: 0 60px;
 }
 
 .cards-wrapper {
-  display: flex;
-  gap: 30px;
-  transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-  touch-action: pan-y;
-  max-width: 280px;
+    display: flex;
+    gap: 30px;
+    transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    touch-action: pan-y;
+    max-width: 280px;
 }
 
 .card {
-  background: white;
-  border-radius: 20px;
-  overflow: hidden;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  flex: 0 0 calc(33.333% - 20px);
-  display: flex;
-  flex-direction: column;
-  min-width: 300px;
+    background: white;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    flex: 0 0 calc(33.333% - 20px);
+    display: flex;
+    flex-direction: column;
+    min-width: 300px;
 }
 
 .nav-button {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 40px;
-  height: 40px;
-  background: white;
-  border: none;
-  border-radius: 50%;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 24px;
-  color: #666;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  z-index: 10;
-  transition: all 0.3s ease;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 40px;
+    height: 40px;
+    background: white;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    color: #666;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    z-index: 10;
+    transition: all 0.3s ease;
 }
 
 .nav-button:hover {
-  background: #f0f0f0;
-  transform: translateY(-50%) scale(1.1);
+    background: #f0f0f0;
+    transform: translateY(-50%) scale(1.1);
 }
 
 .nav-button:disabled {
-  opacity: 0.3;
-  cursor: not-allowed;
+    opacity: 0.3;
+    cursor: not-allowed;
 }
 
 .nav-button.prev {
-  left: 0;
-  font-size: 12px;
+    left: 0;
+    font-size: 12px;
 }
 
 .nav-button.next {
-  right: 0;
-  font-size: 12px;
+    right: 0;
+    font-size: 12px;
 }
 
 .card-header {
-  background: linear-gradient(135deg, #007bf3 0%, #0066cc 100%);
-  color: white;
-  padding: 15px;
-  text-align: center;
-  border-radius: 0 0 50% 50% / 0 0 30px 30px;
+    background: linear-gradient(135deg, #007bf3 0%, #0066cc 100%);
+    color: white;
+    padding: 15px;
+    text-align: center;
+    border-radius: 0 0 50% 50% / 0 0 30px 30px;
 }
 
 .card-logo {
-  background-color: white;
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  margin: 0 auto;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 48px;
+    background-color: white;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 48px;
 }
 
 .card-title {
-  font-size: 1.5rem;
-  font-weight: 700;
-  margin-bottom: 10px;
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 10px;
 }
 
 .card-description {
-  font-size: 0.9rem;
-  opacity: 0.9;
-  line-height: 1.5;
+    font-size: 0.9rem;
+    opacity: 0.9;
+    line-height: 1.5;
 }
 
 .card-description strong {
-  font-weight: 600;
+    font-weight: 600;
 }
 
 .card-price {
-  background: #007bf3;
-  color: white;
-  padding: 20px;
-  text-align: center;
-  font-size: 1.4rem;
-  font-weight: 700;
-  margin: 0;
+    background: #007bf3;
+    color: white;
+    padding: 20px;
+    text-align: center;
+    font-size: 1.4rem;
+    font-weight: 700;
+    margin: 0;
 }
 
 .card-body {
-  padding: 30px;
-  flex-grow: 1;
-  display: flex;
-  flex-direction: column;
+    padding: 30px;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
 }
 
 .features-plans {
-  list-style: none;
-  flex-grow: 1;
+    list-style: none;
+    flex-grow: 1;
 }
 
 .features-plans li {
-  padding: 12px 0;
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  color: #666;
-  font-size: 0.95rem;
+    padding: 12px 0;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: #666;
+    font-size: 0.95rem;
 }
 
 .features-plans li::before {
-  content: "✓";
-  width: 24px;
-  height: 24px;
-  background: #ffe6f0;
-  color: #ff0066;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-  font-weight: bold;
+    content: "✓";
+    width: 24px;
+    height: 24px;
+    background: #ffe6f0;
+    color: #ff0066;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    font-weight: bold;
 }
 
 .btn-buy {
-  background: #007bf3;
-  color: white;
-  border: none;
-  padding: 16px 32px;
-  border-radius: 12px;
-  font-size: 1.1rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  width: 100%;
+    background: #007bf3;
+    color: white;
+    border: none;
+    padding: 16px 32px;
+    border-radius: 12px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    width: 100%;
 }
 
 .btn-buy:hover {
-  background: #0066cc;
-  transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(0, 128, 255, 0.3);
+    background: #0066cc;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 128, 255, 0.3);
 }
 
 @media (max-width: 1024px) {
-  .carousel-container {
-    padding: 0 50px;
-  }
-
-  .card {
-    flex: 0 0 calc(50% - 15px);
-  }
+    .carousel-container {
+        padding: 0 50px;
+    }
+    .card {
+        flex: 0 0 calc(50% - 15px);
+    }
 }
 
 @media (max-width: 768px) {
-  h1 {
-    font-size: 1.8rem;
-    margin-bottom: 40px;
-  }
-
-  .carousel-container {
-    padding: 0 40px;
-  }
-
-  .card {
-    flex: 0 0 100%;
-    min-width: 280px;
-  }
-
-  .cards-wrapper {
-    gap: 20px;
-  }
+    h1 {
+        font-size: 1.8rem;
+        margin-bottom: 40px;
+    }
+    .carousel-container {
+        padding: 0 40px;
+    }
+    .card {
+        flex: 0 0 100%;
+        min-width: 280px;
+    }
+    .cards-wrapper {
+        gap: 20px;
+    }
 }
 
 @media (max-width: 480px) {
-  .carousel-container {
-    padding: 0 30px;
-  }
+    .carousel-container {
+        padding: 0 30px;
+    }
 }
 
+
 /* Proxies in world */
+
 .world-header {
-  text-align: center;
-  margin-bottom: 50px;
+    text-align: center;
+    margin-bottom: 50px;
 }
 
 .world-title {
-  font-size: 1.5rem;
-  font-weight: 700;
-  color: #1a1a1a;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #1a1a1a;
 }
 
 .world-description {
-  font-size: 16px;
-  color: #666;
-  line-height: 1.6;
-  max-width: 900px;
-  margin: 0 auto;
+    font-size: 16px;
+    color: #666;
+    line-height: 1.6;
+    max-width: 900px;
+    margin: 0 auto;
 }
 
 .countries-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 30px;
-  margin-bottom: 40px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 30px;
+    margin-bottom: 40px;
 }
 
 .country-card {
-  display: flex;
-  align-items: center;
-  gap: 15px;
-  padding: 20px;
-  background: #f8f9fa;
-  border-radius: 12px;
-  transition: all 0.3s ease;
-  position: relative;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 20px;
+    background: #f8f9fa;
+    border-radius: 12px;
+    transition: all 0.3s ease;
+    position: relative;
 }
 
 .country-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 8px 20px rgba(0, 123, 243, 0.15);
-  background: white;
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 123, 243, 0.15);
+    background: white;
 }
 
 .country-card.featured::before {
-  content: "⭐";
-  position: absolute;
-  top: -8px;
-  right: -8px;
-  font-size: 24px;
+    content: "⭐";
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    font-size: 24px;
 }
 
 .country-flag {
-  width: 48px;
-  height: 48px;
-  border-radius: 50%;
-  overflow: hidden;
-  flex-shrink: 0;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    overflow: hidden;
+    flex-shrink: 0;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
 .country-flag img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
 }
 
 .country-info {
-  flex: 1;
+    flex: 1;
 }
 
 .country-name {
-  font-size: 16px;
-  font-weight: 600;
-  color: #1a1a1a;
-  margin-bottom: 4px;
+    font-size: 16px;
+    font-weight: 600;
+    color: #1a1a1a;
+    margin-bottom: 4px;
 }
 
 .country-ips {
-  font-size: 14px;
-  color: #007bf3;
-  font-weight: 500;
+    font-size: 14px;
+    color: #007bf3;
+    font-weight: 500;
 }
 
 .view-all-btn {
-  display: block;
-  margin: 0 auto;
-  padding: 10px 30px;
-  background: #007bf3;
-  color: white;
-  border: none;
-  border-radius: 12px;
-  font-size: 16px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.3s ease;
+    display: block;
+    margin: 0 auto;
+    padding: 10px 30px;
+    background: #007bf3;
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
 }
 
 .view-all-btn:hover {
-  background: #0066cc;
-  transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(0, 123, 243, 0.3);
+    background: #0066cc;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 123, 243, 0.3);
 }
 
 @media (max-width: 768px) {
-
-  .world-description {
-    font-size: 14px;
-  }
-
-  .countries-grid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 16px;
-  }
-
-  .country-card {
-    padding: 16px;
-    gap: 12px;
-  }
-
-  .country-flag {
-    width: 40px;
-    height: 40px;
-  }
-
-  .country-name {
-    font-size: 14px;
-  }
-
-  .country-ips {
-    font-size: 13px;
-  }
+    .world-description {
+        font-size: 14px;
+    }
+    .countries-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 16px;
+    }
+    .country-card {
+        padding: 16px;
+        gap: 12px;
+    }
+    .country-flag {
+        width: 40px;
+        height: 40px;
+    }
+    .country-name {
+        font-size: 14px;
+    }
+    .country-ips {
+        font-size: 13px;
+    }
 }
 
 @media (max-width: 480px) {
-  .countries-grid {
-    grid-template-columns: 1fr;
-    gap: 12px;
-  }
-
-  .view-all-btn {
-    width: 100%;
-    padding: 14px 32px;
-    font-size: 15px;
-  }
+    .countries-grid {
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
+    .view-all-btn {
+        width: 100%;
+        padding: 14px 32px;
+        font-size: 15px;
+    }
 }
 
+
 /* Partners section */
+
 .partners-section {
-  max-width: 1400px;
-  margin: 0 auto;
+    max-width: 1400px;
+    margin: 0 auto;
 }
 
 .partners-title {
-  text-align: center;
-  font-size: 1.5rem;
-  font-weight: 700;
-  color: #1a1a1a;
-  margin-bottom: 60px;
+    text-align: center;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #1a1a1a;
+    margin-bottom: 60px;
 }
 
 .partners-title .highlight {
-  color: #007bf3;
+    color: #007bf3;
 }
 
 .partners-carousel {
-  overflow: hidden;
-  margin-bottom: 30px;
-  position: relative;
+    overflow: hidden;
+    margin-bottom: 30px;
+    position: relative;
 }
 
 .partners-row {
-  display: flex;
-  gap: 30px;
-  width: fit-content;
+    display: flex;
+    gap: 30px;
+    width: fit-content;
 }
+
 
 /* Row 1: Trượt từ trái sang phải */
+
 .partners-row-1 {
-  animation: slideRight 30s linear infinite;
+    animation: slideRight 30s linear infinite;
 }
 
+
 /* Row 2: Trượt từ phải sang trái */
+
 .partners-row-2 {
-  animation: slideLeft 30s linear infinite;
+    animation: slideLeft 30s linear infinite;
 }
 
 @keyframes slideRight {
-  0% {
-    transform: translateX(0);
-  }
-  100% {
-    transform: translateX(-50%);
-  }
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(-50%);
+    }
 }
 
 @keyframes slideLeft {
-  0% {
-    transform: translateX(-50%);
-  }
-  100% {
-    transform: translateX(0);
-  }
+    0% {
+        transform: translateX(-50%);
+    }
+    100% {
+        transform: translateX(0);
+    }
 }
 
+
 /* Khi hover vào row thì dừng animation của row đó */
+
 .partners-carousel:hover .partners-row-1,
 .partners-carousel:hover .partners-row-2 {
-  animation-play-state: paused;
+    animation-play-state: paused;
 }
 
 .partner-card {
-  background: white;
-  border-radius: 16px;
-  padding: 20px 50px;
-  display: flex;
-  align-items: center;
-  gap: 20px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
-  transition: all 0.3s ease;
-  white-space: nowrap;
-  min-width: 280px;
-  flex-shrink: 0;
-  cursor: pointer;
+    background: white;
+    border-radius: 16px;
+    padding: 20px 50px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
+    transition: all 0.3s ease;
+    white-space: nowrap;
+    min-width: 280px;
+    flex-shrink: 0;
+    cursor: pointer;
 }
 
 .partner-card:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 12px 30px rgba(0, 123, 243, 0.15);
+    transform: translateY(-8px);
+    box-shadow: 0 12px 30px rgba(0, 123, 243, 0.15);
 }
 
 .partner-logo {
-  width: 48px;
-  height: 48px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
 }
 
 .partner-logo img {
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
 }
 
 .partner-name {
-  font-size: 18px;
-  font-weight: 600;
-  color: #1a1a1a;
+    font-size: 18px;
+    font-weight: 600;
+    color: #1a1a1a;
 }
 
 .view-all-btn {
-  text-align: center;
-  width: 200px;
-  display: block;
-  margin: 40px auto 0;
-  padding: 14px 40px;
-  background: transparent;
-  color: #007bf3;
-  border: 2px solid #007bf3;
-  border-radius: 12px;
-  font-size: 16px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.3s ease;
+    text-align: center;
+    width: 200px;
+    display: block;
+    margin: 40px auto 0;
+    padding: 14px 40px;
+    background: transparent;
+    color: #007bf3;
+    border: 2px solid #007bf3;
+    border-radius: 12px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
 }
 
 .view-all-btn:hover {
-  background: #007bf3;
-  color: white;
-  transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(0, 123, 243, 0.3);
+    background: #007bf3;
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 123, 243, 0.3);
 }
 
+
 /* Responsive */
+
 @media (max-width: 768px) {
-  .partners-row {
-    gap: 20px;
-  }
-
-  .partner-card {
-    padding: 30px 40px;
-    min-width: 240px;
-  }
-
-  .partner-logo {
-    width: 40px;
-    height: 40px;
-  }
-
-  .partner-name {
-    font-size: 16px;
-  }
+    .partners-row {
+        gap: 20px;
+    }
+    .partner-card {
+        padding: 30px 40px;
+        min-width: 240px;
+    }
+    .partner-logo {
+        width: 40px;
+        height: 40px;
+    }
+    .partner-name {
+        font-size: 16px;
+    }
 }
 
 @media (max-width: 480px) {
-  .partner-card {
-    padding: 24px 32px;
-    min-width: 200px;
-    gap: 15px;
-  }
-
-  .partner-logo {
-    width: 36px;
-    height: 36px;
-  }
-
-  .partner-name {
-    font-size: 15px;
-  }
-
-  .view-all-btn {
-    width: 100%;
-    max-width: 300px;
-  }
+    .partner-card {
+        padding: 24px 32px;
+        min-width: 200px;
+        gap: 15px;
+    }
+    .partner-logo {
+        width: 36px;
+        height: 36px;
+    }
+    .partner-name {
+        font-size: 15px;
+    }
+    .view-all-btn {
+        width: 100%;
+        max-width: 300px;
+    }
 }
+
 
 /* ========================================
    RESPONSIVE CHO MÀN HÌNH 2K (2560px)
 ======================================== */
+
 @media (min-width: 2560px) {
-  /* Container chung */
-  .container {
-    max-width: 2200px;
-    margin: 0 auto;
-  }
-
-  /* Hero Section */
-  .hero-main {
-    max-width: 85%;
-  }
-
-  /* Proxy Table */
-  .proxy-table-header,
-  .proxy-row {
-    grid-template-columns: 3fr 1fr 1fr 1fr 1.5fr;
-    padding: 24px 32px;
-    gap: 24px;
-  }
-
-  .proxy-logo {
-    width: 80px;
-    height: 80px;
-    border-radius: 16px;
-  }
-
-  .proxy-details h3 {
-    font-size: 20px;
-  }
-
-  .proxy-details p {
-    font-size: 16px;
-  }
-
-  .proxy-select {
-    padding: 12px 40px 12px 20px;
-    font-size: 16px;
-  }
-
-  .proxy-badge {
-    padding: 8px 16px;
-    font-size: 15px;
-  }
-
-  .proxy-price-main {
-    font-size: 22px;
-  }
-
-  .proxy-price-sub {
-    font-size: 15px;
-  }
-
-  .proxy-btn-cart {
-    padding: 14px;
-    font-size: 18px;
-  }
-
-  .proxy-btn-buy {
-    padding: 14px 32px;
-    font-size: 16px;
-  }
-
-  .feature-card {
-    padding: 50px 40px;
-    border-radius: 20px;
-  }
-
-  .icon-container {
-    width: 100px;
-    height: 100px;
-    margin-bottom: 30px;
-  }
-
-  .feature-card h3 {
-    font-size: 1.8rem;
-    margin-bottom: 20px;
-  }
-
-  .feature-card p {
-    font-size: 1.1rem;
-    line-height: 1.8;
-  }
-
-  .commit-subtitle {
-    font-size: 18px;
-    margin-bottom: 30px;
-  }
-
-  .commit-feature-icon {
-    width: 90px;
-    height: 90px;
-    border-radius: 24px;
-    margin-right: 30px;
-  }
-
-  .commit-feature-icon svg {
-    width: 45px;
-    height: 45px;
-  }
-
-  .commit-feature-content h3 {
-    font-size: 26px;
-    margin-bottom: 16px;
-  }
-
-  .commit-feature-content p {
-    font-size: 17px;
-    line-height: 1.8;
-  }
-
-  .carousel-container {
-    padding: 0 80px;
-  }
-
-  .card {
-    min-width: 380px;
-    max-width: 380px;
-    border-radius: 24px;
-  }
-
-  .card-header {
-    padding: 20px;
-  }
-
-  .card-logo {
-    width: 60px;
-    height: 60px;
-  }
-
-  .card-title {
-    font-size: 1.8rem;
-  }
-
-  .card-description {
-    font-size: 1rem;
-  }
-
-  .card-price {
-    padding: 25px;
-    font-size: 1.6rem;
-  }
-
-  .card-body {
-    padding: 40px;
-  }
-
-  .features-plans li {
-    padding: 15px 0;
-    font-size: 1.05rem;
-  }
-
-  .btn-buy {
-    padding: 18px 40px;
-    font-size: 1.2rem;
-  }
-
-  .world-description {
-    font-size: 18px;
-    max-width: 1200px;
-  }
-
-  .countries-grid {
-    grid-template-columns: repeat(4, 1fr);
-    gap: 40px;
-    margin-bottom: 50px;
-  }
-
-  .country-card {
-    padding: 25px;
-    gap: 20px;
-    border-radius: 16px;
-  }
-
-  .country-flag {
-    width: 56px;
-    height: 56px;
-  }
-
-  .country-name {
-    font-size: 18px;
-  }
-
-  .country-ips {
-    font-size: 16px;
-  }
-
-  .partners-row {
-    gap: 40px;
-  }
-
-  .partner-card {
-    padding: 25px 60px;
-    min-width: 320px;
-    border-radius: 20px;
-  }
-
-  .partner-logo {
-    width: 56px;
-    height: 56px;
-  }
-
-  .partner-name {
-    font-size: 20px;
-  }
-
-  .view-all-btn {
-    padding: 16px 50px;
-    font-size: 18px;
-  }
-
-  /* Navigation Buttons */
-  .nav-button {
-    width: 50px;
-    height: 50px;
-    font-size: 28px;
-  }
-
-  .nav-button.prev {
-    left: 10px;
-  }
-
-  .nav-button.next {
-    right: 10px;
-  }
-  .hero-image {
-    /* text-align: center; */
-    /* margin: auto; */
-    display: flex;
-    justify-content: center;
-  }
+    /* Container chung */
+    .container {
+        max-width: 2200px;
+        margin: 0 auto;
+    }
+    /* Hero Section */
+    .hero-main {
+        max-width: 85%;
+    }
+    /* Proxy Table */
+    .proxy-table-header,
+    .proxy-row {
+        grid-template-columns: 3fr 1fr 1fr 1fr 1.5fr;
+        padding: 24px 32px;
+        gap: 24px;
+    }
+    .proxy-logo {
+        width: 80px;
+        height: 80px;
+        border-radius: 16px;
+    }
+    .proxy-details h3 {
+        font-size: 20px;
+    }
+    .proxy-details p {
+        font-size: 16px;
+    }
+    .proxy-select {
+        padding: 12px 40px 12px 20px;
+        font-size: 16px;
+    }
+    .proxy-badge {
+        padding: 8px 16px;
+        font-size: 15px;
+    }
+    .proxy-price-main {
+        font-size: 22px;
+    }
+    .proxy-price-sub {
+        font-size: 15px;
+    }
+    .proxy-btn-cart {
+        padding: 14px;
+        font-size: 18px;
+    }
+    .proxy-btn-buy {
+        padding: 14px 32px;
+        font-size: 16px;
+    }
+    .feature-card {
+        padding: 50px 40px;
+        border-radius: 20px;
+    }
+    .icon-container {
+        width: 100px;
+        height: 100px;
+        margin-bottom: 30px;
+    }
+    .feature-card h3 {
+        font-size: 1.8rem;
+        margin-bottom: 20px;
+    }
+    .feature-card p {
+        font-size: 1.1rem;
+        line-height: 1.8;
+    }
+    .commit-subtitle {
+        font-size: 18px;
+        margin-bottom: 30px;
+    }
+    .commit-feature-icon {
+        width: 90px;
+        height: 90px;
+        border-radius: 24px;
+        margin-right: 30px;
+    }
+    .commit-feature-icon svg {
+        width: 45px;
+        height: 45px;
+    }
+    .commit-feature-content h3 {
+        font-size: 26px;
+        margin-bottom: 16px;
+    }
+    .commit-feature-content p {
+        font-size: 17px;
+        line-height: 1.8;
+    }
+    .carousel-container {
+        padding: 0 80px;
+    }
+    .card {
+        min-width: 380px;
+        max-width: 380px;
+        border-radius: 24px;
+    }
+    .card-header {
+        padding: 20px;
+    }
+    .card-logo {
+        width: 60px;
+        height: 60px;
+    }
+    .card-title {
+        font-size: 1.8rem;
+    }
+    .card-description {
+        font-size: 1rem;
+    }
+    .card-price {
+        padding: 25px;
+        font-size: 1.6rem;
+    }
+    .card-body {
+        padding: 40px;
+    }
+    .features-plans li {
+        padding: 15px 0;
+        font-size: 1.05rem;
+    }
+    .btn-buy {
+        padding: 18px 40px;
+        font-size: 1.2rem;
+    }
+    .world-description {
+        font-size: 18px;
+        max-width: 1200px;
+    }
+    .countries-grid {
+        grid-template-columns: repeat(4, 1fr);
+        gap: 40px;
+        margin-bottom: 50px;
+    }
+    .country-card {
+        padding: 25px;
+        gap: 20px;
+        border-radius: 16px;
+    }
+    .country-flag {
+        width: 56px;
+        height: 56px;
+    }
+    .country-name {
+        font-size: 18px;
+    }
+    .country-ips {
+        font-size: 16px;
+    }
+    .partners-row {
+        gap: 40px;
+    }
+    .partner-card {
+        padding: 25px 60px;
+        min-width: 320px;
+        border-radius: 20px;
+    }
+    .partner-logo {
+        width: 56px;
+        height: 56px;
+    }
+    .partner-name {
+        font-size: 20px;
+    }
+    .view-all-btn {
+        padding: 16px 50px;
+        font-size: 18px;
+    }
+    /* Navigation Buttons */
+    .nav-button {
+        width: 50px;
+        height: 50px;
+        font-size: 28px;
+    }
+    .nav-button.prev {
+        left: 10px;
+    }
+    .nav-button.next {
+        right: 10px;
+    }
+    .hero-image {
+        /* text-align: center; */
+        /* margin: auto; */
+        display: flex;
+        justify-content: center;
+    }
 }
+
 
 /* ========================================
    RESPONSIVE CHO MÀN HÌNH 4K (3840px)
 ======================================== */
+
 @media (min-width: 3840px) {
-  .hero-image {
-    /* text-align: center; */
-    /* margin: auto; */
-    display: flex;
-    justify-content: center;
-  }
-
-  /* Container chung */
-  .container {
-    max-width: 100%;
-    margin: 0 auto;
-  }
-
-  /* Hero Section */
-  .hero-main {
-    max-width: 90%;
-  }
-
-  /* Proxy Table */
-  .proxy-table-header,
-  .proxy-row {
-    grid-template-columns: 3.5fr 1fr 1fr 1fr 1.5fr;
-    padding: 36px 48px;
-    gap: 32px;
-  }
-
-  .proxy-logo {
-    width: 120px;
-    height: 120px;
-    border-radius: 20px;
-    padding: 12px;
-  }
-
-  .proxy-details h3 {
-    font-size: 28px;
-    margin-bottom: 8px;
-  }
-
-  .proxy-details p {
-    font-size: 20px;
-    line-height: 1.6;
-  }
-
-  .proxy-select {
-    padding: 16px 48px 16px 24px;
-    font-size: 20px;
-    border-radius: 12px;
-  }
-
-  .proxy-badge {
-    padding: 10px 20px;
-    font-size: 18px;
-  }
-
-  .proxy-price-main {
-    font-size: 32px;
-    margin-bottom: 8px;
-  }
-
-  .proxy-price-sub {
-    font-size: 18px;
-    gap: 6px;
-  }
-
-  .proxy-price-sub i {
-    font-size: 16px;
-  }
-
-  .proxy-btn-cart {
-    padding: 18px;
-    font-size: 24px;
-  }
-
-  .proxy-btn-buy {
-    padding: 18px 40px;
-    font-size: 20px;
-  }
-
-  .proxy-search-input {
-    padding: 16px 20px 16px 56px;
-    font-size: 18px;
-    border-radius: 12px;
-  }
-
-  .proxy-search-icon {
-    left: 48px;
-    font-size: 18px;
-  }
-
-  /* List Proxy Buttons */
-  .list-proxy button {
-    font-size: 1.4rem;
-    padding: 8px 20px;
-  }
-
-  .list-proxy button img {
-    width: 40px;
-    height: 40px;
-  }
-
-  .feature-card {
-    padding: 70px 60px;
-    border-radius: 28px;
-  }
-
-  .icon-container {
-    width: 140px;
-    height: 140px;
-    margin-bottom: 40px;
-  }
-
-  .feature-card h3 {
-    font-size: 2.5rem;
-    margin-bottom: 25px;
-  }
-
-  .feature-card p {
-    font-size: 1.5rem;
-    line-height: 2;
-  }
-
-  /* Commit Section */
-  .commit-section {
-    gap: 40px;
-  }
-
-  .commit-subtitle {
-    font-size: 24px;
-    margin-bottom: 40px;
-    line-height: 1.8;
-  }
-
-  .commit-feature {
-    margin-bottom: 30px;
-  }
-
-  .commit-feature-icon {
-    width: 120px;
-    height: 120px;
-    border-radius: 32px;
-    margin-right: 40px;
-  }
-
-  .commit-feature-icon svg {
-    width: 60px;
-    height: 60px;
-  }
-
-  .commit-feature-content h3 {
-    font-size: 36px;
-    margin-bottom: 20px;
-  }
-
-  .commit-feature-content p {
-    font-size: 22px;
-    line-height: 2;
-  }
-
-  .carousel-container {
-    padding: 0 120px;
-  }
-
-  .cards-wrapper {
-    gap: 50px;
-  }
-
-  .card {
-    min-width: 520px;
-    max-width: 520px;
-    border-radius: 32px;
-  }
-
-  .card-header {
-    padding: 30px;
-    border-radius: 0 0 50% 50% / 0 0 40px 40px;
-  }
-
-  .card-logo {
-    width: 90px;
-    height: 90px;
-  }
-
-  .card-title {
-    font-size: 2.5rem;
-    margin-bottom: 15px;
-  }
-
-  .card-description {
-    font-size: 1.4rem;
-    line-height: 1.7;
-  }
-
-  .card-price {
-    padding: 35px;
-    font-size: 2.2rem;
-  }
-
-  .card-body {
-    padding: 50px;
-  }
-
-  .features-plans li {
-    padding: 20px 0;
-    gap: 16px;
-    font-size: 1.4rem;
-  }
-
-  .features-plans li::before {
-    width: 32px;
-    height: 32px;
-    font-size: 18px;
-  }
-
-  .btn-buy {
-    padding: 24px 50px;
-    border-radius: 16px;
-    font-size: 1.6rem;
-  }
-
-  /* Countries Grid */
-  .world-header {
-    margin-bottom: 70px;
-  }
-
-  .world-description {
-    font-size: 24px;
-    max-width: 1600px;
-    line-height: 1.8;
-  }
-
-  .countries-grid {
-    grid-template-columns: repeat(4, 1fr);
-    gap: 50px;
-    margin-bottom: 60px;
-  }
-
-  .country-card {
-    padding: 32px;
-    gap: 24px;
-    border-radius: 20px;
-  }
-
-  .country-flag {
-    width: 72px;
-    height: 72px;
-  }
-
-  .country-name {
-    font-size: 24px;
-    margin-bottom: 6px;
-  }
-
-  .country-ips {
-    font-size: 20px;
-  }
-  
-  .partners-carousel {
-    margin-bottom: 50px;
-  }
-
-  .partners-row {
-    gap: 60px;
-  }
-
-  .partner-card {
-    padding: 32px 80px;
-    min-width: 450px;
-    border-radius: 24px;
-    gap: 28px;
-  }
-
-  .partner-logo {
-    width: 72px;
-    height: 72px;
-  }
-
-  .partner-name {
-    font-size: 28px;
-  }
-
-  .view-all-btn {
-    width: 280px;
-    padding: 20px 60px;
-    border-radius: 16px;
-    font-size: 22px;
-    margin-top: 60px;
-  }
-
-  /* Navigation Buttons */
-  .nav-button {
-    width: 70px;
-    height: 70px;
-    font-size: 36px;
-  }
-
-  .nav-button.prev {
-    left: 20px;
-  }
-
-  .nav-button.next {
-    right: 20px;
-  }
+    .hero-image {
+        /* text-align: center; */
+        /* margin: auto; */
+        display: flex;
+        justify-content: center;
+    }
+    /* Container chung */
+    .container {
+        max-width: 100%;
+        margin: 0 auto;
+    }
+    /* Hero Section */
+    .hero-main {
+        max-width: 90%;
+    }
+    /* Proxy Table */
+    .proxy-table-header,
+    .proxy-row {
+        grid-template-columns: 3.5fr 1fr 1fr 1fr 1.5fr;
+        padding: 36px 48px;
+        gap: 32px;
+    }
+    .proxy-logo {
+        width: 120px;
+        height: 120px;
+        border-radius: 20px;
+        padding: 12px;
+    }
+    .proxy-details h3 {
+        font-size: 28px;
+        margin-bottom: 8px;
+    }
+    .proxy-details p {
+        font-size: 20px;
+        line-height: 1.6;
+    }
+    .proxy-select {
+        padding: 16px 48px 16px 24px;
+        font-size: 20px;
+        border-radius: 12px;
+    }
+    .proxy-badge {
+        padding: 10px 20px;
+        font-size: 18px;
+    }
+    .proxy-price-main {
+        font-size: 32px;
+        margin-bottom: 8px;
+    }
+    .proxy-price-sub {
+        font-size: 18px;
+        gap: 6px;
+    }
+    .proxy-price-sub i {
+        font-size: 16px;
+    }
+    .proxy-btn-cart {
+        padding: 18px;
+        font-size: 24px;
+    }
+    .proxy-btn-buy {
+        padding: 18px 40px;
+        font-size: 20px;
+    }
+    .proxy-search-input {
+        padding: 16px 20px 16px 56px;
+        font-size: 18px;
+        border-radius: 12px;
+    }
+    .proxy-search-icon {
+        left: 48px;
+        font-size: 18px;
+    }
+    /* List Proxy Buttons */
+    .list-proxy button {
+        font-size: 1.4rem;
+        padding: 8px 20px;
+    }
+    .list-proxy button img {
+        width: 40px;
+        height: 40px;
+    }
+    .feature-card {
+        padding: 70px 60px;
+        border-radius: 28px;
+    }
+    .icon-container {
+        width: 140px;
+        height: 140px;
+        margin-bottom: 40px;
+    }
+    .feature-card h3 {
+        font-size: 2.5rem;
+        margin-bottom: 25px;
+    }
+    .feature-card p {
+        font-size: 1.5rem;
+        line-height: 2;
+    }
+    /* Commit Section */
+    .commit-section {
+        gap: 40px;
+    }
+    .commit-subtitle {
+        font-size: 24px;
+        margin-bottom: 40px;
+        line-height: 1.8;
+    }
+    .commit-feature {
+        margin-bottom: 30px;
+    }
+    .commit-feature-icon {
+        width: 120px;
+        height: 120px;
+        border-radius: 32px;
+        margin-right: 40px;
+    }
+    .commit-feature-icon svg {
+        width: 60px;
+        height: 60px;
+    }
+    .commit-feature-content h3 {
+        font-size: 36px;
+        margin-bottom: 20px;
+    }
+    .commit-feature-content p {
+        font-size: 22px;
+        line-height: 2;
+    }
+    .carousel-container {
+        padding: 0 120px;
+    }
+    .cards-wrapper {
+        gap: 50px;
+    }
+    .card {
+        min-width: 520px;
+        max-width: 520px;
+        border-radius: 32px;
+    }
+    .card-header {
+        padding: 30px;
+        border-radius: 0 0 50% 50% / 0 0 40px 40px;
+    }
+    .card-logo {
+        width: 90px;
+        height: 90px;
+    }
+    .card-title {
+        font-size: 2.5rem;
+        margin-bottom: 15px;
+    }
+    .card-description {
+        font-size: 1.4rem;
+        line-height: 1.7;
+    }
+    .card-price {
+        padding: 35px;
+        font-size: 2.2rem;
+    }
+    .card-body {
+        padding: 50px;
+    }
+    .features-plans li {
+        padding: 20px 0;
+        gap: 16px;
+        font-size: 1.4rem;
+    }
+    .features-plans li::before {
+        width: 32px;
+        height: 32px;
+        font-size: 18px;
+    }
+    .btn-buy {
+        padding: 24px 50px;
+        border-radius: 16px;
+        font-size: 1.6rem;
+    }
+    /* Countries Grid */
+    .world-header {
+        margin-bottom: 70px;
+    }
+    .world-description {
+        font-size: 24px;
+        max-width: 1600px;
+        line-height: 1.8;
+    }
+    .countries-grid {
+        grid-template-columns: repeat(4, 1fr);
+        gap: 50px;
+        margin-bottom: 60px;
+    }
+    .country-card {
+        padding: 32px;
+        gap: 24px;
+        border-radius: 20px;
+    }
+    .country-flag {
+        width: 72px;
+        height: 72px;
+    }
+    .country-name {
+        font-size: 24px;
+        margin-bottom: 6px;
+    }
+    .country-ips {
+        font-size: 20px;
+    }
+    .partners-carousel {
+        margin-bottom: 50px;
+    }
+    .partners-row {
+        gap: 60px;
+    }
+    .partner-card {
+        padding: 32px 80px;
+        min-width: 450px;
+        border-radius: 24px;
+        gap: 28px;
+    }
+    .partner-logo {
+        width: 72px;
+        height: 72px;
+    }
+    .partner-name {
+        font-size: 28px;
+    }
+    .view-all-btn {
+        width: 280px;
+        padding: 20px 60px;
+        border-radius: 16px;
+        font-size: 22px;
+        margin-top: 60px;
+    }
+    /* Navigation Buttons */
+    .nav-button {
+        width: 70px;
+        height: 70px;
+        font-size: 36px;
+    }
+    .nav-button.prev {
+        left: 20px;
+    }
+    .nav-button.next {
+        right: 20px;
+    }
 }
 
 .hero-image {
@@ -1708,4 +1590,4 @@
     /* margin: auto; */
     display: flex;
     justify-content: center;
-  }
+}

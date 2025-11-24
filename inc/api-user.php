@@ -308,3 +308,83 @@ add_action('wp_login', function($user_login, $user) {
         update_user_meta($user->ID, 'wallet_balance', 0);
     }
 }, 10, 2);
+
+//   endpoint logout (clear cookie)
+
+/**
+ * Thêm code này vào functions.php hoặc file plugin của bạn
+ * API Endpoint để xử lý logout và xóa cookie từ server
+ */
+
+// Đăng ký REST API endpoint cho logout
+add_action('rest_api_init', function () {
+    register_rest_route('my-api/v1', '/logout', array(
+        'methods' => 'POST',
+        'callback' => 'handle_api_logout',
+        'permission_callback' => '__return_true' // Cho phép tất cả user gọi
+    ));
+});
+
+/**
+ * Xử lý logout - Xóa tất cả cookie và session
+ */
+function handle_api_logout(WP_REST_Request $request) {
+    // Set timezone Việt Nam
+    date_default_timezone_set('Asia/Ho_Chi_Minh');
+    
+    // Xóa cookie jwt_token (httpOnly)
+    setcookie(
+        "jwt_token",
+        "",
+        time() - 3600, // Thời gian quá khứ để expire
+        "/",
+        "",
+        false,
+        true
+    );
+    
+    // Xóa cookie pending_jwt_token
+    setcookie(
+        "pending_jwt_token",
+        "",
+        time() - 3600,
+        "/",
+        "",
+        false,
+        false
+    );
+    
+    // Logout khỏi WordPress
+    wp_logout();
+    
+    // Xóa tất cả WordPress auth cookies
+    wp_clear_auth_cookie();
+    
+    return new WP_REST_Response(array(
+        'success' => true,
+        'message' => 'Đăng xuất thành công'
+    ), 200);
+}
+
+// =============================================== endpoint logout =========================================================
+
+// Thêm vào file functions.php hoặc một file plugin/class quản lý API của bạn
+
+function register_logout_endpoint() {
+    register_rest_route('my-api/v1', '/logout', array(
+        'methods' => 'POST',
+        'callback' => 'handle_logout_cookie_clear',
+        'permission_callback' => '__return_true', // Có thể để true vì nó chỉ xóa cookie của người dùng
+    ));
+}
+add_action('rest_api_init', 'register_logout_endpoint');
+
+function handle_logout_cookie_clear($request) {
+    // Xóa cookie JWT bằng cách đặt thời gian hết hạn trong quá khứ
+    // Đảm bảo các tham số (tên, path, domain) khớp với cách bạn đã set ban đầu
+    setcookie('jwt_token', '', time() - 3600, COOKIEPATH, COOKIE_DOMAIN);
+    setcookie('jwt_token', '', time() - 3600, '/', $_SERVER['HTTP_HOST'], is_ssl(), true); // Xóa trên mọi path và với HttpOnly
+
+    // Thiết lập header để thông báo đăng xuất thành công
+    return new WP_REST_Response(array('success' => true, 'message' => 'Logged out successfully, cookie cleared.'), 200);
+}

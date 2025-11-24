@@ -1,5 +1,7 @@
 const API_URL = wpAccountData.restUrl + 'my-api/v1/user/profile/';
 
+
+
 function initProfilePage() {
   const token = localStorage.getItem("jwt_token");
   if (!token) {
@@ -28,7 +30,7 @@ function initProfilePage() {
   let currentCountryCode = "+84";
   let isEmailEditing = false;
   
-  // ========== THÊM BIẾN LƯU EMAIL GỐC ==========
+  // ========== save email ==========
   let originalEmail = "";
 
   // Country data
@@ -99,12 +101,19 @@ function initProfilePage() {
     }
   }
 
+  // ========================================== add after ===========================================================
+
+  
+  // ========================================== add after ===========================================================
+
+
+
   // === RENDER USER PROFILE ===
   function renderUserProfile(data) {
     fullnameInput.value = data.display_name || "";
     emailInput.value = data.email || "";
     
-    // ========== LƯU EMAIL GỐC ==========
+    // ========== save email current ==========
     originalEmail = data.email || "";
 
     // Parse phone number
@@ -112,8 +121,6 @@ function initProfilePage() {
       const phoneStr = data.phone.toString().trim();
       let detectedCode = "+84";
       let phoneNumber = phoneStr;
-
-      console.log("📞 [Profile] Raw phone:", phoneStr);
 
       for (const code of Object.keys(COUNTRY_DATA)) {
         const cleanCode = code.replace('+', '');
@@ -130,9 +137,6 @@ function initProfilePage() {
           break;
         }
       }
-
-      console.log("[Profile] Parsed:", { code: detectedCode, number: phoneNumber });
-
       currentCountryCode = detectedCode;
       updateCountrySelect(detectedCode);
       phoneInput.value = phoneNumber;
@@ -145,7 +149,7 @@ function initProfilePage() {
     }
   }
 
-  // ========== LƯU HỒ SƠ (FIXED) ==========
+  // ========== save profile (FIXED) ==========
   saveBtn.addEventListener("click", async () => {
     if (isEmailEditing) {
       alert("Vui lòng xác thực email trước khi lưu!");
@@ -162,13 +166,13 @@ function initProfilePage() {
       return;
     }
 
-    // ========== LOGIC MỚI: CHỈ GỬI EMAIL NÉU THAY ĐỔI ==========
+    // ========== save email if change ==========
     const payload = {
       display_name: fullname,
       phone: fullPhone,
     };
 
-    // Chỉ thêm email vào payload nếu nó khác với email gốc
+    // a
     if (email !== originalEmail) {
       if (!email) {
         alert("Email không được để trống!");
@@ -321,3 +325,4 @@ window.initProfilePage = initProfilePage;
 if (document.getElementById("fullname")) {
   initProfilePage();
 }
+
