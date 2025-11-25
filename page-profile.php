@@ -120,7 +120,8 @@
                     <input type="text" class="otp-input" maxlength="1" />
                     <input type="text" class="otp-input" maxlength="1" />
                 </div>
-                <p class="resend-text">Không nhận được mã? <a href="#" id="resend-otp">Gửi lại</a></p>
+                <!-- <p class="resend-text">Không nhận được mã? <a href="#" id="resend-otp">Gửi lại</a></p> -->
+                <p class="resend-text" id="resend-text">Không nhận được mã? <a href="#" id="resend-otp">Gửi lại</a></p>
             </div>
             <div class="modal-footer">
                 <button class="btn-cancel" id="cancel-otp">Hủy</button>

@@ -52,3 +52,31 @@
         <button class="btn-save" onclick="changePassword()">Lưu</button>
     </div>
 </div>
+
+<div class="modal" id="change-password-otp-modal">
+    <div class="modal-overlay modal-overlay-change-password"></div>
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3>Xác thực đổi mật khẩu</h3>
+            <button class="modal-close" id="close-modal-change-password">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="modal-body">
+            <p class="modal-text">Mã OTP đã được gửi đến email của bạn để xác thực danh tính</p>
+            <div class="otp-input-group">
+                <input type="text" class="otp-input otp-input-change-password" maxlength="1" />
+                <input type="text" class="otp-input otp-input-change-password" maxlength="1" />
+                <input type="text" class="otp-input otp-input-change-password" maxlength="1" />
+                <input type="text" class="otp-input otp-input-change-password" maxlength="1" />
+                <input type="text" class="otp-input otp-input-change-password" maxlength="1" />
+                <input type="text" class="otp-input otp-input-change-password" maxlength="1" />
+            </div>
+            <p class="resend-text resend-text-change-password">Không nhận được mã? <a href="#" id="resend-otp-change-password">Gửi lại</a></p>
+        </div>
+        <div class="modal-footer">
+            <button class="btn-cancel" id="cancel-otp-change-password">Hủy</button>
+            <button class="btn-verify" id="verify-otp-change-password">Xác nhận</button>
+        </div>
+    </div>
+</div>

@@ -1,234 +1,157 @@
-<?php get_header(); ?>
+<?php
+function send_email_otp($request) {
+    $user_id = get_current_user_id();
+    $email = sanitize_email($request->get_param('email'));
+    $purpose = sanitize_text_field($request->get_param('purpose')) ?: 'verify_email';
 
-<body>
-    <div class="login-content">
-        <div class="login-container">
-            <div class="image-section">
-                <img src="<?php echo esc_url('https://tradeproxy.vn/images/background/bg_login.webp'); ?>"
-                    alt="Login illustration">
-            </div>
+    error_log("========== SEND OTP START ==========");
+    error_log("User ID: " . $user_id);
+    error_log("Email: " . $email);
 
-            <div class="form-section">
-                <div class="form-box">
-                    <h1 class="title">Đăng nhập</h1>
-                    <p class="welcome-text">Chào mừng bạn đã quay trở lại!</p>
+    if (!is_email($email)) {
+        return new WP_Error('invalid_email', 'Email không hợp lệ', array('status' => 400));
+    }
 
-                    <?php
-                    // ========== GOOGLE LOGIN HANDLER ==========
-                    if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['credential'])) {
-                        $id_token = sanitize_text_field($_POST['credential']);
+    // Generate OTP
+    $otp = generate_otp(6);
+    $current_time = time();
+    $expires_at = $current_time + 300; // 5 phút
 
-                        // Verify token với Google
-                        $response = wp_remote_get("https://oauth2.googleapis.com/tokeninfo?id_token={$id_token}");
-                        $body = wp_remote_retrieve_body($response);
-                        $user_data = json_decode($body, true);
+    error_log("Current time: " . $current_time . " (" . date('Y-m-d H:i:s', $current_time) . ")");
+    error_log("Expires at: " . $expires_at . " (" . date('Y-m-d H:i:s', $expires_at) . ")");
+    error_log("Generated OTP: " . $otp);
 
-                        if (isset($user_data['email'])) {
-                            $email = $user_data['email'];
+    // Lưu vào Transients (tự động hết hạn sau 5 phút)
+    $transient_key = 'otp_email_' . $user_id;
+    $otp_data = array(
+        'otp' => $otp,
+        'email' => $email,
+        'expires_at' => $expires_at,
+        'attempts' => 0,
+        'created_at' => $current_time
+    );
 
-                            // Check user exists
-                            $user = get_user_by('email', $email);
-                            if (!$user) {
-                                // Create new user
-                                $userdata = [
-                                    'user_login' => $email,
-                                    'user_email' => $email,
-                                    'first_name' => $user_data['given_name'] ?? '',
-                                    'last_name' => $user_data['family_name'] ?? '',
-                                    'role' => 'subscriber',
-                                    'user_pass' => wp_generate_password()
-                                ];
-                                $user_id = wp_insert_user($userdata);
-                                $user = get_user_by('id', $user_id);
-                            }
+    $saved = set_transient($transient_key, $otp_data, 300); // 300 giây = 5 phút
 
-                            // Login user
-                            wp_set_current_user($user->ID);
-                            wp_set_auth_cookie($user->ID);
-                            do_action('wp_login', $user->user_login, $user);
+    error_log("Save to transient: " . ($saved ? 'SUCCESS' : 'FAILED'));
+    error_log("Transient key: " . $transient_key);
 
-                            // Generate JWT token
-                            $token = generate_jwt_token($user->ID);
+    // Verify ngay sau khi lưu
+    $verify_data = get_transient($transient_key);
+    error_log("Verify read data: " . print_r($verify_data, true));
 
-                            // Save token to cookie
-                            setcookie(
-                                "jwt_token",
-                                $token,
-                                time() + (7 * 24 * 60 * 60),
-                                "/",
-                                "",
-                                false,
-                                true
-                            );
+    if (!$verify_data) {
+        error_log("ERROR: Cannot save transient!");
+        return new WP_Error('save_failed', 'Không thể lưu OTP. Vui lòng thử lại.', array('status' => 500));
+    }
 
-                            echo "<script>
-                                localStorage.setItem('jwt_token', '{$token}');
-                                window.location.href = '" . home_url('/account') . "';
-                            </script>";
-                            exit;
-                        } else {
-                            echo '<div class="login-message error" style="padding-bottom:15px;">Google login thất bại.</div>';
-                        }
-                    }
+    // Gửi email
+    $subject = '[TradeProxy] Mã xác thực OTP';
+    $message = "
+        <h2>Xác thực Email</h2>
+        <p>Mã OTP của bạn là: <strong style='font-size: 24px; color: #4CAF50;'>$otp</strong></p>
+        <p>Mã này có hiệu lực trong <strong>5 phút</strong>.</p>
+        <p>Nếu bạn không thực hiện yêu cầu này, vui lòng bỏ qua email.</p>
+    ";
 
-                    // ========== EMAIL + PASSWORD LOGIN HANDLER ==========
-                    if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login_email'])) {
-                        $email = sanitize_email($_POST['login_email']);
-                        $password = $_POST['login_password'];
-                        $errors = [];
+    $headers = array('Content-Type: text/html; charset=UTF-8');
+    $sent = wp_mail($email, $subject, $message, $headers);
 
-                        if (empty($email) || empty($password)) {
-                            $errors[] = 'Vui lòng nhập đầy đủ thông tin.';
-                        } else {
-                            $user_obj = get_user_by('email', $email);
-                            if ($user_obj) {
-                                $user = wp_authenticate($user_obj->user_login, $password);
-                            } else {
-                                $user = new WP_Error('invalid_user', 'Email không tồn tại.');
-                            }
+    error_log("Email sent: " . ($sent ? 'SUCCESS' : 'FAILED'));
+    error_log("========== SEND OTP END ==========");
 
-                            if (is_wp_error($user)) {
-                                $errors[] = 'Email hoặc mật khẩu không đúng.';
-                            } else {
-                                wp_set_current_user($user->ID);
-                                wp_set_auth_cookie($user->ID);
-                                do_action('wp_login', $user->user_login, $user);
+    if (!$sent) {
+        return new WP_Error('email_failed', 'Không thể gửi email', array('status' => 500));
+    }
 
-                                $token = generate_jwt_token($user->ID);
+    return array(
+        'success' => true,
+        'message' => 'Mã OTP đã được gửi đến ' . $email,
+        'expires_in' => 300,
+        'debug_otp' => $otp,
+        'debug_expires' => $expires_at,
+        'debug_current' => $current_time
+    );
+}
 
-                                setcookie(
-                                    "jwt_token",
-                                    $token,
-                                    time() + (7 * 24 * 60 * 60),
-                                    "/",
-                                    "",
-                                    false,
-                                    true
-                                );
+function verify_email_otp($request) {
+    $user_id = get_current_user_id();
+    $otp_input = sanitize_text_field($request->get_param('otp'));
+    $email = sanitize_email($request->get_param('email'));
 
-                                echo "<script>
-                                    localStorage.setItem('jwt_token', '{$token}');
-                                    window.location.href = '" . home_url('/account') . "';
-                                </script>";
-                                exit;
-                            }
-                        }
+    error_log("========== VERIFY OTP START ==========");
+    error_log("User ID: " . $user_id);
+    error_log("Input OTP: " . $otp_input);
+    error_log("Input Email: " . $email);
 
-                        if (!empty($errors)) {
-                            foreach ($errors as $error) {
-                                echo '<div class="login-message error" style="padding-bottom:15px;">' . $error . '</div>';
-                            }
-                        }
-                    }
-                    ?>
+    // Lấy từ Transients
+    $transient_key = 'otp_email_' . $user_id;
+    $otp_data = get_transient($transient_key);
 
-                    <!-- ========== EMAIL LOGIN FORM ========== -->
-                    <form id="loginForm" method="post">
-                        <div class="input-group">
-                            <label for="login_email">Email *</label>
-                            <input type="email" name="login_email" id="login_email" placeholder="Nhập email" required>
-                        </div>
+    error_log("Transient key: " . $transient_key);
+    error_log("Retrieved data: " . print_r($otp_data, true));
 
-                        <div class="input-group">
-                            <label for="login_password">Mật khẩu *</label>
-                            <input type="password" name="login_password" id="login_password" placeholder="Mật khẩu"
-                                required>
-                        </div>
+    // Kiểm tra có data không
+    if (!$otp_data || !is_array($otp_data)) {
+        error_log("ERROR: No OTP data found!");
+        return new WP_Error('no_otp', 'Không tìm thấy OTP. Vui lòng gửi lại mã mới.', array('status' => 400));
+    }
 
-                        <div class="forgot-password">
-                            <a href="<?php echo  esc_url(home_url('/forgetpassword')) ?>">Quên mật khẩu?</a>
-                        </div>
+    $stored_otp = $otp_data['otp'];
+    $stored_email = $otp_data['email'];
+    $expires_at = (int) $otp_data['expires_at'];
+    $attempts = (int) $otp_data['attempts'];
 
-                        <button type="submit" class="btn btn-primary">Đăng nhập</button>
-                    </form>
+    $current_time = time();
+    $time_remaining = $expires_at - $current_time;
 
-                    <!-- Divider -->
-                    <div class="divider"><span>Hoặc</span></div>
+    error_log("Stored OTP: " . $stored_otp);
+    error_log("Stored Email: " . $stored_email);
+    error_log("Expires at: " . $expires_at . " (" . date('Y-m-d H:i:s', $expires_at) . ")");
+    error_log("Current time: " . $current_time . " (" . date('Y-m-d H:i:s', $current_time) . ")");
+    error_log("Time remaining: " . $time_remaining . " seconds");
+    error_log("Attempts: " . $attempts);
 
-                    <!-- ========== GOOGLE SIGN-IN ========== -->
-                    <form id="googleLoginForm" method="post" style="margin-top: 20px;">
-                        <input type="hidden" name="credential" id="google_credential">
+    // Kiểm tra số lần thử
+    if ($attempts >= 3) {
+        delete_transient($transient_key);
+        return new WP_Error('too_many_attempts', 'Bạn đã nhập sai quá 3 lần. Vui lòng yêu cầu mã mới.', array('status' => 429));
+    }
 
-                        <!-- Google Sign-In Button Container -->
-                        <div id="g_id_signin" style="width: 100%;"></div>
-                    </form>
+    // Kiểm tra hết hạn
+    if ($current_time > $expires_at) {
+        error_log("OTP EXPIRED!");
+        delete_transient($transient_key);
+        return new WP_Error('otp_expired', 
+            'Mã OTP đã hết hạn. Còn lại: ' . $time_remaining . ' giây', 
+            array('status' => 400)
+        );
+    }
 
-                    <p class="signup-link">
-                        Chưa có tài khoản? <a href="<?php echo get_permalink(get_page_by_path('register')); ?>">Đăng
-                            ký</a>
-                    </p>
+    // Kiểm tra email
+    if ($email !== $stored_email) {
+        error_log("Email mismatch: '$email' !== '$stored_email'");
+        return new WP_Error('email_mismatch', 'Email không khớp', array('status' => 400));
+    }
 
-                </div>
-            </div>
-        </div>
-    </div>
+    // Kiểm tra OTP
+    if ($otp_input !== $stored_otp) {
+        error_log("OTP mismatch: '$otp_input' !== '$stored_otp'");
+        // Tăng số lần thử
+        $otp_data['attempts'] = $attempts + 1;
+        set_transient($transient_key, $otp_data, $time_remaining);
+        return new WP_Error('invalid_otp', 'Mã OTP không đúng. Còn ' . (3 - $attempts - 1) . ' lần thử.', array('status' => 400));
+    }
 
-    <!-- ========== CUSTOM GOOGLE BUTTON STYLE ========== -->
-    <style>
-        /*button Google full width */
-        #g_id_signin {
-            width: 100% !important;
-        }
+    // Xác thực thành công
+    error_log("OTP VERIFY SUCCESS!");
+    delete_transient($transient_key);
 
-        #g_id_signin>div {
-            width: 100% !important;
-        }
+    error_log("========== VERIFY OTP END ==========");
 
-        /* Custom button Google */
-        /* #g_id_signin iframe {
-            width: 100% !important;
-            min-height: 44px !important;
-        } */
-
-        #g_id_signin iframe {
-            width: 100% !important;
-            height: 44px !important;
-            min-height: 44px !important;
-        }
-
-        /* ================= GOOGLE SIGN-IN SCRIPT ================ */
-        #g_id_onload {
-            display: none !important;
-        }
-    </style>
-
-    <!-- ========== GOOGLE SIGN-IN SCRIPT ========== -->
-    <script src="https://accounts.google.com/gsi/client" async defer></script>
-    <script>
-        const GOOGLE_CLIENT_ID = "1039910145576-cthvk2plbd1l3320nd3ieibvb5bb3o13.apps.googleusercontent.com";
-
-        function handleCredentialResponse(response) {
-            document.getElementById('google_credential').value = response.credential;
-            document.getElementById('googleLoginForm').submit();
-        }
-
-        window.addEventListener('load', function() {
-            if (typeof google !== 'undefined' && google.accounts) {
-
-                google.accounts.id.initialize({
-                    client_id: GOOGLE_CLIENT_ID,
-                    callback: handleCredentialResponse,
-                    auto_select: false,
-                    cancel_on_tap_outside: true,
-                    prompt_parent_id: 'g_id_signin'
-                });
-
-                // 
-                google.accounts.id.disableAutoSelect();
-                google.accounts.id.cancel();
-                // RENDER BUTTON CHUẨN GOOGLE
-                google.accounts.id.renderButton(
-                    document.getElementById("g_id_signin"), {
-                        theme: "outline",
-                        size: "large",
-                        width: "100%", 
-                        text: "signin_with",
-                        shape: "rectangular"
-                    }
-                );
-            }
-        });
-    </script>
-
-
-    <?php get_footer(); ?>
+    return array(
+        'success' => true,
+        'message' => 'Xác thực thành công',
+        'verified_email' => $email
+    );
+}

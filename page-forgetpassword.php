@@ -47,6 +47,7 @@
                         </div>
                     </div>
 
+
                     <!-- conform password -->
                     <div class="input-group">
                         <label for="confirmPassword">Xác nhận mật khẩu *</label>

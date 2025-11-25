@@ -66,8 +66,9 @@ require_once get_theme_file_path('/inc/api-user.php');
 require_once get_theme_file_path('/inc/cpt_blog.php');
 require_once get_theme_file_path('/inc/cpt_provider.php');
 
-// create jwt token for login
-require_once $_SERVER['DOCUMENT_ROOT'] . '/vendor/autoload.php';
+// // create jwt token for login
+// require_once $_SERVER['DOCUMENT_ROOT'] . '/vendor/autoload.php';
+require_once get_template_directory() . '/vendor/autoload.php';
 
 use Firebase\JWT\JWT;
 use Firebase\JWT\Key;

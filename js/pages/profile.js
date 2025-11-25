@@ -1,6 +1,5 @@
 const API_URL = wpAccountData.restUrl + 'my-api/v1/user/profile/';
-
-
+const OTP_API_URL = wpAccountData.restUrl + 'my-api/v1/otp/';
 
 function initProfilePage() {
   const token = localStorage.getItem("jwt_token");
@@ -30,8 +29,10 @@ function initProfilePage() {
   let currentCountryCode = "+84";
   let isEmailEditing = false;
   
-  // ========== save email ==========
+  // ========== Email & OTP variables ==========
   let originalEmail = "";
+  let otpTimer = null;
+  let remainingTime = 300; // 5 phút
 
   // Country data
   const COUNTRY_DATA = {
@@ -70,7 +71,7 @@ function initProfilePage() {
     saveBtn.disabled = true;
 
     try {
-      const response = await fetch("http://localhost/tradeproxy/wordpress-6.8.3-vi/wordpress/wp-json/my-api/v1/user/profile/", {
+      const response = await fetch(API_URL, {
         method: "GET",
         headers: {
           "Authorization": `Bearer ${token}`,
@@ -100,13 +101,6 @@ function initProfilePage() {
       saveBtn.disabled = false;
     }
   }
-
-  // ========================================== add after ===========================================================
-
-  
-  // ========================================== add after ===========================================================
-
-
 
   // === RENDER USER PROFILE ===
   function renderUserProfile(data) {
@@ -149,7 +143,7 @@ function initProfilePage() {
     }
   }
 
-  // ========== save profile (FIXED) ==========
+  // ========== SAVE PROFILE ==========
   saveBtn.addEventListener("click", async () => {
     if (isEmailEditing) {
       alert("Vui lòng xác thực email trước khi lưu!");
@@ -172,16 +166,15 @@ function initProfilePage() {
       phone: fullPhone,
     };
 
-    // a
     if (email !== originalEmail) {
       if (!email) {
         alert("Email không được để trống!");
         return;
       }
       payload.email = email;
-      console.log("📧 [Profile] Email changed, will update:", email);
+      console.log("[Profile] Email changed, will update:", email);
     } else {
-      console.log("📧 [Profile] Email unchanged, skipping email update");
+      console.log("[Profile] Email unchanged, skipping email update");
     }
 
     console.log("💾 [Profile] Saving data:", payload);
@@ -208,10 +201,13 @@ function initProfilePage() {
 
       alert("✅ Cập nhật hồ sơ thành công!");
       
+      // Cập nhật originalEmail sau khi lưu thành công
+      originalEmail = email;
+      
       // Re-render với data mới
       renderUserProfile({ 
         display_name: fullname, 
-        email: email, // Giữ nguyên email hiện tại
+        email: email,
         phone: fullPhone 
       });
 
@@ -260,53 +256,260 @@ function initProfilePage() {
     }
   });
 
-  // ==== EMAIL + OTP ===
-  editEmailBtn.addEventListener("click", () => {
-    emailInput.disabled = false;
-    emailInput.classList.remove("disabled");
-    emailInput.focus();
-    isEmailEditing = true;
-    document.getElementById("current-email").textContent = emailInput.value;
-    document.getElementById("email-otp-modal").classList.add("show");
+  // ========================================
+  // ==== EMAIL + OTP VERIFICATION (ĐỘNG) ===
+  // ========================================
+
+  // send otp
+  async function sendEmailOTP(email) {
+    try {
+      const response = await fetch(OTP_API_URL + 'send-email', {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          email: email,
+          purpose: 'verify_email_change'
+        })
+      });
+
+      const result = await response.json();
+
+      if (!response.ok) {
+        throw new Error(result.message || 'Không thể gửi OTP');
+      }
+
+      return result;
+
+    } catch (error) {
+      console.error('❌ [OTP] Send error:', error);
+      throw error;
+    }
+  }
+
+  // Hàm đếm ngược thời gian OTP
+  function startOtpTimer() {
+    const resendText = document.querySelector(".resend-text");
+    if (!resendText) return;
+    
+    clearInterval(otpTimer);
+    
+    otpTimer = setInterval(() => {
+      remainingTime--;
+      
+      const minutes = Math.floor(remainingTime / 60);
+      const seconds = remainingTime % 60;
+      resendText.innerHTML = `Mã hết hạn sau <strong>${minutes}:${seconds.toString().padStart(2, '0')}</strong>. <a href="#" id="resend-otp-link" style="display:none;">Gửi lại</a>`;
+      
+      if (remainingTime <= 0) {
+        clearInterval(otpTimer);
+        resendText.innerHTML = 'Mã đã hết hạn. <a href="#" id="resend-otp-link">Gửi lại</a>';
+        // Re-attach event listener cho nút gửi lại
+        const resendLink = document.getElementById("resend-otp-link");
+        if (resendLink) {
+          resendLink.addEventListener("click", handleResendOtp);
+        }
+      }
+    }, 1000);
+  }
+
+  // Xử lý Resend OTP
+  async function handleResendOtp(e) {
+    e.preventDefault();
+    const currentEmail = emailInput.value.trim();
+    
+    if (!currentEmail) {
+      alert("Email không hợp lệ!");
+      return;
+    }
+
+    const resendLink = e.target;
+    resendLink.textContent = "Đang gửi...";
+    resendLink.style.pointerEvents = "none";
+
+    try {
+      const result = await sendEmailOTP(currentEmail);
+      
+      // Reset timer
+      remainingTime = result.expires_in || 300;
+      startOtpTimer();
+      
+      // DEBUG: Hiển thị OTP trong console (chỉ để test)
+      if (result.debug_otp) {
+        console.log('🔐 DEBUG OTP (Resend):', result.debug_otp);
+      }
+      
+      alert('✅ ' + result.message);
+
+    } catch (error) {
+      alert(error.message || 'Không thể gửi lại mã OTP');
+    } finally {
+      resendLink.textContent = "Gửi lại";
+      resendLink.style.pointerEvents = "auto";
+    }
+  }
+
+  // Click Edit Email → Gửi OTP
+  editEmailBtn.addEventListener("click", async () => {
+    const currentEmail = emailInput.value.trim();
+    
+    if (!currentEmail) {
+      alert("Email không hợp lệ!");
+      return;
+    }
+
+    // Disable nút để tránh spam
+    editEmailBtn.disabled = true;
+    const originalHTML = editEmailBtn.innerHTML;
+    editEmailBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
+
+    try {
+      // Gọi API gửi OTP
+      const result = await sendEmailOTP(currentEmail);
+
+      // Hiển thị modal
+      document.getElementById("current-email").textContent = currentEmail;
+      document.getElementById("email-otp-modal").classList.add("show");
+      
+      // Bắt đầu đếm ngược
+      remainingTime = result.expires_in || 300;
+      startOtpTimer();
+
+      // DEBUG: Hiển thị OTP trong console (chỉ để test)
+      if (result.debug_otp) {
+        console.log('🔐 DEBUG OTP:', result.debug_otp);
+        console.log('⚠️ Lưu ý: Xóa debug_otp khi lên production!');
+      }
+
+      alert('✅ ' + result.message);
+
+    } catch (error) {
+      alert(error.message || 'Không thể gửi mã OTP');
+    } finally {
+      editEmailBtn.disabled = false;
+      editEmailBtn.innerHTML = originalHTML;
+    }
   });
 
+  // Verify OTP
+  document.getElementById("verify-otp").addEventListener("click", async () => {
+    const otp = Array.from(otpInputs).map(i => i.value).join("");
+    
+    if (otp.length !== 6) {
+      alert("Vui lòng nhập đủ 6 số!");
+      return;
+    }
+
+    const verifyBtn = document.getElementById("verify-otp");
+    const originalText = verifyBtn.textContent;
+    verifyBtn.textContent = "Đang xác thực...";
+    verifyBtn.disabled = true;
+
+    try {
+      const response = await fetch(OTP_API_URL + 'verify-email', {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          email: emailInput.value.trim(),
+          otp: otp
+        })
+      });
+
+      const result = await response.json();
+
+      if (!response.ok) {
+        throw new Error(result.message || 'OTP không đúng');
+      }
+
+      // Xác thực thành công
+      clearInterval(otpTimer);
+      console.log("✅ [OTP] Verify success:", result);
+      alert("✅ " + result.message);
+      
+      // Unlock email input để user có thể chỉnh sửa
+      emailInput.disabled = false;
+      emailInput.classList.remove("disabled");
+      emailInput.focus();
+      
+      // Đóng modal
+      document.getElementById("email-otp-modal").classList.remove("show");
+      isEmailEditing = false;
+      
+      // Clear OTP inputs
+      otpInputs.forEach(input => input.value = "");
+
+    } catch (error) {
+      console.error('❌ [OTP] Verify error:', error);
+      alert(error.message || 'Xác thực thất bại');
+      
+      // Clear OTP inputs khi sai
+      otpInputs.forEach(input => input.value = "");
+      otpInputs[0].focus();
+    } finally {
+      verifyBtn.textContent = originalText;
+      verifyBtn.disabled = false;
+    }
+  });
+
+  // Đóng modal
   document.querySelectorAll("#close-modal, #cancel-otp, .modal-overlay").forEach(el => {
     el.addEventListener("click", () => {
+      clearInterval(otpTimer);
       document.getElementById("email-otp-modal").classList.remove("show");
       emailInput.disabled = true;
       emailInput.classList.add("disabled");
       isEmailEditing = false;
       // Reset về email gốc nếu user hủy
       emailInput.value = originalEmail;
+      // Clear OTP inputs
+      otpInputs.forEach(input => input.value = "");
     });
   });
 
+  // Auto focus và navigation cho OTP inputs
   otpInputs.forEach((input, i) => {
-    input.addEventListener("input", () => {
-      if (input.value.length === 1 && i < 5) otpInputs[i + 1].focus();
+    // Chỉ cho phép nhập số
+    input.addEventListener("input", (e) => {
+      input.value = input.value.replace(/[^0-9]/g, '');
+      if (input.value.length === 1 && i < 5) {
+        otpInputs[i + 1].focus();
+      }
     });
+    
+    // Xử lý phím Backspace
     input.addEventListener("keydown", (e) => {
-      if (e.key === "Backspace" && !input.value && i > 0) otpInputs[i - 1].focus();
+      if (e.key === "Backspace" && !input.value && i > 0) {
+        otpInputs[i - 1].focus();
+      }
+    });
+
+    // Xử lý paste OTP (nếu user copy/paste cả chuỗi 6 số)
+    input.addEventListener("paste", (e) => {
+      e.preventDefault();
+      const pastedData = e.clipboardData.getData('text').replace(/[^0-9]/g, '').slice(0, 6);
+      
+      pastedData.split('').forEach((char, index) => {
+        if (otpInputs[index]) {
+          otpInputs[index].value = char;
+        }
+      });
+      
+      // Focus vào ô cuối hoặc ô đầu tiên chưa điền
+      const lastFilledIndex = Math.min(pastedData.length, otpInputs.length) - 1;
+      otpInputs[lastFilledIndex]?.focus();
     });
   });
 
-  document.getElementById("verify-otp").addEventListener("click", () => {
-    const otp = Array.from(otpInputs).map(i => i.value).join("");
-    if (otp.length !== 6) {
-      alert("Vui lòng nhập đủ 6 số!");
-      return;
-    }
-    // Sau khi verify thành công, cập nhật originalEmail
-    originalEmail = emailInput.value.trim();
-    alert("Xác thực email thành công!");
-    document.getElementById("email-otp-modal").classList.remove("show");
-    isEmailEditing = false;
-  });
-
-  document.getElementById("resend-otp").addEventListener("click", (e) => {
-    e.preventDefault();
-    alert("Mã OTP mới đã được gửi!");
-  });
+  // Event listener cho nút resend OTP ban đầu
+  const initialResendBtn = document.getElementById("resend-otp");
+  if (initialResendBtn) {
+    initialResendBtn.addEventListener("click", handleResendOtp);
+  }
 
   // === INITIALIZE ===
   updateCountrySelect("+84");
@@ -325,4 +528,3 @@ window.initProfilePage = initProfilePage;
 if (document.getElementById("fullname")) {
   initProfilePage();
 }
-

@@ -5,402 +5,411 @@
             box-sizing: border-box;
         } */
 
-        /* ========== PAGE HEADER ========== */
-        .page-header {
-            margin-bottom: 30px;
-            padding-bottom: 20px;
-            border-bottom: 1px solid #f0f0f0;
-        }
 
-        .page-header h1 {
-            font-size: 24px;
-            font-weight: 600;
-            color: #1a1a1a;
-            margin-bottom: 5px;
-        }
+/* ========== PAGE HEADER ========== */
 
-        .page-subtitle {
-            font-size: 14px;
-            color: #666;
-        }
+.page-header {
+    margin-bottom: 30px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #f0f0f0;
+}
 
-        /* ========== PROFILE FORM ========== */
-        .profile-form {
-            background: white;
-            padding: 5px;
-            border-radius: 10px;
-            width: 100%;
-            max-width: none;
-            box-sizing: border-box;
-        }
+.page-header h1 {
+    font-size: 24px;
+    font-weight: 600;
+    color: #1a1a1a;
+    margin-bottom: 5px;
+}
 
-        .form-group {
-            margin-bottom: 25px;
-            width: 100%;
-        }
+.page-subtitle {
+    font-size: 14px;
+    color: #666;
+}
 
-        .form-label {
-            display: block;
-            margin-bottom: 10px;
-            color: #333;
-            font-size: 14px;
-            font-weight: 500;
-        }
 
-        .form-input-wrapper {
-            position: relative;
-            width: 100%;
-        }
+/* ========== PROFILE FORM ========== */
 
-        .form-input {
-            width: 100%;
-            padding: 14px 45px 14px 16px;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            font-size: 15px;
-            transition: all 0.3s;
-            box-sizing: border-box;
-        }
+.profile-form {
+    background: white;
+    padding: 5px;
+    border-radius: 10px;
+    width: 100%;
+    max-width: none;
+    box-sizing: border-box;
+}
 
-        .form-input:focus {
-            outline: none;
-            border-color: #1976d2 !important;
-        }
+.form-group {
+    margin-bottom: 25px;
+    width: 100%;
+}
 
-        .form-input.disabled {
-            background: #f5f5f5;
-            cursor: not-allowed;
-        }
+.form-label {
+    display: block;
+    margin-bottom: 10px;
+    color: #333;
+    font-size: 14px;
+    font-weight: 500;
+}
 
-        .form-input::placeholder {
-            color: #999;
-        }
+.form-input-wrapper {
+    position: relative;
+    width: 100%;
+}
 
-        .edit-btn {
-            position: absolute;
-            right: 15px;
-            top: 50%;
-            transform: translateY(-50%);
-            background: none;
-            border: none;
-            color: #1976d2 !important;
-            cursor: pointer;
-            font-size: 18px;
-            padding: 5px;
-        }
+.form-input {
+    width: 100%;
+    padding: 14px 45px 14px 16px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 15px;
+    transition: all 0.3s;
+    box-sizing: border-box;
+}
 
-        .edit-btn:hover {
-            color: #1976d2;
-        }
+.form-input:focus {
+    outline: none;
+    border-color: #1976d2 !important;
+}
 
-        /* ========== PHONE INPUT ========== */
-        .phone-input {
-            display: flex;
-            gap: 10px;
-            position: relative;
-            width: 100%;
-        }
+.form-input.disabled {
+    background: #f5f5f5;
+    cursor: not-allowed;
+}
 
-        .country-select {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            padding: 14px;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            cursor: pointer;
-            background: white;
-            min-width: 140px;
-            transition: border-color 0.3s;
-        }
+.form-input::placeholder {
+    color: #999;
+}
 
-        .country-select:hover {
-            border-color: #1976d2;
-        }
+.edit-btn {
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    color: #1976d2 !important;
+    cursor: pointer;
+    font-size: 18px;
+    padding: 5px;
+}
 
-        .country-flag-change-pass {
-            width: 24px;
-            height: 16px;
-            object-fit: cover;
-        }
+.edit-btn:hover {
+    color: #1976d2;
+}
 
-        .country-code {
-            font-weight: 500;
-        }
 
-        .country-dropdown {
-            position: absolute;
-            top: 100%;
-            left: 0;
-            background: white;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            margin-top: 5px;
-            width: 100%;
-            max-width: 400px;
-            max-height: 300px;
-            overflow-y: auto;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            z-index: 1000;
-            display: none;
-        }
+/* ========== PHONE INPUT ========== */
 
-        .country-dropdown.show {
-            display: block;
-        }
+.phone-input {
+    display: flex;
+    gap: 10px;
+    position: relative;
+    width: 100%;
+}
 
-        .country-search {
-            padding: 10px;
-            border-bottom: 1px solid #ddd;
-            position: sticky;
-            top: 0;
-            background: white;
-        }
+.country-select {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 14px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    cursor: pointer;
+    background: white;
+    min-width: 140px;
+    transition: border-color 0.3s;
+}
 
-        .country-search input {
-            width: 100%;
-            padding: 8px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-        }
+.country-select:hover {
+    border-color: #1976d2;
+}
 
-        .country-item {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            padding: 10px;
-            cursor: pointer;
-            transition: background 0.2s;
-        }
+.country-flag-change-pass {
+    width: 24px;
+    height: 16px;
+    object-fit: cover;
+}
 
-        .country-item:hover {
-            background: #f5f5f5;
-        }
+.country-code {
+    font-weight: 500;
+}
 
-        .country-item.active {
-            background: #e8f5e9;
-        }
+.country-dropdown {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    margin-top: 5px;
+    width: 100%;
+    max-width: 400px;
+    max-height: 300px;
+    overflow-y: auto;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    display: none;
+}
 
-        .country-name {
-            flex: 1;
-        }
+.country-dropdown.show {
+    display: block;
+}
 
-        /* ========== FORM ACTIONS - Giống change-password ========== */
-        .form-actions {
-            margin-top: 35px;
-            display: flex;
-            justify-content: flex-end;
-        }
+.country-search {
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+    position: sticky;
+    top: 0;
+    background: white;
+}
 
-        .btn-save {
-            background: #1976d2 !important;
-            color: white;
-            border: none;
-            padding: 14px 40px;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 15px;
-            font-weight: 500;
-            transition: all 0.3s;
-        }
+.country-search input {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
 
-        .btn-save:hover {
-            background: #1976d2;
-            transform: translateY(-1px);
-            box-shadow: 0 4px 8px rgba(76, 175, 80, 0.3);
-        }
+.country-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px;
+    cursor: pointer;
+    transition: background 0.2s;
+}
 
-        .btn-save:active {
-            transform: translateY(0);
-        }
+.country-item:hover {
+    background: #f5f5f5;
+}
 
-        /* ========== MODAL ========== */
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 2000;
-        }
+.country-item.active {
+    background: #e8f5e9;
+}
 
-        .modal.show {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
+.country-name {
+    flex: 1;
+}
 
-        .modal-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.5);
-        }
 
-        .modal-content {
-            position: relative;
-            background: white;
-            border-radius: 12px;
-            width: 90%;
-            max-width: 450px;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
-            animation: modalSlideIn 0.3s ease-out;
-        }
+/* ========== FORM ACTIONS - Giống change-password ========== */
 
-        @keyframes modalSlideIn {
-            from {
-                opacity: 0;
-                transform: translateY(-30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
+.form-actions {
+    margin-top: 35px;
+    display: flex;
+    justify-content: flex-end;
+}
 
-        .modal-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 20px 24px;
-            border-bottom: 1px solid #f0f0f0;
-        }
+.btn-save {
+    background: #1976d2 !important;
+    color: white;
+    border: none;
+    padding: 14px 40px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 15px;
+    font-weight: 500;
+    transition: all 0.3s;
+}
 
-        .modal-header h3 {
-            font-size: 18px;
-            font-weight: 600;
-            color: #1a1a1a;
-        }
+.btn-save:hover {
+    background: #1976d2;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(76, 175, 80, 0.3);
+}
 
-        .modal-close {
-            width: 32px;
-            height: 32px;
-            border: none;
-            background: transparent;
-            color: #999;
-            cursor: pointer;
-            border-radius: 4px;
-            transition: all 0.3s;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
+.btn-save:active {
+    transform: translateY(0);
+}
 
-        .modal-close:hover {
-            background: #f5f5f5;
-            color: #333;
-        }
 
-        .modal-body {
-            padding: 24px;
-        }
+/* ========== MODAL ========== */
 
-        .modal-text {
-            font-size: 14px;
-            color: #666;
-            margin-bottom: 20px;
-            text-align: center;
-        }
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 2000;
+}
 
-        .modal-text strong {
-            color: #1976d2;
-        }
+.modal.show {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
 
-        .otp-input-group {
-            display: flex;
-            gap: 10px;
-            justify-content: center;
-            margin-bottom: 20px;
-        }
+.modal-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+}
 
-        .otp-input {
-            width: 50px;
-            height: 50px;
-            text-align: center;
-            font-size: 20px;
-            font-weight: 600;
-            border: 2px solid #e0e0e0;
-            border-radius: 8px;
-            transition: all 0.3s;
-        }
+.modal-content {
+    position: relative;
+    background: white;
+    border-radius: 12px;
+    width: 90%;
+    max-width: 450px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+    animation: modalSlideIn 0.3s ease-out;
+}
 
-        .otp-input:focus {
-            outline: none;
-            border-color: #1976d2;
-            box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.1);
-        }
+@keyframes modalSlideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
 
-        .resend-text {
-            text-align: center;
-            font-size: 13px;
-            color: #666;
-        }
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 24px;
+    border-bottom: 1px solid #f0f0f0;
+}
 
-        .resend-text a {
-            color: #1976d2;
-            text-decoration: none;
-            font-weight: 500;
-        }
+.modal-header h3 {
+    font-size: 18px;
+    font-weight: 600;
+    color: #1a1a1a;
+}
 
-        .resend-text a:hover {
-            text-decoration: underline;
-        }
+.modal-close {
+    width: 32px;
+    height: 32px;
+    border: none;
+    background: transparent;
+    color: #999;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: all 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
 
-        .modal-footer {
-            display: flex;
-            gap: 12px;
-            padding: 20px 24px;
-            border-top: 1px solid #f0f0f0;
-        }
+.modal-close:hover {
+    background: #f5f5f5;
+    color: #333;
+}
 
-        .btn-cancel,
-        .btn-verify {
-            flex: 1;
-            padding: 12px;
-            border: none;
-            border-radius: 6px;
-            font-size: 14px;
-            font-weight: 500;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
+.modal-body {
+    padding: 24px;
+}
 
-        .btn-cancel {
-            background: #f5f5f5;
-            color: #666;
-        }
+.modal-text {
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 20px;
+    text-align: center;
+}
 
-        .btn-cancel:hover {
-            background: #e0e0e0;
-        }
+.modal-text strong {
+    color: #1976d2;
+}
 
-        .btn-verify {
-            background: #1976d2;
-            color: #fff;
-        }
+.otp-input-group {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    margin-bottom: 20px;
+}
 
-        .btn-verify:hover {
-            background: #1976d2;
-        }
+.otp-input {
+    width: 50px;
+    height: 50px;
+    text-align: center;
+    font-size: 20px;
+    font-weight: 600;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    transition: all 0.3s;
+}
 
-        /* ========== RESPONSIVE ========== */
-        @media (max-width: 768px) {
-            .profile-form {
-                padding: 20px;
-            }
+.otp-input:focus {
+    outline: none;
+    border-color: #1976d2;
+    box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.1);
+}
 
-            .btn-save {
-                width: 100%;
-                text-align: center;
-            }
+.resend-text {
+    text-align: center;
+    font-size: 13px;
+    color: #666;
+}
 
-            .otp-input {
-                width: 42px;
-                height: 42px;
-                font-size: 18px;
-            }
-        }
-    
+.resend-text a {
+    color: #1976d2;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.resend-text a:hover {
+    text-decoration: underline;
+}
+
+.modal-footer {
+    display: flex;
+    gap: 12px;
+    padding: 20px 24px;
+    border-top: 1px solid #f0f0f0;
+}
+
+.btn-cancel,
+.btn-verify {
+    flex: 1;
+    padding: 12px;
+    border: none;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.btn-cancel {
+    background: #f5f5f5;
+    color: #666;
+}
+
+.btn-cancel:hover {
+    background: #e0e0e0;
+}
+
+.btn-verify {
+    background: #1976d2;
+    color: #fff;
+}
+
+.btn-verify:hover {
+    background: #1976d2;
+}
+
+
+/* ========== RESPONSIVE ========== */
+
+@media (max-width: 768px) {
+    .profile-form {
+        padding: 20px;
+    }
+    .btn-save {
+        width: 100%;
+        text-align: center;
+    }
+    .otp-input {
+        width: 42px;
+        height: 42px;
+        font-size: 18px;
+    }
+}
