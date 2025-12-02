@@ -72,7 +72,8 @@
                 <input type="text" class="otp-input otp-input-change-password" maxlength="1" />
                 <input type="text" class="otp-input otp-input-change-password" maxlength="1" />
             </div>
-            <p class="resend-text resend-text-change-password">Không nhận được mã? <a href="#" id="resend-otp-change-password">Gửi lại</a></p>
+            <p class="resend-text resend-text-change-password">Không nhận được mã? <a href="#"
+                    id="resend-otp-change-password">Gửi lại</a></p>
         </div>
         <div class="modal-footer">
             <button class="btn-cancel" id="cancel-otp-change-password">Hủy</button>

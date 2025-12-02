@@ -87,11 +87,7 @@
                     <h3 class="filter-group-title">Sắp xếp theo</h3>
                     <div class="filter-options">
                         <div class="filter-option active">
-                            <input
-                                type="radio"
-                                id="sort-bestseller"
-                                name="sort"
-                                checked />
+                            <input type="radio" id="sort-bestseller" name="sort" checked />
                             <label for="sort-bestseller">Bán chạy nhất</label>
                         </div>
                         <div class="filter-option">
@@ -124,9 +120,7 @@
                     <!-- Product Card 1 -->
                     <a href="<?php echo esc_url(home_url('/detail-proxy')); ?>" class="product-card">
                         <div class="product-logo-proxy">
-                            <img
-                                src="https://tradeproxy.vn/images/categories/9proxy.png"
-                                alt="9proxy" />
+                            <img src="https://tradeproxy.vn/images/categories/9proxy.png" alt="9proxy" />
                         </div>
                         <h3 class="product-name">9proxy</h3>
                         <p class="product-package">50IP Vô tận</p>
@@ -149,9 +143,7 @@
                     <!-- Product Card 2 -->
                     <a href="<?php echo esc_url(home_url('/detail-proxy')); ?>" class="product-card">
                         <div class="product-logo-proxy">
-                            <img
-                                src="https://tradeproxy.vn/images/categories/pia-proxy.png"
-                                alt="Pia" />
+                            <img src="https://tradeproxy.vn/images/categories/pia-proxy.png" alt="Pia" />
                         </div>
                         <h3 class="product-name">Pia</h3>
                         <p class="product-package">100IP Vô tận</p>
@@ -174,9 +166,7 @@
                     <!-- Product Card 3 -->
                     <a href="<?php echo esc_url(home_url('/detail-proxy')); ?>" class="product-card">
                         <div class="product-logo-proxy">
-                            <img
-                                src="https://tradeproxy.vn/images/categories/abc-proxy.png"
-                                alt="ABC" />
+                            <img src="https://tradeproxy.vn/images/categories/abc-proxy.png" alt="ABC" />
                         </div>
                         <h3 class="product-name">ABC</h3>
                         <p class="product-package">50IP Vô tận</p>
@@ -199,9 +189,7 @@
                     <!-- Product Card 4 -->
                     <a href="<?php echo esc_url(home_url('/detail-proxy')); ?>" class="product-card">
                         <div class="product-logo-proxy">
-                            <img
-                                src="https://tradeproxy.vn/images/categories/922-proxy.png"
-                                alt="922" />
+                            <img src="https://tradeproxy.vn/images/categories/922-proxy.png" alt="922" />
                         </div>
                         <h3 class="product-name">922</h3>
                         <p class="product-package">50IP Vô tận</p>
@@ -224,9 +212,7 @@
                     <!-- Product Card 5 -->
                     <a href="<?php echo esc_url(home_url('/detail-proxy')); ?>" class="product-card">
                         <div class="product-logo-proxy">
-                            <img
-                                src="https://tradeproxy.vn/images/categories/Luna.png"
-                                alt="Luna" />
+                            <img src="https://tradeproxy.vn/images/categories/Luna.png" alt="Luna" />
                         </div>
                         <h3 class="product-name">Luna Proxy</h3>
                         <p class="product-package">200 GB Data</p>
@@ -249,9 +235,7 @@
                     <!-- Product Card 6 -->
                     <a href="<?php echo esc_url(home_url('/detail-proxy')); ?>" class="product-card">
                         <div class="product-logo-proxy">
-                            <img
-                                src="https://tradeproxy.vn/images/categories/mobile-hop.png"
-                                alt="922 Xoay" />
+                            <img src="https://tradeproxy.vn/images/categories/mobile-hop.png" alt="922 Xoay" />
                         </div>
                         <h3 class="product-name">922 Xoay</h3>
                         <p class="product-package">100 GB Data</p>
@@ -274,9 +258,7 @@
                     <!-- Product Card 7 -->
                     <a href="<?php echo esc_url(home_url('/detail-proxy')); ?>" class="product-card">
                         <div class="product-logo-proxy">
-                            <img
-                                src="https://tradeproxy.vn/images/categories/abc-proxy-xoay.png"
-                                alt="Mobile hop" />
+                            <img src="https://tradeproxy.vn/images/categories/abc-proxy-xoay.png" alt="Mobile hop" />
                         </div>
                         <h3 class="product-name">Mobile hop</h3>
                         <p class="product-package">150 GB Data</p>
@@ -299,9 +281,7 @@
                     <!-- Product Card 8 -->
                     <a href="<?php echo esc_url(home_url('/detail-proxy')); ?>" class="product-card">
                         <div class="product-logo-proxy">
-                            <img
-                                src="https://tradeproxy.vn/images/categories/bee-proxy.webp"
-                                alt="ABC Xoay" />
+                            <img src="https://tradeproxy.vn/images/categories/bee-proxy.webp" alt="ABC Xoay" />
                         </div>
                         <h3 class="product-name">ABC Xoay</h3>
                         <p class="product-package">500 GB Data</p>
@@ -324,9 +304,7 @@
                     <!-- Product Card 9 -->
                     <a href="<?php echo esc_url(home_url('/detail-proxy')); ?>" class="product-card">
                         <div class="product-logo-proxy">
-                            <img
-                                src="https://tradeproxy.vn/images/categories/ipmars-proxy.png"
-                                alt="Pyproxy Xoay" />
+                            <img src="https://tradeproxy.vn/images/categories/ipmars-proxy.png" alt="Pyproxy Xoay" />
                         </div>
                         <h3 class="product-name">Pyproxy Xoay</h3>
                         <p class="product-package">100 GB Data</p>
@@ -349,9 +327,7 @@
                     <!-- Product Card 10 -->
                     <a href="<?php echo esc_url(home_url('/detail-proxy')); ?>" class="product-card">
                         <div class="product-logo-proxy">
-                            <img
-                                src="https://tradeproxy.vn/images/categories/cliproxy-xoay.png"
-                                alt="Ip2world" />
+                            <img src="https://tradeproxy.vn/images/categories/cliproxy-xoay.png" alt="Ip2world" />
                         </div>
                         <h3 class="product-name">Ip2world</h3>
                         <p class="product-package">200 GB Data</p>
@@ -374,9 +350,7 @@
                     <!-- Product Card 11 -->
                     <a href="<?php echo esc_url(home_url('/detail-proxy')); ?>" class="product-card">
                         <div class="product-logo-proxy">
-                            <img
-                                src="https://tradeproxy.vn/images/categories/iprocket-premium.png"
-                                alt="iPwera" />
+                            <img src="https://tradeproxy.vn/images/categories/iprocket-premium.png" alt="iPwera" />
                         </div>
                         <h3 class="product-name">iPwera</h3>
                         <p class="product-package">50IP Vô tận</p>
@@ -399,9 +373,7 @@
                     <!-- Product Card 12 -->
                     <a href="<?php echo esc_url(home_url('/detail-proxy')); ?>" class="product-card">
                         <div class="product-logo-proxy">
-                            <img
-                                src="https://tradeproxy.vn/images/categories/tab-proxy.jpeg"
-                                alt="Bee" />
+                            <img src="https://tradeproxy.vn/images/categories/tab-proxy.jpeg" alt="Bee" />
                         </div>
                         <h3 class="product-name">Bee</h3>
                         <p class="product-package">100 GB Data</p>
@@ -453,75 +425,50 @@
                 <h3 class="filter-group-title">Chọn danh mục</h3>
                 <div class="filter-options">
                     <div class="filter-option active">
-                        <input
-                            type="radio"
-                            id="modal-cat-all"
-                            name="modal-category"
-                            checked />
+                        <input type="radio" id="modal-cat-all" name="modal-category" checked />
                         <label for="modal-cat-all">
                             <i class="fa-solid fa-border-all"></i> Tất cả
                         </label>
                     </div>
                     <div class="filter-option">
-                        <input
-                            type="radio"
-                            id="modal-cat-isp"
-                            name="modal-category" />
+                        <input type="radio" id="modal-cat-isp" name="modal-category" />
                         <label for="modal-cat-isp">
                             <i class="fa-solid fa-house"></i> Proxy dân cư ISP
                         </label>
                     </div>
                     <div class="filter-option">
-                        <input
-                            type="radio"
-                            id="modal-cat-traffic"
-                            name="modal-category" />
+                        <input type="radio" id="modal-cat-traffic" name="modal-category" />
                         <label for="modal-cat-traffic">
                             <i class="fa-solid fa-arrow-trend-up"></i> Proxy dân cư
                             traffic
                         </label>
                     </div>
                     <div class="filter-option">
-                        <input
-                            type="radio"
-                            id="modal-cat-rotating"
-                            name="modal-category" />
+                        <input type="radio" id="modal-cat-rotating" name="modal-category" />
                         <label for="modal-cat-rotating">
                             <i class="fa-solid fa-rotate"></i> Proxy xoay dân cư
                         </label>
                     </div>
                     <div class="filter-option">
-                        <input
-                            type="radio"
-                            id="modal-cat-static"
-                            name="modal-category" />
+                        <input type="radio" id="modal-cat-static" name="modal-category" />
                         <label for="modal-cat-static">
                             <i class="fa-solid fa-house-signal"></i> Proxy cố định
                         </label>
                     </div>
                     <div class="filter-option">
-                        <input
-                            type="radio"
-                            id="modal-cat-unlimited"
-                            name="modal-category" />
+                        <input type="radio" id="modal-cat-unlimited" name="modal-category" />
                         <label for="modal-cat-unlimited">
                             <i class="fa-solid fa-house-laptop"></i> Proxy Unlimited
                         </label>
                     </div>
                     <div class="filter-option">
-                        <input
-                            type="radio"
-                            id="modal-cat-modem"
-                            name="modal-category" />
+                        <input type="radio" id="modal-cat-modem" name="modal-category" />
                         <label for="modal-cat-modem">
                             <i class="fa-solid fa-tower-cell"></i> Modem proxy
                         </label>
                     </div>
                     <div class="filter-option">
-                        <input
-                            type="radio"
-                            id="modal-cat-mmo"
-                            name="modal-category" />
+                        <input type="radio" id="modal-cat-mmo" name="modal-category" />
                         <label for="modal-cat-mmo">
                             <i class="fa-regular fa-circle-dot"></i> Phần mềm MMO
                         </label>
@@ -534,46 +481,27 @@
                 <h3 class="filter-group-title">Sắp xếp theo</h3>
                 <div class="filter-options">
                     <div class="filter-option active">
-                        <input
-                            type="radio"
-                            id="modal-sort-bestseller"
-                            name="modal-sort"
-                            checked />
+                        <input type="radio" id="modal-sort-bestseller" name="modal-sort" checked />
                         <label for="modal-sort-bestseller">Bán chạy nhất</label>
                     </div>
                     <div class="filter-option">
-                        <input
-                            type="radio"
-                            id="modal-sort-latest"
-                            name="modal-sort" />
+                        <input type="radio" id="modal-sort-latest" name="modal-sort" />
                         <label for="modal-sort-latest">Mới cập nhật</label>
                     </div>
                     <div class="filter-option">
-                        <input
-                            type="radio"
-                            id="modal-sort-price-low"
-                            name="modal-sort" />
+                        <input type="radio" id="modal-sort-price-low" name="modal-sort" />
                         <label for="modal-sort-price-low">Giá thấp đến cao</label>
                     </div>
                     <div class="filter-option">
-                        <input
-                            type="radio"
-                            id="modal-sort-price-high"
-                            name="modal-sort" />
+                        <input type="radio" id="modal-sort-price-high" name="modal-sort" />
                         <label for="modal-sort-price-high">Giá cao đến thấp</label>
                     </div>
                     <div class="filter-option">
-                        <input
-                            type="radio"
-                            id="modal-sort-name-az"
-                            name="modal-sort" />
+                        <input type="radio" id="modal-sort-name-az" name="modal-sort" />
                         <label for="modal-sort-name-az">Tên từ A → Z</label>
                     </div>
                     <div class="filter-option">
-                        <input
-                            type="radio"
-                            id="modal-sort-name-za"
-                            name="modal-sort" />
+                        <input type="radio" id="modal-sort-name-za" name="modal-sort" />
                         <label for="modal-sort-name-za">Tên từ Z → A</label>
                     </div>
                 </div>

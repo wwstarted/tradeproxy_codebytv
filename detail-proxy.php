@@ -13,9 +13,7 @@ Template Name: Detail Proxy Page
             <!-- Product Header -->
             <div class="product-header">
                 <div class="product-logo">
-                    <img
-                        src="https://tradeproxy.vn/images/categories/9proxy.png"
-                        alt="" />
+                    <img src="https://tradeproxy.vn/images/categories/9proxy.png" alt="" />
                 </div>
                 <div class="product-title-section">
                     <h1>9proxy</h1>
@@ -110,8 +108,7 @@ Template Name: Detail Proxy Page
             <div class="dashboard-preview">
                 <h3>Giao diện quản trị của 9proxy</h3>
                 <div class="dashboard-image">
-                    <img
-                        src="https://tradeproxy.vn/images/public/giao-dien-phan-mem-9proxy.webp"
+                    <img src="https://tradeproxy.vn/images/public/giao-dien-phan-mem-9proxy.webp"
                         alt="9proxy Dashboard" />
                 </div>
                 <p class="dashboard-caption">Giao diện quản trị của 9proxy</p>
@@ -153,8 +150,7 @@ Template Name: Detail Proxy Page
                 </div>
 
                 <!-- Location Selection -->
-                <p
-                    style="
+                <p style="
                   font-size: 14px;
                   font-weight: 600;
                   margin-bottom: 8px;
@@ -191,9 +187,7 @@ Template Name: Detail Proxy Page
 
                 <div class="related-product-item">
                     <div class="related-product-logo">
-                        <img
-                            src="https://tradeproxy.vn/images/categories/922-proxy.png"
-                            alt="IPRoyal" />
+                        <img src="https://tradeproxy.vn/images/categories/922-proxy.png" alt="IPRoyal" />
                     </div>
                     <div class="related-product-info">
                         <div class="related-product-name">IPRoyal</div>
@@ -210,9 +204,7 @@ Template Name: Detail Proxy Page
 
                 <div class="related-product-item">
                     <div class="related-product-logo">
-                        <img
-                            src="https://tradeproxy.vn/images/categories/abc-proxy.png"
-                            alt="ABC Proxy" />
+                        <img src="https://tradeproxy.vn/images/categories/abc-proxy.png" alt="ABC Proxy" />
                     </div>
                     <div class="related-product-info">
                         <div class="related-product-name">ABC Proxy</div>
@@ -229,9 +221,7 @@ Template Name: Detail Proxy Page
 
                 <div class="related-product-item">
                     <div class="related-product-logo">
-                        <img
-                            src="https://tradeproxy.vn/images/categories/cliproxy.png"
-                            alt="CTProxy" />
+                        <img src="https://tradeproxy.vn/images/categories/cliproxy.png" alt="CTProxy" />
                     </div>
                     <div class="related-product-info">
                         <div class="related-product-name">CTproxy</div>
@@ -248,9 +238,7 @@ Template Name: Detail Proxy Page
 
                 <div class="related-product-item">
                     <div class="related-product-logo">
-                        <img
-                            src="https://tradeproxy.vn/images/categories/ip2world.png"
-                            alt="HP2 WORLD" />
+                        <img src="https://tradeproxy.vn/images/categories/ip2world.png" alt="HP2 WORLD" />
                     </div>
                     <div class="related-product-info">
                         <div class="related-product-name">hp2world</div>
@@ -267,9 +255,7 @@ Template Name: Detail Proxy Page
 
                 <div class="related-product-item">
                     <div class="related-product-logo">
-                        <img
-                            src="https://tradeproxy.vn/images/categories/pia-proxy.png"
-                            alt="922 Proxy" />
+                        <img src="https://tradeproxy.vn/images/categories/pia-proxy.png" alt="922 Proxy" />
                     </div>
                     <div class="related-product-info">
                         <div class="related-product-name">922 Proxy</div>
@@ -286,9 +272,7 @@ Template Name: Detail Proxy Page
 
                 <div class="related-product-item">
                     <div class="related-product-logo">
-                        <img
-                            src="https://tradeproxy.vn/images/categories/Pyproxy.png"
-                            alt="PyProxy" />
+                        <img src="https://tradeproxy.vn/images/categories/Pyproxy.png" alt="PyProxy" />
                     </div>
                     <div class="related-product-info">
                         <div class="related-product-name">Pyproxy</div>
@@ -311,9 +295,7 @@ Template Name: Detail Proxy Page
         <h2 class="detail-section-title">Các Gói Proxy Phổ Biến</h2>
 
         <div class="detail-carousel-container">
-            <button
-                class="detail-carousel-nav-button detail-prev"
-                id="detailPrevBtn">
+            <button class="detail-carousel-nav-button detail-prev" id="detailPrevBtn">
                 <i class="fa-solid fa-chevron-left"></i>
             </button>
 
@@ -322,9 +304,7 @@ Template Name: Detail Proxy Page
                 <div class="detail-proxy-card">
                     <div class="detail-proxy-card-header">
                         <div class="detail-proxy-card-logo">
-                            <img
-                                src="https://tradeproxy.vn/images/categories/abc-proxy.png"
-                                alt="ABC Proxy" />
+                            <img src="https://tradeproxy.vn/images/categories/abc-proxy.png" alt="ABC Proxy" />
                         </div>
                         <h2 class="detail-proxy-card-title">ABC Proxy</h2>
                         <p class="detail-proxy-card-description line-clamp">
@@ -347,9 +327,7 @@ Template Name: Detail Proxy Page
                 <div class="detail-proxy-card">
                     <div class="detail-proxy-card-header">
                         <div class="detail-proxy-card-logo">
-                            <img
-                                src="https://tradeproxy.vn/images/categories/abc-proxy.png"
-                                alt="ABC Proxy" />
+                            <img src="https://tradeproxy.vn/images/categories/abc-proxy.png" alt="ABC Proxy" />
                         </div>
                         <h2 class="detail-proxy-card-title">ABC Proxy</h2>
                         <p class="detail-proxy-card-description line-clamp">
@@ -372,9 +350,7 @@ Template Name: Detail Proxy Page
                 <div class="detail-proxy-card">
                     <div class="detail-proxy-card-header">
                         <div class="detail-proxy-card-logo">
-                            <img
-                                src="https://tradeproxy.vn/images/categories/abc-proxy.png"
-                                alt="ABC Proxy" />
+                            <img src="https://tradeproxy.vn/images/categories/abc-proxy.png" alt="ABC Proxy" />
                         </div>
                         <h2 class="detail-proxy-card-title">ABC Proxy</h2>
                         <p class="detail-proxy-card-description line-clamp">
@@ -397,9 +373,7 @@ Template Name: Detail Proxy Page
                 <div class="detail-proxy-card">
                     <div class="detail-proxy-card-header">
                         <div class="detail-proxy-card-logo">
-                            <img
-                                src="https://tradeproxy.vn/images/categories/abc-proxy.png"
-                                alt="ABC Proxy" />
+                            <img src="https://tradeproxy.vn/images/categories/abc-proxy.png" alt="ABC Proxy" />
                         </div>
                         <h2 class="detail-proxy-card-title">ABC Proxy</h2>
                         <p class="detail-proxy-card-description line-clamp">
@@ -422,9 +396,7 @@ Template Name: Detail Proxy Page
                 <div class="detail-proxy-card">
                     <div class="detail-proxy-card-header">
                         <div class="detail-proxy-card-logo">
-                            <img
-                                src="https://tradeproxy.vn/images/categories/abc-proxy.png"
-                                alt="ABC Proxy" />
+                            <img src="https://tradeproxy.vn/images/categories/abc-proxy.png" alt="ABC Proxy" />
                         </div>
                         <h2 class="detail-proxy-card-title">ABC Proxy</h2>
                         <p class="detail-proxy-card-description line-clamp">
@@ -447,9 +419,7 @@ Template Name: Detail Proxy Page
                 <div class="detail-proxy-card">
                     <div class="detail-proxy-card-header">
                         <div class="detail-proxy-card-logo">
-                            <img
-                                src="https://tradeproxy.vn/images/categories/abc-proxy.png"
-                                alt="ABC Proxy" />
+                            <img src="https://tradeproxy.vn/images/categories/abc-proxy.png" alt="ABC Proxy" />
                         </div>
                         <h2 class="detail-proxy-card-title">ABC Proxy</h2>
                         <p class="detail-proxy-card-description line-clamp">
@@ -472,9 +442,7 @@ Template Name: Detail Proxy Page
 
             </div>
 
-            <button
-                class="detail-carousel-nav-button detail-next"
-                id="detailNextBtn">
+            <button class="detail-carousel-nav-button detail-next" id="detailNextBtn">
                 <i class="fa-solid fa-chevron-right"></i>
             </button>
         </div>

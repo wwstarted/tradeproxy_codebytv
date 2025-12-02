@@ -55,12 +55,14 @@
                             <span class="country-code">+84</span>
                         </div>
                         <div class="country-item" data-code="+1" data-flag="us">
-                            <img src="https://flagcdn.com/w40/us.png" alt="United States" class="country-flag-change-pass">
+                            <img src="https://flagcdn.com/w40/us.png" alt="United States"
+                                class="country-flag-change-pass">
                             <span class="country-name">United States</span>
                             <span class="country-code">+1</span>
                         </div>
                         <div class="country-item" data-code="+44" data-flag="gb">
-                            <img src="https://flagcdn.com/w40/gb.png" alt="United Kingdom" class="country-flag-change-pass">
+                            <img src="https://flagcdn.com/w40/gb.png" alt="United Kingdom"
+                                class="country-flag-change-pass">
                             <span class="country-name">United Kingdom</span>
                             <span class="country-code">+44</span>
                         </div>
@@ -75,7 +77,8 @@
                             <span class="country-code">+81</span>
                         </div>
                         <div class="country-item" data-code="+82" data-flag="kr">
-                            <img src="https://flagcdn.com/w40/kr.png" alt="South Korea" class="country-flag-change-pass">
+                            <img src="https://flagcdn.com/w40/kr.png" alt="South Korea"
+                                class="country-flag-change-pass">
                             <span class="country-name">South Korea</span>
                             <span class="country-code">+82</span>
                         </div>

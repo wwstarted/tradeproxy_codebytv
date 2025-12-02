@@ -1,18 +1,15 @@
 <?php
-// /inc/api-user.php
 date_default_timezone_set('Asia/Ho_Chi_Minh');
 
 use Firebase\JWT\JWT;
 use Firebase\JWT\Key;
 
-// Đảm bảo hằng số JWT
+// JWT
 if (!defined('JWT_SECRET_KEY')) {
     define('JWT_SECRET_KEY', 'your-super-secret-key-change-this-2024');
 }
 
-/**
- * User API Endpoints
- */
+// 
 add_action('rest_api_init', function () {
     // ===== PROFILE ENDPOINTS =====
     // GET
@@ -133,12 +130,13 @@ function update_current_user_profile($request)
             if (email_exists($new_email)) {
                 return new WP_Error('email_exists', 'Email đã được sử dụng', ['status' => 400]);
             }
-            
+
             wp_update_user([
                 'ID' => $current_user_id,
                 'user_email' => $new_email
             ]);
         }
+
     }
 
     // PHONE
@@ -168,7 +166,7 @@ function update_current_user_profile($request)
 function change_user_password($request)
 {
     global $current_user_id;
-    
+
     if (!$current_user_id) {
         return new WP_Error(
             'unauthorized',
@@ -186,14 +184,14 @@ function change_user_password($request)
         );
     }
 
-    // Lấy dữ liệu từ request
+    // request
     $params = $request->get_json_params();
     $current_password = $params['current_password'] ?? '';
     $new_password = $params['new_password'] ?? '';
 
     // ===== VALIDATION =====
-    
-    // 1. Kiểm tra mật khẩu cũ
+
+    // check current password
     if (!wp_check_password($current_password, $user->user_pass, $current_user_id)) {
         return new WP_Error(
             'invalid_password',
@@ -202,7 +200,7 @@ function change_user_password($request)
         );
     }
 
-    // 2. Kiểm tra mật khẩu mới không được trùng mật khẩu cũ
+    // check new password 
     if ($current_password === $new_password) {
         return new WP_Error(
             'same_password',
@@ -211,7 +209,7 @@ function change_user_password($request)
         );
     }
 
-    // 3. Kiểm tra độ dài mật khẩu mới
+    // length pass
     if (strlen($new_password) < 8) {
         return new WP_Error(
             'weak_password',
@@ -220,10 +218,12 @@ function change_user_password($request)
         );
     }
 
-    // 4. Kiểm tra độ mạnh mật khẩu
-    if (!preg_match('/[a-z]/', $new_password) || 
-        !preg_match('/[A-Z]/', $new_password) || 
-        !preg_match('/[0-9]/', $new_password)) {
+    // strong pass
+    if (
+        !preg_match('/[a-z]/', $new_password) ||
+        !preg_match('/[A-Z]/', $new_password) ||
+        !preg_match('/[0-9]/', $new_password)
+    ) {
         return new WP_Error(
             'weak_password',
             'Mật khẩu phải chứa chữ hoa, chữ thường và số',
@@ -231,10 +231,10 @@ function change_user_password($request)
         );
     }
 
-    // ===== CẬP NHẬT MẬT KHẨU =====
+    // ===== update password =====
     wp_set_password($new_password, $current_user_id);
 
-    // ===== LOG ACTIVITY =====
+    // ===== log activity =====
     error_log(sprintf(
         '[CHANGE_PASSWORD] User ID: %d, Email: %s, Time: %s',
         $current_user_id,
@@ -242,7 +242,7 @@ function change_user_password($request)
         current_time('mysql')
     ));
 
-    // ===== TRẢ VỀ RESPONSE =====
+    // ===== return RESPONSE =====
     return new WP_REST_Response([
         'success' => true,
         'message' => 'Đổi mật khẩu thành công',
@@ -272,7 +272,8 @@ function verify_jwt_token($token)
 }
 
 // ===== WALLET FUNCTIONS =====
-function get_wallet_balance() {
+function get_wallet_balance()
+{
     global $current_user_id;
     $balance = (float) get_user_meta($current_user_id, 'wallet_balance', true);
     return [
@@ -281,7 +282,8 @@ function get_wallet_balance() {
     ];
 }
 
-function my_wallet_adjust($user_id, $amount) {
+function my_wallet_adjust($user_id, $amount)
+{
     $current = (float) get_user_meta($user_id, 'wallet_balance', true);
     $new = $current + $amount;
     update_user_meta($user_id, 'wallet_balance', $new > 0 ? $new : 0);
@@ -289,7 +291,7 @@ function my_wallet_adjust($user_id, $amount) {
 }
 
 // ===== WALLET INIT =====
-add_action('init', function() {
+add_action('init', function () {
     register_post_type('wallet_transaction', [
         'labels' => ['name' => 'Giao dịch ví'],
         'public' => false,
@@ -300,51 +302,43 @@ add_action('init', function() {
     ]);
 });
 
-add_action('user_register', function($user_id) {
+add_action('user_register', function ($user_id) {
     update_user_meta($user_id, 'wallet_balance', 0);
 });
 
-add_action('wp_login', function($user_login, $user) {
+add_action('wp_login', function ($user_login, $user) {
     if (!metadata_exists('user', $user->ID, 'wallet_balance')) {
         update_user_meta($user->ID, 'wallet_balance', 0);
     }
 }, 10, 2);
 
-//   endpoint logout (clear cookie)
 
-/**
- * Thêm code này vào functions.php hoặc file plugin của bạn
- * API Endpoint để xử lý logout và xóa cookie từ server
- */
-
-// Đăng ký REST API endpoint cho logout
+// ======================== register REST API endpoint cho logout =================================
 add_action('rest_api_init', function () {
     register_rest_route('my-api/v1', '/logout', array(
         'methods' => 'POST',
         'callback' => 'handle_api_logout',
-        'permission_callback' => '__return_true' // Cho phép tất cả user gọi
+        'permission_callback' => '__return_true'
     ));
 });
 
-/**
- * Xử lý logout - Xóa tất cả cookie và session
- */
-function handle_api_logout(WP_REST_Request $request) {
-    // Set timezone Việt Nam
+function handle_api_logout(WP_REST_Request $request)
+{
+    // timezone
     date_default_timezone_set('Asia/Ho_Chi_Minh');
-    
-    // Xóa cookie jwt_token (httpOnly)
+
+    // clear cookie jwt_token (httpOnly)
     setcookie(
         "jwt_token",
         "",
-        time() - 3600, // Thời gian quá khứ để expire
+        time() - 3600,
         "/",
         "",
         false,
         true
     );
-    
-    // Xóa cookie pending_jwt_token
+
+    // clear cookie pending_jwt_token
     setcookie(
         "pending_jwt_token",
         "",
@@ -354,52 +348,47 @@ function handle_api_logout(WP_REST_Request $request) {
         false,
         false
     );
-    
-    // Logout khỏi WordPress
+
+    // Logout 
     wp_logout();
-    
-    // Xóa tất cả WordPress auth cookies
+
+    //clear WordPress auth cookies
     wp_clear_auth_cookie();
-    
+
     return new WP_REST_Response(array(
         'success' => true,
         'message' => 'Đăng xuất thành công'
     ), 200);
 }
 
-// =============================================== endpoint logout =========================================================
+// =============================== endpoint logout ============================
 
-// Thêm vào file functions.php hoặc một file plugin/class quản lý API của bạn
-
-function register_logout_endpoint() {
+function register_logout_endpoint()
+{
     register_rest_route('my-api/v1', '/logout', array(
         'methods' => 'POST',
         'callback' => 'handle_logout_cookie_clear',
-        'permission_callback' => '__return_true', // Có thể để true vì nó chỉ xóa cookie của người dùng
+        'permission_callback' => '__return_true',
     ));
 }
 add_action('rest_api_init', 'register_logout_endpoint');
 
-function handle_logout_cookie_clear($request) {
-    // Xóa cookie JWT bằng cách đặt thời gian hết hạn trong quá khứ
-    // Đảm bảo các tham số (tên, path, domain) khớp với cách bạn đã set ban đầu
+function handle_logout_cookie_clear($request)
+{
     setcookie('jwt_token', '', time() - 3600, COOKIEPATH, COOKIE_DOMAIN);
     setcookie('jwt_token', '', time() - 3600, '/', $_SERVER['HTTP_HOST'], is_ssl(), true); // Xóa trên mọi path và với HttpOnly
 
-    // Thiết lập header để thông báo đăng xuất thành công
     return new WP_REST_Response(array('success' => true, 'message' => 'Logged out successfully, cookie cleared.'), 200);
 }
-
-
-// ===================================
 // ================================ endpoint & functions sent, check verify otp =======================================
 // Generate OTP
-function generate_otp($length = 6) {
+function generate_otp($length = 6)
+{
     return str_pad(rand(0, pow(10, $length) - 1), $length, '0', STR_PAD_LEFT);
 }
 
 // Send OTP Email
-add_action('rest_api_init', function() {
+add_action('rest_api_init', function () {
     // send
     register_rest_route('my-api/v1', '/otp/send-email', array(
         'methods' => 'POST',
@@ -414,7 +403,8 @@ add_action('rest_api_init', function() {
         'permission_callback' => 'check_jwt_authentication'
     ));
 });
-function send_email_otp($request) {
+function send_email_otp($request)
+{
     $user_id = get_current_user_id();
     $email = sanitize_email($request->get_param('email'));
     $purpose = sanitize_text_field($request->get_param('purpose')) ?: 'verify_email';
@@ -489,7 +479,8 @@ function send_email_otp($request) {
     );
 }
 
-function verify_email_otp($request) {
+function verify_email_otp($request)
+{
     $user_id = get_current_user_id();
     $otp_input = sanitize_text_field($request->get_param('otp'));
     $email = sanitize_email($request->get_param('email'));
@@ -537,8 +528,9 @@ function verify_email_otp($request) {
     if ($current_time > $expires_at) {
         error_log("OTP EXPIRED!");
         delete_transient($transient_key);
-        return new WP_Error('otp_expired', 
-            'Mã OTP đã hết hạn. Còn lại: ' . $time_remaining . ' giây', 
+        return new WP_Error(
+            'otp_expired',
+            'Mã OTP đã hết hạn. Còn lại: ' . $time_remaining . ' giây',
             array('status' => 400)
         );
     }
@@ -572,8 +564,8 @@ function verify_email_otp($request) {
 }
 
 //  ============================= verify otp chang password ==============================
-// Endpoint gửi OTP cho change password
-add_action('rest_api_init', function() {
+// endpoint sent otp
+add_action('rest_api_init', function () {
     register_rest_route('my-api/v1', '/otp/send-change-password', array(
         'methods' => 'POST',
         'callback' => 'send_change_password_otp',
@@ -581,7 +573,8 @@ add_action('rest_api_init', function() {
     ));
 });
 
-function send_change_password_otp($request) {
+function send_change_password_otp($request)
+{
     // $user_id = get_current_user_id();
     // $user = wp_get_current_user();
     global $current_user_id;
@@ -595,14 +588,14 @@ function send_change_password_otp($request) {
     // Generate OTP
     $otp = generate_otp(6);
     $current_time = time();
-    $expires_at = $current_time + 300; // 5 phút
+    $expires_at = $current_time + 300;
 
     error_log("========== SEND CHANGE PASSWORD OTP ==========");
     error_log("User ID: " . $current_user_id);
     error_log("Email: " . $email);
     error_log("OTP: " . $otp);
 
-    // Lưu vào Transients
+    // save Transients
     $transient_key = 'otp_change_password_' . $current_user_id;
     $otp_data = array(
         'otp' => $otp,
@@ -618,7 +611,7 @@ function send_change_password_otp($request) {
         return new WP_Error('save_failed', 'Không thể lưu OTP', array('status' => 500));
     }
 
-    // Gửi email
+    // send email
     $subject = '[TradeProxy] Mã xác thực đổi mật khẩu';
     $message = "
         <h2>Xác thực đổi mật khẩu</h2>
@@ -641,12 +634,12 @@ function send_change_password_otp($request) {
         'success' => true,
         'message' => 'Mã OTP đã được gửi đến ' . $email,
         'expires_in' => 300,
-        'debug_otp' => $otp // XÓA KHI PRODUCTION
+        'debug_otp' => $otp
     );
 }
 
 // Endpoint verify OTP cho change password
-add_action('rest_api_init', function() {
+add_action('rest_api_init', function () {
     register_rest_route('my-api/v1', '/otp/verify-change-password', array(
         'methods' => 'POST',
         'callback' => 'verify_change_password_otp',
@@ -654,7 +647,8 @@ add_action('rest_api_init', function() {
     ));
 });
 
-function verify_change_password_otp($request) {
+function verify_change_password_otp($request)
+{
     global $current_user_id;
     // $user_id = get_current_user_id();
     $otp_input = sanitize_text_field($request->get_param('otp'));
@@ -663,7 +657,7 @@ function verify_change_password_otp($request) {
     error_log("User ID: " . $current_user_id);
     error_log("Input OTP: " . $otp_input);
 
-    // Lấy từ Transients
+    //Transients
     $transient_key = 'otp_change_password_' . $current_user_id;
     $otp_data = get_transient($transient_key);
 
@@ -682,13 +676,13 @@ function verify_change_password_otp($request) {
     error_log("Stored OTP: " . $stored_otp);
     error_log("Time remaining: " . $time_remaining . " seconds");
 
-    // Kiểm tra số lần thử
+    // count check
     if ($attempts >= 3) {
         delete_transient($transient_key);
         return new WP_Error('too_many_attempts', 'Bạn đã nhập sai quá 3 lần. Vui lòng yêu cầu mã mới.', array('status' => 429));
     }
 
-    // Kiểm tra hết hạn
+    // kiem tra het han
     if ($current_time > $expires_at) {
         delete_transient($transient_key);
         return new WP_Error('otp_expired', 'Mã OTP đã hết hạn', array('status' => 400));
@@ -701,7 +695,7 @@ function verify_change_password_otp($request) {
         return new WP_Error('invalid_otp', 'Mã OTP không đúng. Còn ' . (3 - $attempts - 1) . ' lần thử.', array('status' => 400));
     }
 
-    // Xác thực thành công
+    // verify success
     error_log("OTP VERIFY SUCCESS!");
     delete_transient($transient_key);
 
@@ -712,25 +706,24 @@ function verify_change_password_otp($request) {
 }
 
 // =========================== forget password ========================
-// ============================= FORGOT PASSWORD - OTP SYSTEM ==============================
 
-// 1. Endpoint gửi OTP cho forgot password (không cần authentication)
-add_action('rest_api_init', function() {
+// endpoint sent otp forget pass
+add_action('rest_api_init', function () {
     register_rest_route('my-api/v1', '/otp/send-forgot-password', array(
         'methods' => 'POST',
         'callback' => 'send_forgot_password_otp',
-        'permission_callback' => '__return_true' // Public endpoint
+        'permission_callback' => '__return_true'
     ));
 });
 
-function send_forgot_password_otp($request) {
+function send_forgot_password_otp($request)
+{
     $email = sanitize_email($request->get_param('email'));
 
     if (!$email || !is_email($email)) {
         return new WP_Error('invalid_email', 'Email không hợp lệ', array('status' => 400));
     }
 
-    // Kiểm tra email có tồn tại trong hệ thống không
     $user = get_user_by('email', $email);
     if (!$user) {
         return new WP_Error('email_not_found', 'Email không tồn tại trong hệ thống', array('status' => 404));
@@ -741,14 +734,13 @@ function send_forgot_password_otp($request) {
     // Generate OTP
     $otp = generate_otp(6);
     $current_time = time();
-    $expires_at = $current_time + 300; // 5 phút
+    $expires_at = $current_time + 300;
 
     error_log("========== SEND FORGOT PASSWORD OTP ==========");
     error_log("User ID: " . $user_id);
     error_log("Email: " . $email);
     error_log("OTP: " . $otp);
 
-    // Lưu vào Transients với key theo email thay vì user_id (vì chưa đăng nhập)
     $transient_key = 'otp_forgot_password_' . md5($email);
     $otp_data = array(
         'otp' => $otp,
@@ -796,21 +788,22 @@ function send_forgot_password_otp($request) {
         'success' => true,
         'message' => 'Mã OTP đã được gửi đến email ' . $email,
         'expires_in' => 300,
-        // 'debug_otp' => $otp // CHỈ BẬT KHI DEV - XÓA KHI PRODUCTION
+        // 'debug_otp' => $otp 
     );
 }
 
-// 2. Endpoint verify OTP và reset password
-add_action('rest_api_init', function() {
+// Endpoint verify OTP reset password
+add_action('rest_api_init', function () {
     register_rest_route('my-api/v1', '/otp/verify-forgot-password', array(
         'methods' => 'POST',
         'callback' => 'verify_and_reset_password',
-        'permission_callback' => '__return_true' // Public endpoint
+        'permission_callback' => '__return_true'
     ));
 });
 
-function verify_and_reset_password($request) {
-    // Lấy dữ liệu từ request
+function verify_and_reset_password($request)
+{
+    // get data request
     $email = sanitize_email($request->get_param('email'));
     $otp_input = sanitize_text_field($request->get_param('otp'));
     $new_password = $request->get_param('new_password');
@@ -820,7 +813,7 @@ function verify_and_reset_password($request) {
     error_log("Email: " . $email);
     error_log("Input OTP: " . $otp_input);
 
-    // Validation cơ bản
+    // Validation
     if (!$email || !is_email($email)) {
         return new WP_Error('invalid_email', 'Email không hợp lệ', array('status' => 400));
     }
@@ -837,13 +830,13 @@ function verify_and_reset_password($request) {
         return new WP_Error('password_mismatch', 'Mật khẩu xác nhận không khớp', array('status' => 400));
     }
 
-    // Kiểm tra user tồn tại
+    // check user
     $user = get_user_by('email', $email);
     if (!$user) {
         return new WP_Error('user_not_found', 'Không tìm thấy tài khoản với email này', array('status' => 404));
     }
 
-    // Lấy OTP data từ Transients
+    // get otp
     $transient_key = 'otp_forgot_password_' . md5($email);
     $otp_data = get_transient($transient_key);
 
@@ -865,41 +858,34 @@ function verify_and_reset_password($request) {
     error_log("Time remaining: " . $time_remaining . " seconds");
     error_log("Attempts: " . $attempts);
 
-    // Kiểm tra số lần thử
     if ($attempts >= 3) {
         delete_transient($transient_key);
         return new WP_Error('too_many_attempts', 'Bạn đã nhập sai quá 3 lần. Vui lòng yêu cầu mã OTP mới.', array('status' => 429));
     }
 
-    // Kiểm tra OTP hết hạn
     if ($current_time > $expires_at) {
         delete_transient($transient_key);
         return new WP_Error('otp_expired', 'Mã OTP đã hết hạn. Vui lòng yêu cầu mã mới.', array('status' => 400));
     }
 
-    // Kiểm tra OTP có đúng không
     if ($otp_input !== $stored_otp) {
         $otp_data['attempts'] = $attempts + 1;
         set_transient($transient_key, $otp_data, $time_remaining);
-        
+
         $remaining_attempts = 3 - $attempts - 1;
         return new WP_Error(
-            'invalid_otp', 
-            'Mã OTP không đúng. Còn ' . $remaining_attempts . ' lần thử.', 
+            'invalid_otp',
+            'Mã OTP không đúng. Còn ' . $remaining_attempts . ' lần thử.',
             array('status' => 400)
         );
     }
 
-    // OTP đúng - Tiến hành reset password
     error_log("OTP VERIFY SUCCESS! Resetting password for user ID: " . $user_id);
 
-    // Reset password
     wp_set_password($new_password, $user_id);
 
-    // Xóa OTP data
     delete_transient($transient_key);
 
-    // Gửi email thông báo đã đổi mật khẩu thành công
     $subject = '[TradeProxy] Mật khẩu đã được thay đổi';
     $message = "
         <div style='font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;'>
@@ -926,9 +912,10 @@ function verify_and_reset_password($request) {
     );
 }
 
-// Helper function - generate OTP (nếu chưa có)
+// Helper function - generate OTP(if not have)
 if (!function_exists('generate_otp')) {
-    function generate_otp($length = 6) {
+    function generate_otp($length = 6)
+    {
         $otp = '';
         for ($i = 0; $i < $length; $i++) {
             $otp .= mt_rand(0, 9);

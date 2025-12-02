@@ -70,9 +70,7 @@ Template Name: Payment Page
                 </p>
 
                 <div class="payment-qr-code">
-                    <img
-                        src="https://api.vietqr.io/image/970415-113366668888-oa50NDm.jpg?amount=0"
-                        alt="QR Code" />
+                    <img src="https://api.vietqr.io/image/970415-113366668888-oa50NDm.jpg?amount=0" alt="QR Code" />
                 </div>
 
                 <div class="payment-timer">

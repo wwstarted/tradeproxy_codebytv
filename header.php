@@ -51,20 +51,20 @@ if ($is_logged_in_server) {
     <?php wp_head(); ?>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
     <script>
-        window.wpAccountData = {
-            baseUrl: '<?php echo home_url(); ?>',
-            accountUrl: '<?php echo home_url('/account'); ?>',
-            ajaxUrl: '<?php echo admin_url('admin-ajax.php'); ?>',
-            restUrl: '<?php echo get_rest_url(); ?>',
-            nonce: '<?php echo wp_create_nonce('account_nonce'); ?>',
-            // Dữ liệu từ Server-Side
-            initialState: {
-                isLoggedIn: <?php echo $current_user_data['is_logged_in'] ? 'true' : 'false'; ?>,
-                userName: '<?php echo esc_js($current_user_data['name']); ?>',
-                userEmail: '<?php echo esc_js($current_user_data['email']); ?>',
-                userAvatar: '<?php echo esc_js($current_user_data['avatar']); ?>'
-            }
-        };
+    window.wpAccountData = {
+        baseUrl: '<?php echo home_url(); ?>',
+        accountUrl: '<?php echo home_url('/account'); ?>',
+        ajaxUrl: '<?php echo admin_url('admin-ajax.php'); ?>',
+        restUrl: '<?php echo get_rest_url(); ?>',
+        nonce: '<?php echo wp_create_nonce('account_nonce'); ?>',
+        // Dữ liệu từ Server-Side
+        initialState: {
+            isLoggedIn: <?php echo $current_user_data['is_logged_in'] ? 'true' : 'false'; ?>,
+            userName: '<?php echo esc_js($current_user_data['name']); ?>',
+            userEmail: '<?php echo esc_js($current_user_data['email']); ?>',
+            userAvatar: '<?php echo esc_js($current_user_data['avatar']); ?>'
+        }
+    };
     </script>
 
 
@@ -113,7 +113,7 @@ if ($is_logged_in_server) {
                                 </li>
                                 <li>
                                     <div class="cart-icon">
-                                        <a href="<?php echo wc_get_cart_url(); ?>" class="cart-icon-link">
+                                        <a href="<?php echo esc_url(home_url('/cart')); ?>" class="cart-icon-link">
                                             <i class="fa-solid fa-cart-shopping"></i>
                                             <span class="cart-count" id="cart-count">
                                                 <?php echo WC()->cart->get_cart_contents_count(); ?>
@@ -156,7 +156,7 @@ if ($is_logged_in_server) {
                                             class="user-name"><?php echo esc_html($current_user_data['name']); ?></span>
                                         <i class="fa-solid fa-chevron-down dropdown-arrow"></i>
                                     </div>
-                                    
+
                                     <div class="user-menu">
                                         <a href="<?php echo esc_url(home_url('/account')) ?>" class="user-menu-item">
                                             <i class="fa-regular fa-user"></i>
@@ -172,7 +172,7 @@ if ($is_logged_in_server) {
                                             <span>Đăng xuất</span>
                                         </a>
                                     </div>
-                                    </li>
+                                </li>
 
                                 <li class="auth-buttons" id="authButtons"
                                     style="display: <?php echo $current_user_data['is_logged_in'] ? 'none' : 'flex'; ?>">
@@ -244,7 +244,7 @@ if ($is_logged_in_server) {
                     <span>Liên hệ</span>
                 </a>
 
-                <div class="mobile-logged-in-menu-items" id="mobileLoggedInMenu" 
+                <div class="mobile-logged-in-menu-items" id="mobileLoggedInMenu"
                     style="display: <?php echo $current_user_data['is_logged_in'] ? 'block' : 'none'; ?>">
                     <div class="mobile-menu-item has-submenu" id="accountTrigger">
                         <i class="fa-regular fa-user"></i>

@@ -120,11 +120,8 @@
     flex-shrink: 0;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.07);
     background: white;
-    /* Thêm background trắng để ảnh nổi bật */
-    padding: 8px;
-    /* Thêm padding để ảnh không bị sát viền */
+    padding: 8px;  
     overflow: hidden;
-    /* Đảm bảo ảnh không tràn ra ngoài */
 }
 
 .proxy-logo img {

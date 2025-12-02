@@ -1,26 +1,121 @@
 // Cart functionality
-let cartItems = [
-  {
-    id: 1,
-    name: "9proxy",
-    description: "(50 ip)",
-    price: 50000,
-    priceUSD: 3.2,
-    quantity: 1,
-    selected: true,
-  },
-];
-
+let cartItems = [];
 let discountCode = null;
 let discountValue = 0;
 
 // Format currency
 function formatCurrency(amount) {
-  return amount.toLocaleString("vi-VN") + "đ";
+  return Number(amount).toLocaleString("vi-VN") + "đ";
 }
 
 function formatUSD(amount) {
-  return amount.toFixed(1) + "$";
+  return Number(amount).toFixed(1) + "$";
+}
+
+// Load cart items from WooCommerce data
+function loadWooCartData() {
+  if (typeof wooCartData !== 'undefined' && wooCartData.length > 0) {
+    cartItems = wooCartData.map(item => ({
+      cart_item_key: item.cart_item_key,
+      id: item.product_id,
+      name: item.name,
+      description: item.description,
+      price: parseFloat(item.price),
+      priceUSD: parseFloat(item.priceUSD),
+      quantity: parseInt(item.quantity),
+      selected: true,
+      image: item.image,
+      permalink: item.permalink,
+      remove_url: item.remove_url,
+      max_quantity: item.max_quantity
+    }));
+    
+    renderCartItems();
+    
+    // Load applied coupons
+    if (typeof wooCoupons !== 'undefined' && wooCoupons.length > 0) {
+      discountCode = wooCoupons[0];
+      document.getElementById("discountName").textContent = discountCode;
+    }
+  } else {
+    showEmptyCart();
+  }
+}
+
+// Render cart items
+function renderCartItems() {
+  const wrapper = document.getElementById('cart-items-wrapper');
+  
+  if (!wrapper) return;
+  
+  if (cartItems.length === 0) {
+    showEmptyCart();
+    return;
+  }
+  
+  wrapper.innerHTML = cartItems.map((item, index) => `
+    <div class="cart-item" data-index="${index}" data-cart-key="${item.cart_item_key}">
+      <div class="btn-checkbox">
+        <input type="checkbox" class="cart-checkbox item-checkbox" ${item.selected ? 'checked' : ''} />
+      </div>
+
+      <div class="cart-item-info">
+        <div class="cart-item-logo">
+          ${item.permalink ? `<a href="${item.permalink}">` : ''}
+            <img src="${item.image || 'https://tradeproxy.vn/images/logo/9proxy.png'}" alt="${item.name}" />
+          ${item.permalink ? '</a>' : ''}
+        </div>
+        <div class="cart-item-details">
+          <h3>${item.permalink ? `<a href="${item.permalink}">${item.name}</a>` : item.name}</h3>
+          ${item.description ? `<p>${item.description}</p>` : ''}
+        </div>
+      </div>
+
+      <div class="cart-quantity">
+        <div class="cart-quantity-mobile">
+          <button class="quantity-btn minus-btn" data-action="decrease">
+            <i class="fa-solid fa-minus"></i>
+          </button>
+          <input type="number" class="quantity-input" value="${item.quantity}" min="1" max="${item.max_quantity || 9999}" readonly />
+          <button class="quantity-btn plus-btn" data-action="increase">
+            <i class="fa-solid fa-plus"></i>
+          </button>
+        </div>
+      </div>
+
+      <div class="cart-price">
+        <div class="cart-price-mobile">
+          <div class="original-price">${formatCurrency(item.price)}</div>
+          ${item.priceUSD ? `
+            <div class="discount-badge-cart">
+              <img src="https://tradeproxy.vn/images/icon/tether.png" alt="" />
+              ${formatUSD(item.priceUSD)}
+            </div>
+          ` : ''}
+        </div>
+      </div>
+
+      <div class="cart-total-price">
+        <div>
+          <div class="total-amount">${formatCurrency(item.price * item.quantity)}</div>
+          ${item.priceUSD ? `
+            <div class="total-discount">
+              <img src="https://tradeproxy.vn/images/icon/tether.png" alt="" />
+              ${formatUSD(item.priceUSD * item.quantity)}
+            </div>
+          ` : ''}
+        </div>
+      </div>
+
+      <div class="cart-delete-btn">
+        <button class="delete-btn" title="Xóa sản phẩm" data-remove-url="${item.remove_url}">
+          <i class="fa-solid fa-trash"></i>
+        </button>
+      </div>
+    </div>
+  `).join('');
+  
+  updateCartUI();
 }
 
 // Calculate totals
@@ -39,12 +134,12 @@ function calculateTotals() {
 
   // Apply discount
   let discountAmount = 0;
-  if (discountCode) {
-    discountAmount = subtotal * (discountValue / 100);
+  if (discountCode && typeof wooCartTotal !== 'undefined') {
+    discountAmount = wooCartSubtotal - wooCartTotal;
   }
 
   let finalTotal = subtotal - discountAmount;
-  let finalTotalUSD = subtotalUSD - subtotalUSD * (discountValue / 100);
+  let finalTotalUSD = subtotalUSD - (subtotalUSD * (discountAmount / subtotal));
 
   return {
     subtotal,
@@ -61,42 +156,25 @@ function updateCartUI() {
   const totals = calculateTotals();
 
   // Update summary
-  document.getElementById("subtotalAmount").textContent = formatCurrency(
-    totals.subtotal
-  );
-  document.getElementById("discountValue").textContent = formatCurrency(
-    totals.discountAmount
-  );
-  document.getElementById("discountPercent").textContent = "0$";
-  document.getElementById("finalTotal").textContent = formatCurrency(
-    totals.finalTotal
-  );
-  document.getElementById("finalDiscount").textContent =
-    "≈ " + formatUSD(totals.finalTotalUSD);
+  document.getElementById("subtotalAmount").textContent = formatCurrency(totals.subtotal);
+  document.getElementById("discountValue").textContent = formatCurrency(totals.discountAmount);
+  document.getElementById("finalTotal").textContent = formatCurrency(totals.finalTotal);
+  document.getElementById("finalDiscount").textContent = "≈ " + formatUSD(totals.finalTotalUSD);
 
   // Update footer count
   const footerCount = document.querySelector(".cart-footer-count");
   if (footerCount) {
     footerCount.textContent = totals.selectedCount;
   }
+}
 
-  // Update item total prices
-  document.querySelectorAll(".cart-item").forEach((itemEl, index) => {
-    const item = cartItems[index];
-    if (item) {
-      const totalAmount = itemEl.querySelector(".total-amount");
-      const totalDiscount = itemEl.querySelector(".total-discount");
-
-      if (totalAmount) {
-        totalAmount.textContent = formatCurrency(item.price * item.quantity);
-      }
-      if (totalDiscount) {
-        totalDiscount.innerHTML = `<img src="https://tradeproxy.vn/images/icon/tether.png" alt="" class="w-3"> ${formatUSD(
-          item.priceUSD * item.quantity
-        )}`;
-      }
-    }
-  });
+// Update WooCommerce cart quantity via hidden form
+function updateWooCartQuantity(cartItemKey, newQuantity) {
+  const hiddenInput = document.querySelector(`.hidden-qty-input[data-key="${cartItemKey}"]`);
+  if (hiddenInput) {
+    hiddenInput.value = newQuantity;
+    document.getElementById('hidden-update-cart-btn').click();
+  }
 }
 
 // Quantity buttons
@@ -105,18 +183,22 @@ document.addEventListener("click", function (e) {
   if (!quantityBtn) return;
 
   const cartItem = quantityBtn.closest(".cart-item");
-  const itemIndex = Array.from(document.querySelectorAll(".cart-item")).indexOf(
-    cartItem
-  );
+  const itemIndex = parseInt(cartItem.dataset.index);
+  const cartItemKey = cartItem.dataset.cartKey;
   const quantityInput = cartItem.querySelector(".quantity-input");
   const action = quantityBtn.dataset.action;
 
   if (action === "increase") {
-    cartItems[itemIndex].quantity++;
-    quantityInput.value = cartItems[itemIndex].quantity;
+    const max = parseInt(quantityInput.getAttribute('max')) || 9999;
+    if (cartItems[itemIndex].quantity < max) {
+      cartItems[itemIndex].quantity++;
+      quantityInput.value = cartItems[itemIndex].quantity;
+      updateWooCartQuantity(cartItemKey, cartItems[itemIndex].quantity);
+    }
   } else if (action === "decrease" && cartItems[itemIndex].quantity > 1) {
     cartItems[itemIndex].quantity--;
     quantityInput.value = cartItems[itemIndex].quantity;
+    updateWooCartQuantity(cartItemKey, cartItems[itemIndex].quantity);
   }
 
   updateCartUI();
@@ -128,19 +210,9 @@ document.addEventListener("click", function (e) {
   if (!deleteBtn) return;
 
   if (confirm("Bạn có chắc muốn xóa sản phẩm này?")) {
-    const cartItem = deleteBtn.closest(".cart-item");
-    const itemIndex = Array.from(
-      document.querySelectorAll(".cart-item")
-    ).indexOf(cartItem);
-
-    cartItems.splice(itemIndex, 1);
-    cartItem.remove();
-
-    updateCartUI();
-
-    // Show empty cart if no items
-    if (cartItems.length === 0) {
-      showEmptyCart();
+    const removeUrl = deleteBtn.dataset.removeUrl;
+    if (removeUrl) {
+      window.location.href = removeUrl;
     }
   }
 });
@@ -149,9 +221,7 @@ document.addEventListener("click", function (e) {
 document.addEventListener("change", function (e) {
   if (e.target.classList.contains("item-checkbox")) {
     const cartItem = e.target.closest(".cart-item");
-    const itemIndex = Array.from(
-      document.querySelectorAll(".cart-item")
-    ).indexOf(cartItem);
+    const itemIndex = parseInt(cartItem.dataset.index);
     cartItems[itemIndex].selected = e.target.checked;
     updateCartUI();
   }
@@ -161,53 +231,32 @@ document.addEventListener("change", function (e) {
     const isChecked = e.target.checked;
     document.querySelectorAll(".item-checkbox").forEach((checkbox, index) => {
       checkbox.checked = isChecked;
-      cartItems[index].selected = isChecked;
+      if (cartItems[index]) {
+        cartItems[index].selected = isChecked;
+      }
     });
     updateCartUI();
   }
 });
 
 // Apply discount code
-document
-  .getElementById("applyDiscount")
-  ?.addEventListener("click", function () {
-    const codeInput = document.getElementById("discountCode");
-    const code = codeInput.value.trim().toUpperCase();
-    const tooltip = document.getElementById("discountTooltip");
+document.getElementById("applyDiscount")?.addEventListener("click", function () {
+  const codeInput = document.getElementById("discountCode");
+  const code = codeInput.value.trim();
+  const tooltip = document.getElementById("discountTooltip");
 
-    // Mock discount codes
-    const validCodes = {
-      SAVE10: 10,
-      SAVE20: 20,
-      WELCOME: 15,
-    };
+  if (!code) {
+    tooltip.textContent = "Vui lòng nhập mã giảm giá!";
+    tooltip.style.display = "block";
+    tooltip.style.background = "#dc2626";
+    setTimeout(() => tooltip.style.display = "none", 3000);
+    return;
+  }
 
-    if (validCodes[code]) {
-      discountCode = code;
-      discountValue = validCodes[code];
-      document.getElementById("discountName").textContent = code;
-
-      // Show success tooltip
-      tooltip.textContent = `Áp dụng mã giảm ${discountValue}% thành công!`;
-      tooltip.style.display = "block";
-      tooltip.style.background = "#10b981";
-
-      setTimeout(() => {
-        tooltip.style.display = "none";
-      }, 3000);
-
-      updateCartUI();
-    } else {
-      // Show error tooltip
-      tooltip.textContent = "Mã giảm giá không hợp lệ!";
-      tooltip.style.display = "block";
-      tooltip.style.background = "#dc2626";
-
-      setTimeout(() => {
-        tooltip.style.display = "none";
-      }, 3000);
-    }
-  });
+  // Submit WooCommerce coupon form
+  document.getElementById("hidden-coupon-code").value = code;
+  document.getElementById("hidden-apply-coupon-btn").click();
+});
 
 // Show discount tooltip on hover
 const discountInput = document.getElementById("discountCode");
@@ -230,67 +279,53 @@ if (discountInput) {
     }, 200);
   });
 }
+
 // Show empty cart
 function showEmptyCart() {
-  const cartItems = document.querySelector(".cart-items");
-  cartItems.innerHTML = `
-    <div class="empty-cart">
-      <div class="empty-cart-icon">
-        <i class="fa-solid fa-cart-shopping"></i>
+  const wrapper = document.getElementById('cart-items-wrapper');
+  if (wrapper) {
+    wrapper.innerHTML = `
+      <div class="empty-cart" style="text-align: center; padding: 60px 20px; grid-column: 1 / -1;">
+        <div class="empty-cart-icon" style="font-size: 80px; color: #ddd; margin-bottom: 20px;">
+          <i class="fa-solid fa-cart-shopping"></i>
+        </div>
+        <h2 style="font-size: 24px; margin-bottom: 10px;">Giỏ hàng trống</h2>
+        <p style="color: #666; margin-bottom: 30px;">Bạn chưa có sản phẩm nào trong giỏ hàng</p>
+        <a href="<?php echo home_url('/home'); ?>" class="btn-primary-proxy" style="display: inline-block; padding: 12px 30px; text-decoration: none;">
+          Mua sắm ngay
+        </a>
       </div>
-      <h2>Giỏ hàng trống</h2>
-      <p>Bạn chưa có sản phẩm nào trong giỏ hàng</p>
-      <a href="#" class="shop-now-btn">Mua sắm ngay</a>
-    </div>
-  `;
+    `;
+  }
 }
 
-// Initialize
-updateCartUI();
-
-// Create error message element
+// Email validation functions
 function createErrorMessage() {
   let errorMsg = document.getElementById("emailError");
-
   if (!errorMsg) {
     errorMsg = document.createElement("div");
     errorMsg.id = "emailError";
-    errorMsg.style.cssText =
-      "color: #dc2626; font-size: 14px; margin-bottom: 10px; display: none;";
+    errorMsg.style.cssText = "color: #dc2626; font-size: 14px; margin-bottom: 10px; display: none;";
     const emailInput = document.getElementById("customerEmail");
     emailInput.parentNode.insertBefore(errorMsg, emailInput.nextSibling);
   }
-
   return errorMsg;
 }
 
-// Show error message
 function showError(message) {
   const errorMsg = createErrorMessage();
   errorMsg.textContent = message;
   errorMsg.style.display = "block";
-
-  const emailInput = document.getElementById("customerEmail");
-  emailInput.style.borderColor = "#dc2626";
+  document.getElementById("customerEmail").style.borderColor = "#dc2626";
 }
 
-// Hide error message
 function hideError() {
   const errorMsg = document.getElementById("emailError");
-  if (errorMsg) {
-    errorMsg.style.display = "none";
-  }
-
-  const emailInput = document.getElementById("customerEmail");
-  emailInput.style.borderColor = "";
+  if (errorMsg) errorMsg.style.display = "none";
+  document.getElementById("customerEmail").style.borderColor = "";
 }
 
-// Clear error when user types
-document
-  .getElementById("customerEmail")
-  ?.addEventListener("input", function () {
-    hideError();
-  });
+document.getElementById("customerEmail")?.addEventListener("input", hideError);
 
 // Payment Modal functionality
 const paymentModal = document.getElementById("paymentModal");
@@ -300,17 +335,13 @@ const confirmPaymentBtn = document.getElementById("confirmPayment");
 const paymentMethods = document.querySelectorAll(".payment-method");
 let selectedPaymentMethod = null;
 
-// Open payment modal when checkout button is clicked
 document.getElementById("checkoutBtn")?.addEventListener("click", function (e) {
   e.preventDefault();
-
-  // Reset error state
   hideError();
 
   const email = document.getElementById("customerEmail").value.trim();
   const totals = calculateTotals();
 
-  // Validate email first
   if (!email) {
     showError("Vui lòng nhập email!");
     document.getElementById("customerEmail").focus();
@@ -323,18 +354,18 @@ document.getElementById("checkoutBtn")?.addEventListener("click", function (e) {
     return;
   }
 
-  // Then check if products are selected
   if (totals.selectedCount === 0) {
     alert("Vui lòng chọn ít nhất 1 sản phẩm!");
     return;
   }
 
-  // All validations passed - show payment modal
-  paymentModal.classList.add("active");
-  document.body.style.overflow = "hidden";
+  // Store email in session/cookie if needed
+  sessionStorage.setItem('checkout_email', email);
+  
+  // Redirect to checkout
+  window.location.href = wooCheckoutUrl;
 });
 
-// Close modal functions
 function closePaymentModal() {
   paymentModal.classList.remove("active");
   document.body.style.overflow = "";
@@ -343,17 +374,13 @@ function closePaymentModal() {
   confirmPaymentBtn.classList.remove("active");
 }
 
-closePaymentModalBtn.addEventListener("click", closePaymentModal);
-cancelPaymentBtn.addEventListener("click", closePaymentModal);
+closePaymentModalBtn?.addEventListener("click", closePaymentModal);
+cancelPaymentBtn?.addEventListener("click", closePaymentModal);
 
-// Close modal when clicking outside
-paymentModal.addEventListener("click", function (e) {
-  if (e.target === paymentModal) {
-    closePaymentModal();
-  }
+paymentModal?.addEventListener("click", function (e) {
+  if (e.target === paymentModal) closePaymentModal();
 });
 
-// Payment method selection
 paymentMethods.forEach((method) => {
   method.addEventListener("click", function () {
     paymentMethods.forEach((m) => m.classList.remove("selected"));
@@ -363,32 +390,8 @@ paymentMethods.forEach((method) => {
   });
 });
 
-// Confirm payment
-// confirmPaymentBtn.addEventListener("click", function () {
-//   if (!selectedPaymentMethod) {
-//     alert("Vui lòng chọn phương thức thanh toán!");
-//     return;
-//   }
-
-//   const email = document.getElementById("customerEmail").value.trim();
-//   const totals = calculateTotals();
-
-//   // Process payment
-//   alert(
-//     `Đang xử lý thanh toán cho ${
-//       totals.selectedCount
-//     } sản phẩm\nPhương thức: ${selectedPaymentMethod}\nTổng: ${formatCurrency(
-//       totals.finalTotal
-//     )}\nEmail: ${email}`
-//   );
-
-//   console.log("Payment data:", {
-//     items: cartItems.filter((item) => item.selected),
-//     email: email,
-//     paymentMethod: selectedPaymentMethod,
-//     discountCode: discountCode,
-//     totals: totals,
-//   });
-
-//   closePaymentModal();
-// });
+// Initialize on page load
+document.addEventListener('DOMContentLoaded', function() {
+  console.log('=== TradeProxy Cart Initialized ===');
+  loadWooCartData();
+});

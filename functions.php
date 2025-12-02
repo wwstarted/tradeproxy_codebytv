@@ -57,14 +57,17 @@ function tradeproxy_theme_enqueue_assets()
     wp_enqueue_script('tradeproxy-user-account', get_template_directory_uri() . '/js/user-account.js', array('jquery'), filemtime(get_template_directory() . '/js/user-account.js'), true);
     wp_enqueue_script('tradeproxy-profile', get_template_directory_uri() . '/js/pages/profile.js', array('jquery'), filemtime(get_template_directory() . '/js/pages/profile.js'), true);
     wp_enqueue_script('tradeproxy-changepass', get_template_directory_uri() . '/js/pages/changepass.js', array('jquery'), filemtime(get_template_directory() . '/js/pages/changepass.js'), true);
+    wp_enqueue_script('tradeproxy-variations', get_template_directory_uri() . '/js/product-variations.js', array('jquery'), filemtime(get_template_directory() . '/js/product-variations.js'), true);
+
 }
 
 add_action('wp_enqueue_scripts', 'tradeproxy_theme_enqueue_assets');
 
-require_once get_theme_file_path('/inc/cf-proxy.php');
+// require_once get_theme_file_path('/inc/cf-proxy.php');
 require_once get_theme_file_path('/inc/api-user.php');
 require_once get_theme_file_path('/inc/cpt_blog.php');
 require_once get_theme_file_path('/inc/cpt_provider.php');
+require_once get_theme_file_path('/inc/api-product.php');
 
 // // create jwt token for login
 // require_once $_SERVER['DOCUMENT_ROOT'] . '/vendor/autoload.php';
@@ -76,7 +79,8 @@ use Firebase\JWT\Key;
 /**
  * Enqueue account scripts
  */
-function enqueue_account_scripts() {
+function enqueue_account_scripts()
+{
     // load account content
     if (is_page('account')) {
         // Enqueue script
@@ -87,14 +91,14 @@ function enqueue_account_scripts() {
             '1.0.2',
             true
         );
-        
+
         // data php => javascripts
         wp_localize_script('account-js', 'wpAccountData', array(
             'baseUrl' => home_url(),
             'accountUrl' => get_permalink(get_page_by_path('account')),
             'ajaxUrl' => admin_url('admin-ajax.php'),
             'nonce' => wp_create_nonce('account_nonce'),
-            'loginUrl'   => get_permalink(get_page_by_path('login')),
+            'loginUrl' => get_permalink(get_page_by_path('login')),
         ));
     }
 }
@@ -103,48 +107,49 @@ add_action('wp_enqueue_scripts', 'enqueue_account_scripts');
 /**
  * AJAX handler - Load page content
  */
-function load_account_page_callback() {
+function load_account_page_callback()
+{
     // Verify nonce
     if (!check_ajax_referer('account_nonce', 'nonce', false)) {
         wp_send_json_error('Invalid security token');
         return;
     }
-    
+
     // Get page slug
     $page_slug = isset($_POST['page_slug']) ? sanitize_text_field($_POST['page_slug']) : '';
-    
+
     if (empty($page_slug)) {
         wp_send_json_error('Page slug is required');
         return;
     }
-    
+
     // Find page by slug
     $page = get_page_by_path($page_slug);
-    
+
     if (!$page) {
         wp_send_json_error('Page not found: ' . $page_slug);
         return;
     }
-    
+
     // Setup global post
     global $post;
     $original_post = $post;
     $post = $page;
     setup_postdata($post);
-    
+
     // Start output buffering
     ob_start();
-    
+
     // Find template file
     $template_file = 'page-' . $page_slug . '.php';
     $template_path = locate_template($template_file);
-    
+
     if (!$template_path) {
         // Try without 'page-' prefix
         $template_file = $page_slug . '.php';
         $template_path = locate_template($template_file);
     }
-    
+
     if ($template_path) {
         // Include template
         include($template_path);
@@ -154,14 +159,14 @@ function load_account_page_callback() {
         the_content();
         echo '</div>';
     }
-    
+
     // Get output
     $content = ob_get_clean();
-    
+
     // Reset post data
     $post = $original_post;
     wp_reset_postdata();
-    
+
     // Return JSON
     wp_send_json_success($content);
 }
@@ -218,12 +223,13 @@ add_action('rest_api_init', function () {
 });
 
 //  ep ko load page con 
-add_filter('template_include', function($template) {
+add_filter('template_include', function ($template) {
     $account_pages = ['account', 'profile', 'wallet', 'change-password', 'membership', 'deposit-history', 'purchase-history'];
 
     if (is_page() && in_array(get_post_field('post_name', get_queried_object_id()), $account_pages)) {
         $custom_template = locate_template('page-account.php');
-        if ($custom_template) return $custom_template;
+        if ($custom_template)
+            return $custom_template;
     }
 
     return $template;
@@ -231,7 +237,8 @@ add_filter('template_include', function($template) {
 
 //  =================================================rewrite rule singleblog =================================================
 
-function my_blog_rewrite_rules() {
+function my_blog_rewrite_rules()
+{
     add_rewrite_rule(
         '^blog/([^/]+)/?$',
         'index.php?post_type=cpt_post&name=$matches[1]',
@@ -244,38 +251,75 @@ add_filter('template_include', function ($template) {
 
     if (is_singular('cpt_post')) {
         $tpl = locate_template('page-singleblog.php');
-        if ($tpl) return $tpl;
+        if ($tpl)
+            return $tpl;
     }
 
     if (is_page('blog')) {
         $tpl = locate_template('page-blog.php');
-        if ($tpl) return $tpl;
+        if ($tpl)
+            return $tpl;
     }
 
     return $template;
 });
 
 
-function my_provider_rewrite_rules(){
+function my_provider_rewrite_rules()
+{
     add_rewrite_rule(
         '^providers/([^/]+)/?$',
         'index.php?post_type=provider&name=$matches[1]',
         'top'
     );
 }
-add_action('init','my_provider_rewrite_rules');
+add_action('init', 'my_provider_rewrite_rules');
 
-add_filter('template_include', function($template){
-    if(is_singular('provider')){
+add_filter('template_include', function ($template) {
+    if (is_singular('provider')) {
         $tpl = locate_template('page-provider-detail.php');
-        if($tpl) return $tpl;
+        if ($tpl)
+            return $tpl;
     }
 
-    if(is_page('providers')){
+    if (is_page('providers')) {
         $tpl = locate_template('page-providers.php');
-        if ($tpl) return $tpl;
+        if ($tpl)
+            return $tpl;
     }
 
     return $template;
 });
+//======================================= override template woo =====================================
 
+add_filter('woocommerce_enqueue_styles', '__return_empty_array');
+
+add_theme_support('woocommerce');
+
+//=========================================== AJAX add to cart =========================================
+// AJAX handler cho add to cart (nếu WooCommerce không có sẵn)
+add_action('wp_ajax_woocommerce_add_to_cart', 'custom_ajax_add_to_cart');
+add_action('wp_ajax_nopriv_woocommerce_add_to_cart', 'custom_ajax_add_to_cart');
+
+function custom_ajax_add_to_cart()
+{
+    $product_id = isset($_POST['product_id']) ? absint($_POST['product_id']) : 0;
+    $variation_id = isset($_POST['variation_id']) ? absint($_POST['variation_id']) : 0;
+    $quantity = isset($_POST['quantity']) ? absint($_POST['quantity']) : 1;
+
+    if ($variation_id) {
+        $cart_item_key = WC()->cart->add_to_cart($product_id, $quantity, $variation_id);
+    } else {
+        $cart_item_key = WC()->cart->add_to_cart($product_id, $quantity);
+    }
+
+    if ($cart_item_key) {
+        // Get cart fragments
+        WC_AJAX::get_refreshed_fragments();
+    } else {
+        wp_send_json_error(array(
+            'error' => true,
+            'message' => 'Không thể thêm sản phẩm vào giỏ hàng'
+        ));
+    }
+}

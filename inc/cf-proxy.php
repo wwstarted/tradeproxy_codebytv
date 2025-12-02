@@ -7,7 +7,7 @@ function proxy_description_meta_box()
     add_meta_box(
         'proxy_description',
         'Proxy Summary (HomePage)',
-        'proxy_home_info_callback', // callback
+        'proxy_home_info_callback',
         'product',
         'normal',
         'high'
@@ -35,316 +35,316 @@ function proxy_home_info_callback($post)
     $features_section = isset($saved_data['features_section']) && is_array($saved_data['features_section']) ? $saved_data['features_section'] : array();
     ?>
 
-    <style>
-        .provider-meta-box {
-            padding: 20px;
-        }
+<style>
+.provider-meta-box {
+    padding: 20px;
+}
 
-        .provider-field {
-            margin-bottom: 25px;
-        }
+.provider-field {
+    margin-bottom: 25px;
+}
 
-        .provider-field label {
-            display: block;
-            font-weight: 600;
-            margin-bottom: 8px;
-            font-size: 14px;
-        }
+.provider-field label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 8px;
+    font-size: 14px;
+}
 
-        .provider-field input[type="text"],
-        .provider-field input[type="number"],
-        .provider-field textarea {
-            width: 100%;
-            padding: 8px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-        }
+.provider-field input[type="text"],
+.provider-field input[type="number"],
+.provider-field textarea {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
 
-        .provider-field textarea {
-            min-height: 80px;
-        }
+.provider-field textarea {
+    min-height: 80px;
+}
 
-        .repeatable-item {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 10px;
-            align-items: center;
-        }
+.repeatable-item {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 10px;
+    align-items: center;
+}
 
-        .repeatable-item input {
-            flex: 1;
-        }
+.repeatable-item input {
+    flex: 1;
+}
 
-        .btn-add,
-        .btn-remove {
-            padding: 8px 15px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 13px;
-        }
+.btn-add,
+.btn-remove {
+    padding: 8px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 13px;
+}
 
-        .btn-add {
-            background: #0073aa;
-            color: white;
-        }
+.btn-add {
+    background: #0073aa;
+    color: white;
+}
 
-        .btn-add:hover {
-            background: #005a87;
-        }
+.btn-add:hover {
+    background: #005a87;
+}
 
-        .btn-remove {
-            background: #dc3232;
-            color: white;
-            padding: 8px 12px;
-        }
+.btn-remove {
+    background: #dc3232;
+    color: white;
+    padding: 8px 12px;
+}
 
-        .btn-remove:hover {
-            background: #a00;
-        }
+.btn-remove:hover {
+    background: #a00;
+}
 
-        .field-description {
-            font-size: 12px;
-            color: #666;
-            margin-top: 5px;
-            font-style: italic;
-        }
+.field-description {
+    font-size: 12px;
+    color: #666;
+    margin-top: 5px;
+    font-style: italic;
+}
 
-        .desc-meta-box {
-            padding: 20px;
-        }
+.desc-meta-box {
+    padding: 20px;
+}
 
-        .desc-section {
-            margin-bottom: 35px;
-            padding: 20px;
-            background: #f9f9f9;
-            border-radius: 8px;
-            border-left: 4px solid #0073aa;
-        }
+.desc-section {
+    margin-bottom: 35px;
+    padding: 20px;
+    background: #f9f9f9;
+    border-radius: 8px;
+    border-left: 4px solid #0073aa;
+}
 
-        .desc-section-title {
-            font-size: 16px;
-            font-weight: 700;
-            margin-bottom: 20px;
-            color: #0073aa;
-            text-transform: uppercase;
-        }
+.desc-section-title {
+    font-size: 16px;
+    font-weight: 700;
+    margin-bottom: 20px;
+    color: #0073aa;
+    text-transform: uppercase;
+}
 
-        .desc-field {
-            margin-bottom: 20px;
-        }
+.desc-field {
+    margin-bottom: 20px;
+}
 
-        .desc-field label {
-            display: block;
-            font-weight: 600;
-            margin-bottom: 8px;
-            font-size: 14px;
-        }
+.desc-field label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 8px;
+    font-size: 14px;
+}
 
-        .desc-field textarea {
-            width: 100%;
-            min-height: 100px;
-            padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-        }
+.desc-field textarea {
+    width: 100%;
+    min-height: 100px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
 
-        .desc-repeatable-item {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 10px;
-            align-items: center;
-        }
+.desc-repeatable-item {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 10px;
+    align-items: center;
+}
 
-        .desc-repeatable-item input {
-            flex: 1;
-            padding: 8px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-        }
+.desc-repeatable-item input {
+    flex: 1;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
 
-        .desc-btn-add,
-        .desc-btn-remove {
-            padding: 8px 15px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 13px;
-        }
+.desc-btn-add,
+.desc-btn-remove {
+    padding: 8px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 13px;
+}
 
-        .desc-btn-add {
-            background: #0073aa;
-            color: white;
-        }
+.desc-btn-add {
+    background: #0073aa;
+    color: white;
+}
 
-        .desc-btn-add:hover {
-            background: #005a87;
-        }
+.desc-btn-add:hover {
+    background: #005a87;
+}
 
-        .desc-btn-remove {
-            background: #dc3232;
-            color: white;
-            padding: 8px 12px;
-        }
+.desc-btn-remove {
+    background: #dc3232;
+    color: white;
+    padding: 8px 12px;
+}
 
-        .desc-btn-remove:hover {
-            background: #a00;
-        }
+.desc-btn-remove:hover {
+    background: #a00;
+}
 
-        .feature-group {
-            border: 2px solid #0073aa;
-            padding: 20px;
-            margin-bottom: 20px;
-            border-radius: 8px;
-            background: white;
-        }
+.feature-group {
+    border: 2px solid #0073aa;
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    background: white;
+}
 
-        .feature-group-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 15px;
-            padding-bottom: 10px;
-            border-bottom: 2px solid #0073aa;
-        }
+.feature-group-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #0073aa;
+}
 
-        .feature-group-title {
-            font-weight: 700;
-            color: #0073aa;
-            font-size: 16px;
-        }
+.feature-group-title {
+    font-weight: 700;
+    color: #0073aa;
+    font-size: 16px;
+}
 
-        .feature-group-main-title {
-            margin-bottom: 15px;
-        }
+.feature-group-main-title {
+    margin-bottom: 15px;
+}
 
-        .feature-group-main-title input {
-            width: 100%;
-            padding: 10px;
-            border: 2px solid #0073aa;
-            border-radius: 6px;
-            font-weight: 600;
-        }
+.feature-group-main-title input {
+    width: 100%;
+    padding: 10px;
+    border: 2px solid #0073aa;
+    border-radius: 6px;
+    font-weight: 600;
+}
 
-        .feature-items-list {
-            margin-top: 15px;
-            padding: 15px;
-            background: #f0fdf4;
-            border-radius: 6px;
-        }
+.feature-items-list {
+    margin-top: 15px;
+    padding: 15px;
+    background: #f0fdf4;
+    border-radius: 6px;
+}
 
-        .feature-item-group {
-            border: 2px solid #0073aa;
-            padding: 12px;
-            margin-bottom: 10px;
-            border-radius: 6px;
-            background: white;
-        }
+.feature-item-group {
+    border: 2px solid #0073aa;
+    padding: 12px;
+    margin-bottom: 10px;
+    border-radius: 6px;
+    background: white;
+}
 
-        .feature-item-group input,
-        .feature-item-group textarea {
-            width: 100%;
-            padding: 8px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            margin-bottom: 8px;
-        }
+.feature-item-group input,
+.feature-item-group textarea {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    margin-bottom: 8px;
+}
 
-        .feature-item-group textarea {
-            min-height: 50px;
-        }
+.feature-item-group textarea {
+    min-height: 50px;
+}
 
-        .feature-item-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 10px;
-        }
+.feature-item-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
 
-        #pricing-plans-metabox {
-            margin-bottom: 20px;
-        }
+#pricing-plans-metabox {
+    margin-bottom: 20px;
+}
 
-        .pricing-plan-item {
-            border: 1px solid #ddd;
-            padding: 15px;
-            margin-bottom: 15px;
-            background: #f9f9f9;
-            border-radius: 4px;
-        }
+.pricing-plan-item {
+    border: 1px solid #ddd;
+    padding: 15px;
+    margin-bottom: 15px;
+    background: #f9f9f9;
+    border-radius: 4px;
+}
 
-        .pricing-plan-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 15px;
-            padding-bottom: 10px;
-            border-bottom: 2px solid #e0e0e0;
-        }
+.pricing-plan-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #e0e0e0;
+}
 
-        .pricing-plan-title {
-            font-weight: bold;
-            font-size: 14px;
-            color: #333;
-        }
+.pricing-plan-title {
+    font-weight: bold;
+    font-size: 14px;
+    color: #333;
+}
 
-        .pricing-plan-fields {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 15px;
-        }
+.pricing-plan-fields {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+}
 
-        .pricing-field {
-            display: flex;
-            flex-direction: column;
-        }
+.pricing-field {
+    display: flex;
+    flex-direction: column;
+}
 
-        .pricing-field label {
-            margin-bottom: 5px;
-            font-weight: 600;
-        }
+.pricing-field label {
+    margin-bottom: 5px;
+    font-weight: 600;
+}
 
-        .pricing-field input {
-            padding: 8px;
-            border: 1px solid #ddd;
-            border-radius: 3px;
-            width: 100%;
-        }
-    </style>
+.pricing-field input {
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 3px;
+    width: 100%;
+}
+</style>
 
-    <div class="provider-meta-box">
+<div class="provider-meta-box">
 
-        <!-- Logo URL -->
-        <div class="provider-field">
-            <label>Logo URL</label>
-            <input type="text" name="proxy_logo" id="proxy_logo" value="<?php echo esc_attr($logo); ?>"
-                placeholder="https://example.com/logo.png">
-            <?php if (!empty($logo)): ?>
-                <div id="logo-preview" style="margin-top: 10px;">
-                    <img src="<?php echo esc_url($logo); ?>"
-                        style="max-width: 150px; height: auto; border: 1px solid #ddd; border-radius: 4px; padding: 5px;">
-                </div>
-            <?php else: ?>
-                <div id="logo-preview" style="margin-top: 10px; display: none;">
-                    <img src=""
-                        style="max-width: 150px; height: auto; border: 1px solid #ddd; border-radius: 4px; padding: 5px;">
-                </div>
-            <?php endif; ?>
+    <!-- Logo URL -->
+    <div class="provider-field">
+        <label>Logo URL</label>
+        <input type="text" name="proxy_logo" id="proxy_logo" value="<?php echo esc_attr($logo); ?>"
+            placeholder="https://example.com/logo.png">
+        <?php if (!empty($logo)): ?>
+        <div id="logo-preview" style="margin-top: 10px;">
+            <img src="<?php echo esc_url($logo); ?>"
+                style="max-width: 150px; height: auto; border: 1px solid #ddd; border-radius: 4px; padding: 5px;">
         </div>
-
-        <!-- Rating -->
-        <div class="provider-field">
-            <label>Rating</label>
-            <input type="number" name="proxy_rating" value="<?php echo esc_attr($rating); ?>" step="0.1" min="0" max="5"
-                placeholder="0.0">
-            <p class="field-description">Điểm đánh giá từ 0 đến 5</p>
+        <?php else: ?>
+        <div id="logo-preview" style="margin-top: 10px; display: none;">
+            <img src=""
+                style="max-width: 150px; height: auto; border: 1px solid #ddd; border-radius: 4px; padding: 5px;">
         </div>
+        <?php endif; ?>
+    </div>
 
-        <!-- Status -->
-        <div class="provider-field">
-            <label>Status</label>
-            <div id="status-container">
-                <?php
+    <!-- Rating -->
+    <div class="provider-field">
+        <label>Rating</label>
+        <input type="number" name="proxy_rating" value="<?php echo esc_attr($rating); ?>" step="0.1" min="0" max="5"
+            placeholder="0.0">
+        <p class="field-description">Điểm đánh giá từ 0 đến 5</p>
+    </div>
+
+    <!-- Status -->
+    <div class="provider-field">
+        <label>Status</label>
+        <div id="status-container">
+            <?php
                 if (!empty($status)) {
                     foreach ($status as $index => $item) {
                         echo '<div class="repeatable-item">
@@ -359,16 +359,15 @@ function proxy_home_info_callback($post)
                           </div>';
                 }
                 ?>
-            </div>
-            <button type="button" class="btn-add add-status">ADD</button>
         </div>
+        <button type="button" class="btn-add add-status">ADD</button>
+    </div>
 
-        <div class="desc-section" id="features-overview-metabox-new">
-            <div class="desc-section-title">Price based on </div>
+    <div class="desc-section" id="features-overview-metabox-new">
+        <div class="desc-section-title">Price based on </div>
 
-            <div id="features-overview-container-new" class="features-container-unique">
-                <?php
-                // Lấy dữ liệu từ features_section thay vì features_overview
+        <div id="features-overview-container-new" class="features-container-unique">
+            <?php
                 $proxy_data = get_post_meta($post->ID, '_proxy_data', true);
                 $proxy_data = maybe_unserialize($proxy_data);
                 $features_section = isset($proxy_data['features_section']) ? $proxy_data['features_section'] : array();
@@ -378,104 +377,104 @@ function proxy_home_info_callback($post)
                         $group_title = isset($feature_group['title']) ? $feature_group['title'] : '';
                         $group_items = isset($feature_group['items']) && is_array($feature_group['items']) ? $feature_group['items'] : array();
                         ?>
-                        <div class="feature-group" data-group-index="<?php echo $group_index; ?>">
-                            <div class="feature-group-header">
-                                <span class="feature-group-title">Proxy Group #<?php echo $group_index + 1; ?></span>
-                                <button type="button" class="desc-btn-remove remove-feature-group">✕</button>
-                            </div>
+            <div class="feature-group" data-group-index="<?php echo $group_index; ?>">
+                <div class="feature-group-header">
+                    <span class="feature-group-title">Proxy Group #<?php echo $group_index + 1; ?></span>
+                    <button type="button" class="desc-btn-remove remove-feature-group">✕</button>
+                </div>
 
-                            <div class="feature-group-main-title">
-                                <label class="rating-label">Group Title</label>
-                                <input type="text" name="features_section_group_title[]"
-                                    value="<?php echo esc_attr($group_title); ?>" placeholder="Proxy Types">
-                            </div>
+                <div class="feature-group-main-title">
+                    <label class="rating-label">Group Title</label>
+                    <input type="text" name="features_section_group_title[]"
+                        value="<?php echo esc_attr($group_title); ?>" placeholder="Proxy Types">
+                </div>
 
-                            <div class="feature-items-list">
-                                <label class="rating-label">Proxy in this Group</label>
-                                <div class="feature-items-container">
-                                    <?php
+                <div class="feature-items-list">
+                    <label class="rating-label">Proxy in this Group</label>
+                    <div class="feature-items-container">
+                        <?php
                                     if (!empty($group_items)) {
                                         foreach ($group_items as $item_index => $item) {
                                             $item_title = isset($item['title']) ? $item['title'] : '';
                                             $item_summary = isset($item['summary']) ? $item['summary'] : '';
                                             ?>
-                                            <div class="feature-item-group">
-                                                <div class="feature-item-header">
-                                                    <label class="rating-label" style="margin: 0;">Item
-                                                        #<?php echo $item_index + 1; ?></label>
-                                                    <button type="button" class="desc-btn-remove remove-feature-item">✕</button>
-                                                </div>
-                                                <input type="text" name="features_section_item_title_<?php echo $group_index; ?>[]"
-                                                    value="<?php echo esc_attr($item_title); ?>" placeholder="Residential Proxies">
-                                                <textarea name="features_section_item_summary_<?php echo $group_index; ?>[]"
-                                                    placeholder="100M+ real residential IPs"><?php echo esc_textarea($item_summary); ?></textarea>
-                                            </div>
-                                            <?php
+                        <div class="feature-item-group">
+                            <div class="feature-item-header">
+                                <label class="rating-label" style="margin: 0;">Item
+                                    #<?php echo $item_index + 1; ?></label>
+                                <button type="button" class="desc-btn-remove remove-feature-item">✕</button>
+                            </div>
+                            <input type="text" name="features_section_item_title_<?php echo $group_index; ?>[]"
+                                value="<?php echo esc_attr($item_title); ?>" placeholder="Residential Proxies">
+                            <textarea name="features_section_item_summary_<?php echo $group_index; ?>[]"
+                                placeholder="100M+ real residential IPs"><?php echo esc_textarea($item_summary); ?></textarea>
+                        </div>
+                        <?php
                                         }
                                     } else {
                                         ?>
-                                        <div class="feature-item-group">
-                                            <div class="feature-item-header">
-                                                <label class="rating-label" style="margin: 0;">Item #1</label>
-                                                <button type="button" class="desc-btn-remove remove-feature-item">✕</button>
-                                            </div>
-                                            <input type="text" name="features_section_item_title_<?php echo $group_index; ?>[]" value=""
-                                                placeholder="Residential Proxies">
-                                            <textarea name="features_section_item_summary_<?php echo $group_index; ?>[]"
-                                                placeholder="100M+ real residential IPs"></textarea>
-                                        </div>
-                                        <?php
-                                    }
-                                    ?>
-                                </div>
-                                <button type="button" class="desc-btn-add add-feature-item" style="margin-top: 10px;">ADD</button>
+                        <div class="feature-item-group">
+                            <div class="feature-item-header">
+                                <label class="rating-label" style="margin: 0;">Item #1</label>
+                                <button type="button" class="desc-btn-remove remove-feature-item">✕</button>
                             </div>
+                            <input type="text" name="features_section_item_title_<?php echo $group_index; ?>[]" value=""
+                                placeholder="Residential Proxies">
+                            <textarea name="features_section_item_summary_<?php echo $group_index; ?>[]"
+                                placeholder="100M+ real residential IPs"></textarea>
                         </div>
                         <?php
+                                    }
+                                    ?>
+                    </div>
+                    <button type="button" class="desc-btn-add add-feature-item" style="margin-top: 10px;">ADD</button>
+                </div>
+            </div>
+            <?php
                     }
                 } else {
                     ?>
-                    <div class="feature-group" data-group-index="0">
-                        <div class="feature-group-header">
-                            <span class="feature-group-title">Proxys Group #1</span>
-                            <button type="button" class="desc-btn-remove remove-feature-group">✕</button>
-                        </div>
+            <div class="feature-group" data-group-index="0">
+                <div class="feature-group-header">
+                    <span class="feature-group-title">Proxys Group #1</span>
+                    <button type="button" class="desc-btn-remove remove-feature-group">✕</button>
+                </div>
 
-                        <div class="feature-group-main-title">
-                            <label class="rating-label">Group Title</label>
-                            <input type="text" name="features_section_group_title[]" value="" placeholder="Proxy Types">
-                        </div>
+                <div class="feature-group-main-title">
+                    <label class="rating-label">Group Title</label>
+                    <input type="text" name="features_section_group_title[]" value="" placeholder="Proxy Types">
+                </div>
 
-                        <div class="feature-items-list">
-                            <label class="rating-label">Proxy in this Group</label>
-                            <div class="feature-items-container">
-                                <div class="feature-item-group">
-                                    <div class="feature-item-header">
-                                        <label class="rating-label" style="margin: 0;">Item #1</label>
-                                        <button type="button" class="desc-btn-remove remove-feature-item">✕</button>
-                                    </div>
-                                    <input type="text" name="features_section_item_title_0[]" value=""
-                                        placeholder="Residential Proxies">
-                                    <textarea name="features_section_item_summary_0[]"
-                                        placeholder="100M+ real residential IPs"></textarea>
-                                </div>
+                <div class="feature-items-list">
+                    <label class="rating-label">Proxy in this Group</label>
+                    <div class="feature-items-container">
+                        <div class="feature-item-group">
+                            <div class="feature-item-header">
+                                <label class="rating-label" style="margin: 0;">Item #1</label>
+                                <button type="button" class="desc-btn-remove remove-feature-item">✕</button>
                             </div>
-                            <button type="button" class="desc-btn-add add-feature-item" style="margin-top: 10px;">ADD</button>
+                            <input type="text" name="features_section_item_title_0[]" value=""
+                                placeholder="Residential Proxies">
+                            <textarea name="features_section_item_summary_0[]"
+                                placeholder="100M+ real residential IPs"></textarea>
                         </div>
                     </div>
-                    <?php
+                    <button type="button" class="desc-btn-add add-feature-item" style="margin-top: 10px;">ADD</button>
+                </div>
+            </div>
+            <?php
                 }
                 ?>
-            </div>
-
-            <button type="button" class="desc-btn-add add-feature-group">ADD</button>
         </div>
-        <div class="desc-section" id="pricing-plans-metabox">
-            <div class="desc-section-title">Pricing Plans</div>
 
-            <div id="pricing-plans-container">
-                <?php
-                // Lấy dữ liệu pricing plans
+        <button type="button" class="desc-btn-add add-feature-group">ADD</button>
+    </div>
+    <div class="desc-section" id="pricing-plans-metabox">
+        <div class="desc-section-title">Pricing Plans</div>
+
+        <div id="pricing-plans-container">
+            <?php
+                // get pricing plan
                 $proxy_data = get_post_meta($post->ID, '_proxy_data', true);
                 $proxy_data = maybe_unserialize($proxy_data);
                 $pricing_plans = isset($proxy_data['pricing_plans']) ? $proxy_data['pricing_plans'] : array();
@@ -485,255 +484,261 @@ function proxy_home_info_callback($post)
                         $month = isset($plan['month']) ? $plan['month'] : '';
                         $price = isset($plan['price']) ? $plan['price'] : '';
                         ?>
-                        <div class="pricing-plan-item" data-plan-index="<?php echo $plan_index; ?>">
-                            <div class="pricing-plan-header">
-                                <span class="pricing-plan-title">Plan #<?php echo $plan_index + 1; ?></span>
-                                <button type="button" class="desc-btn-remove remove-pricing-plan">✕</button>
-                            </div>
-                            <div class="pricing-plan-fields">
-                                <div class="pricing-field">
-                                    <label class="rating-label">Month(s)</label>
-                                    <input type="number" name="pricing_plan_month[]" value="<?php echo esc_attr($month); ?>"
-                                        placeholder="3" min="1" step="1">
-                                </div>
-                                <div class="pricing-field">
-                                    <label class="rating-label">Price</label>
-                                    <input type="number" name="pricing_plan_price[]" value="<?php echo esc_attr($price); ?>"
-                                        placeholder="25.00" min="0" step="0.01">
-                                </div>
-                            </div>
-                        </div>
-                        <?php
+            <div class="pricing-plan-item" data-plan-index="<?php echo $plan_index; ?>">
+                <div class="pricing-plan-header">
+                    <span class="pricing-plan-title">Plan #<?php echo $plan_index + 1; ?></span>
+                    <button type="button" class="desc-btn-remove remove-pricing-plan">✕</button>
+                </div>
+                <div class="pricing-plan-fields">
+                    <div class="pricing-field">
+                        <label class="rating-label">Month(s)</label>
+                        <input type="number" name="pricing_plan_month[]" value="<?php echo esc_attr($month); ?>"
+                            placeholder="3" min="1" step="1">
+                    </div>
+                    <div class="pricing-field">
+                        <label class="rating-label">Price</label>
+                        <input type="number" name="pricing_plan_price[]" value="<?php echo esc_attr($price); ?>"
+                            placeholder="25.00" min="0" step="0.01">
+                    </div>
+                </div>
+            </div>
+            <?php
                     }
                 } else {
                     ?>
-                    <div class="pricing-plan-item" data-plan-index="0">
-                        <div class="pricing-plan-header">
-                            <span class="pricing-plan-title">Plan #1</span>
-                            <button type="button" class="desc-btn-remove remove-pricing-plan">✕</button>
-                        </div>
-                        <div class="pricing-plan-fields">
-                            <div class="pricing-field">
-                                <label class="rating-label">Month(s)</label>
-                                <input type="number" name="pricing_plan_month[]" value="" placeholder="3" min="1" step="1">
-                            </div>
-                            <div class="pricing-field">
-                                <label class="rating-label">Price</label>
-                                <input type="number" name="pricing_plan_price[]" value="" placeholder="*1.0" min="0"
-                                    step="0.01">
-                            </div>
-                        </div>
+            <div class="pricing-plan-item" data-plan-index="0">
+                <div class="pricing-plan-header">
+                    <span class="pricing-plan-title">Plan #1</span>
+                    <button type="button" class="desc-btn-remove remove-pricing-plan">✕</button>
+                </div>
+                <div class="pricing-plan-fields">
+                    <div class="pricing-field">
+                        <label class="rating-label">Month(s)</label>
+                        <input type="number" name="pricing_plan_month[]" value="" placeholder="3" min="1" step="1">
                     </div>
-                    <?php
+                    <div class="pricing-field">
+                        <label class="rating-label">Price</label>
+                        <input type="number" name="pricing_plan_price[]" value="" placeholder="*1.0" min="0"
+                            step="0.01">
+                    </div>
+                </div>
+            </div>
+            <?php
                 }
                 ?>
-            </div>
-
-            <button type="button" class="desc-btn-add add-pricing-plan">ADD</button>
         </div>
 
-
+        <button type="button" class="desc-btn-add add-pricing-plan">ADD</button>
     </div>
-    <script>
-        jQuery(document).ready(function ($) {
-            // ===================================================================
-            // === CÁC PHẦN KHÁC (logo, tag, advanced, status) - GIỮ NGUYÊN ===
-            // ===================================================================
-            $('#proxy_logo').on('input', function () {
-                var logoUrl = $(this).val();
-                if (logoUrl) {
-                    $('#logo-preview img').attr('src', logoUrl);
-                    $('#logo-preview').show();
-                } else {
-                    $('#logo-preview').hide();
-                }
-            });
 
 
-            $('.add-status').on('click', function () {
-                var html = '<div class="repeatable-item">' +
-                    '<input type="text" name="proxy_status[]" value="" placeholder="Nhập status">' +
-                    '<button type="button" class="btn-remove remove-status">X</button>' +
-                    '</div>';
-                $('#status-container').append(html);
-            });
-
-            $(document).on('click', '.remove-status', function () {
-                if ($('#status-container .repeatable-item').length > 1) {
-                    $(this).closest('.repeatable-item').remove();
-                } else {
-                    alert('Phải có ít nhất 1 status!');
-                }
-            });
-
-            // ======================== plan pricing ========================
-            jQuery(document).ready(function ($) {
-                var $metabox = $('#pricing-plans-metabox');
-                if (!$metabox.length) return;
-
-                var $container = $('#pricing-plans-container');
-
-                // === ADD PRICING PLAN ===
-                $metabox.on('click', '.add-pricing-plan', function (e) {
-                    e.stopImmediatePropagation();
-                    e.preventDefault();
-
-                    var count = $container.find('.pricing-plan-item').length;
-                    var html = '<div class="pricing-plan-item" data-plan-index="' + count + '">' +
-                        '<div class="pricing-plan-header">' +
-                        '<span class="pricing-plan-title">Plan #' + (count + 1) + '</span>' +
-                        '<button type="button" class="desc-btn-remove remove-pricing-plan">✕</button>' +
-                        '</div>' +
-                        '<div class="pricing-plan-fields">' +
-                        '<div class="pricing-field">' +
-                        '<label class="rating-label">Month(s)</label>' +
-                        '<input type="number" name="pricing_plan_month[]" value="" placeholder="3" min="1" step="1">' +
-                        '</div>' +
-                        '<div class="pricing-field">' +
-                        '<label class="rating-label">Price ($)</label>' +
-                        '<input type="number" name="pricing_plan_price[]" value="" placeholder="25.00" min="0" step="0.01">' +
-                        '</div>' +
-                        '</div>' +
-                        '</div>';
-
-                    $container.append(html);
-                    return false;
-                });
-
-                // === REMOVE PRICING PLAN ===
-                $metabox.on('click', '.remove-pricing-plan', function (e) {
-                    e.stopImmediatePropagation();
-                    if ($container.find('.pricing-plan-item').length > 1) {
-                        $(this).closest('.pricing-plan-item').remove();
-                        updatePlanNumbers();
-                    } else {
-                        alert('Phải có ít nhất 1 pricing plan!');
-                    }
-                    return false;
-                });
-
-                // === UPDATE PLAN NUMBERS ===
-                function updatePlanNumbers() {
-                    $container.find('.pricing-plan-item').each(function (index) {
-                        $(this).attr('data-plan-index', index);
-                        $(this).find('.pricing-plan-title').text('Plan #' + (index + 1));
-                    });
-                }
-
-                updatePlanNumbers();
-            });
+</div>
+<script>
+jQuery(document).ready(function($) {
+    // ===================================================================
+    // === CÁC PHẦN KHÁC (logo, tag, advanced, status) - GIỮ NGUYÊN ===
+    // ===================================================================
+    $('#proxy_logo').on('input', function() {
+        var logoUrl = $(this).val();
+        if (logoUrl) {
+            $('#logo-preview img').attr('src', logoUrl);
+            $('#logo-preview').show();
+        } else {
+            $('#logo-preview').hide();
+        }
+    });
 
 
-            // =================== Features Overview Section ================
-            var $metabox = $('#features-overview-metabox-new');
-            if (!$metabox.length) return;
+    $('.add-status').on('click', function() {
+        var html = '<div class="repeatable-item">' +
+            '<input type="text" name="proxy_status[]" value="" placeholder="Nhập status">' +
+            '<button type="button" class="btn-remove remove-status">X</button>' +
+            '</div>';
+        $('#status-container').append(html);
+    });
 
-            var $container = $('#features-overview-container-new');
+    $(document).on('click', '.remove-status', function() {
+        if ($('#status-container .repeatable-item').length > 1) {
+            $(this).closest('.repeatable-item').remove();
+        } else {
+            alert('Phải có ít nhất 1 status!');
+        }
+    });
 
-            // === ADD GROUP ===
-            $metabox.on('click', '.add-feature-group', function (e) {
-                e.stopImmediatePropagation();
-                e.preventDefault();
+    // ======================== plan pricing ========================
+    jQuery(document).ready(function($) {
+        var $metabox = $('#pricing-plans-metabox');
+        if (!$metabox.length) return;
 
-                var count = $container.find('.feature-group').length;
-                var html = '<div class="feature-group" data-group-index="' + count + '">' +
-                    '<div class="feature-group-header">' +
-                    '<span class="feature-group-title">Feature Group #' + (count + 1) + '</span>' +
-                    '<button type="button" class="desc-btn-remove remove-feature-group">✕</button>' +
-                    '</div>' +
-                    '<div class="feature-group-main-title">' +
-                    '<label class="rating-label">Group Title</label>' +
-                    '<input type="text" name="features_section_group_title[]" value="" placeholder="Proxy Types">' +
-                    '</div>' +
-                    '<div class="feature-items-list">' +
-                    '<label class="rating-label">Features in this Group</label>' +
-                    '<div class="feature-items-container">' +
-                    '<div class="feature-item-group">' +
-                    '<div class="feature-item-header">' +
-                    '<label class="rating-label" style="margin: 0;">Item #1</label>' +
-                    '<button type="button" class="desc-btn-remove remove-feature-item">✕</button>' +
-                    '</div>' +
-                    '<input type="text" name="features_section_item_title_' + count + '[]" value="" placeholder="Residential Proxies">' +
-                    '<textarea name="features_section_item_summary_' + count + '[]" placeholder="100M+ real residential IPs"></textarea>' +
-                    '</div>' +
-                    '</div>' +
-                    '<button type="button" class="desc-btn-add add-feature-item" style="margin-top: 10px;">ADD</button>' +
-                    '</div>' +
-                    '</div>';
+        var $container = $('#pricing-plans-container');
 
-                $container.append(html);
-                return false;
-            });
+        // === ADD PRICING PLAN ===
+        $metabox.on('click', '.add-pricing-plan', function(e) {
+            e.stopImmediatePropagation();
+            e.preventDefault();
 
-            // === ADD ITEM ===
-            $metabox.on('click', '.add-feature-item', function (e) {
-                e.stopImmediatePropagation();
-                e.preventDefault();
+            var count = $container.find('.pricing-plan-item').length;
+            var html = '<div class="pricing-plan-item" data-plan-index="' + count + '">' +
+                '<div class="pricing-plan-header">' +
+                '<span class="pricing-plan-title">Plan #' + (count + 1) + '</span>' +
+                '<button type="button" class="desc-btn-remove remove-pricing-plan">✕</button>' +
+                '</div>' +
+                '<div class="pricing-plan-fields">' +
+                '<div class="pricing-field">' +
+                '<label class="rating-label">Month(s)</label>' +
+                '<input type="number" name="pricing_plan_month[]" value="" placeholder="3" min="1" step="1">' +
+                '</div>' +
+                '<div class="pricing-field">' +
+                '<label class="rating-label">Price ($)</label>' +
+                '<input type="number" name="pricing_plan_price[]" value="" placeholder="25.00" min="0" step="0.01">' +
+                '</div>' +
+                '</div>' +
+                '</div>';
 
-                var $group = $(this).closest('.feature-group');
-                var groupIndex = $group.attr('data-group-index');
-                var $itemsContainer = $group.find('.feature-items-container');
-                var itemCount = $itemsContainer.find('.feature-item-group').length + 1;
-
-                var html = '<div class="feature-item-group">' +
-                    '<div class="feature-item-header">' +
-                    '<label class="rating-label" style="margin: 0;">Item #' + itemCount + '</label>' +
-                    '<button type="button" class="desc-btn-remove remove-feature-item">✕</button>' +
-                    '</div>' +
-                    '<input type="text" name="features_section_item_title_' + groupIndex + '[]" value="" placeholder="Feature Title">' +
-                    '<textarea name="features_section_item_summary_' + groupIndex + '[]" placeholder="Feature summary"></textarea>' +
-                    '</div>';
-
-                $itemsContainer.append(html);
-                return false;
-            });
-
-            // === REMOVE GROUP ===
-            $metabox.on('click', '.remove-feature-group', function (e) {
-                e.stopImmediatePropagation();
-                if ($container.find('.feature-group').length > 1) {
-                    $(this).closest('.feature-group').remove();
-                    updateGroupIndexes();
-                } else {
-                    alert('Phải có ít nhất 1 feature group!');
-                }
-                return false;
-            });
-
-            // === REMOVE ITEM ===
-            $metabox.on('click', '.remove-feature-item', function (e) {
-                e.stopImmediatePropagation();
-                var $itemsContainer = $(this).closest('.feature-items-container');
-                if ($itemsContainer.find('.feature-item-group').length > 1) {
-                    $(this).closest('.feature-item-group').remove();
-                    updateItemNumbers($itemsContainer);
-                } else {
-                    alert('Phải có ít nhất 1 item!');
-                }
-                return false;
-            });
-
-            // === CẬP NHẬT INDEX ===
-            function updateGroupIndexes() {
-                $container.find('.feature-group').each(function (index) {
-                    var $group = $(this);
-                    $group.attr('data-group-index', index);
-                    $group.find('.feature-group-title').text('Feature Group #' + (index + 1));
-                    $group.find('input[name^="features_section_item_title_"]').attr('name', 'features_section_item_title_' + index + '[]');
-                    $group.find('textarea[name^="features_section_item_summary_"]').attr('name', 'features_section_item_summary_' + index + '[]');
-                });
-            }
-
-            function updateItemNumbers($itemsContainer) {
-                $itemsContainer.find('.feature-item-group').each(function (index) {
-                    $(this).find('.feature-item-header label').first().text('Item #' + (index + 1));
-                });
-            }
-
-            updateGroupIndexes();
+            $container.append(html);
+            return false;
         });
-    </script>
-    <?php
+
+        // === REMOVE PRICING PLAN ===
+        $metabox.on('click', '.remove-pricing-plan', function(e) {
+            e.stopImmediatePropagation();
+            if ($container.find('.pricing-plan-item').length > 1) {
+                $(this).closest('.pricing-plan-item').remove();
+                updatePlanNumbers();
+            } else {
+                alert('Phải có ít nhất 1 pricing plan!');
+            }
+            return false;
+        });
+
+        // === UPDATE PLAN NUMBERS ===
+        function updatePlanNumbers() {
+            $container.find('.pricing-plan-item').each(function(index) {
+                $(this).attr('data-plan-index', index);
+                $(this).find('.pricing-plan-title').text('Plan #' + (index + 1));
+            });
+        }
+
+        updatePlanNumbers();
+    });
+
+
+    // =================== Features Overview Section ================
+    var $metabox = $('#features-overview-metabox-new');
+    if (!$metabox.length) return;
+
+    var $container = $('#features-overview-container-new');
+
+    // === ADD GROUP ===
+    $metabox.on('click', '.add-feature-group', function(e) {
+        e.stopImmediatePropagation();
+        e.preventDefault();
+
+        var count = $container.find('.feature-group').length;
+        var html = '<div class="feature-group" data-group-index="' + count + '">' +
+            '<div class="feature-group-header">' +
+            '<span class="feature-group-title">Feature Group #' + (count + 1) + '</span>' +
+            '<button type="button" class="desc-btn-remove remove-feature-group">✕</button>' +
+            '</div>' +
+            '<div class="feature-group-main-title">' +
+            '<label class="rating-label">Group Title</label>' +
+            '<input type="text" name="features_section_group_title[]" value="" placeholder="Proxy Types">' +
+            '</div>' +
+            '<div class="feature-items-list">' +
+            '<label class="rating-label">Features in this Group</label>' +
+            '<div class="feature-items-container">' +
+            '<div class="feature-item-group">' +
+            '<div class="feature-item-header">' +
+            '<label class="rating-label" style="margin: 0;">Item #1</label>' +
+            '<button type="button" class="desc-btn-remove remove-feature-item">✕</button>' +
+            '</div>' +
+            '<input type="text" name="features_section_item_title_' + count +
+            '[]" value="" placeholder="Residential Proxies">' +
+            '<textarea name="features_section_item_summary_' + count +
+            '[]" placeholder="100M+ real residential IPs"></textarea>' +
+            '</div>' +
+            '</div>' +
+            '<button type="button" class="desc-btn-add add-feature-item" style="margin-top: 10px;">ADD</button>' +
+            '</div>' +
+            '</div>';
+
+        $container.append(html);
+        return false;
+    });
+
+    // === ADD ITEM ===
+    $metabox.on('click', '.add-feature-item', function(e) {
+        e.stopImmediatePropagation();
+        e.preventDefault();
+
+        var $group = $(this).closest('.feature-group');
+        var groupIndex = $group.attr('data-group-index');
+        var $itemsContainer = $group.find('.feature-items-container');
+        var itemCount = $itemsContainer.find('.feature-item-group').length + 1;
+
+        var html = '<div class="feature-item-group">' +
+            '<div class="feature-item-header">' +
+            '<label class="rating-label" style="margin: 0;">Item #' + itemCount + '</label>' +
+            '<button type="button" class="desc-btn-remove remove-feature-item">✕</button>' +
+            '</div>' +
+            '<input type="text" name="features_section_item_title_' + groupIndex +
+            '[]" value="" placeholder="Feature Title">' +
+            '<textarea name="features_section_item_summary_' + groupIndex +
+            '[]" placeholder="Feature summary"></textarea>' +
+            '</div>';
+
+        $itemsContainer.append(html);
+        return false;
+    });
+
+    // === REMOVE GROUP ===
+    $metabox.on('click', '.remove-feature-group', function(e) {
+        e.stopImmediatePropagation();
+        if ($container.find('.feature-group').length > 1) {
+            $(this).closest('.feature-group').remove();
+            updateGroupIndexes();
+        } else {
+            alert('Phải có ít nhất 1 feature group!');
+        }
+        return false;
+    });
+
+    // === REMOVE ITEM ===
+    $metabox.on('click', '.remove-feature-item', function(e) {
+        e.stopImmediatePropagation();
+        var $itemsContainer = $(this).closest('.feature-items-container');
+        if ($itemsContainer.find('.feature-item-group').length > 1) {
+            $(this).closest('.feature-item-group').remove();
+            updateItemNumbers($itemsContainer);
+        } else {
+            alert('Phải có ít nhất 1 item!');
+        }
+        return false;
+    });
+
+    // === CẬP NHẬT INDEX ===
+    function updateGroupIndexes() {
+        $container.find('.feature-group').each(function(index) {
+            var $group = $(this);
+            $group.attr('data-group-index', index);
+            $group.find('.feature-group-title').text('Feature Group #' + (index + 1));
+            $group.find('input[name^="features_section_item_title_"]').attr('name',
+                'features_section_item_title_' + index + '[]');
+            $group.find('textarea[name^="features_section_item_summary_"]').attr('name',
+                'features_section_item_summary_' + index + '[]');
+        });
+    }
+
+    function updateItemNumbers($itemsContainer) {
+        $itemsContainer.find('.feature-item-group').each(function(index) {
+            $(this).find('.feature-item-header label').first().text('Item #' + (index + 1));
+        });
+    }
+
+    updateGroupIndexes();
+});
+</script>
+<?php
 }
 
 // Lưu dữ liệu
@@ -871,538 +876,541 @@ function proxy_desc_callback($post)
 
 
     ?>
-    <style>
-        .provider-meta-box {
-            padding: 20px;
-        }
+<style>
+.provider-meta-box {
+    padding: 20px;
+}
 
-        .provider-field {
-            margin-bottom: 25px;
-        }
+.provider-field {
+    margin-bottom: 25px;
+}
 
-        .provider-field label {
-            display: block;
-            font-weight: 600;
-            margin-bottom: 8px;
-            font-size: 14px;
-        }
+.provider-field label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 8px;
+    font-size: 14px;
+}
 
-        .provider-field input[type="text"],
-        .provider-field input[type="number"],
-        .provider-field textarea {
-            width: 100%;
-            padding: 8px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-        }
+.provider-field input[type="text"],
+.provider-field input[type="number"],
+.provider-field textarea {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
 
-        .provider-field textarea {
-            min-height: 80px;
-        }
+.provider-field textarea {
+    min-height: 80px;
+}
 
-        .feature-group {
-            border: 2px solid #0073aa;
-            padding: 20px;
-            margin-bottom: 20px;
-            border-radius: 8px;
-            background: white;
-        }
+.feature-group {
+    border: 2px solid #0073aa;
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    background: white;
+}
 
-        .feature-group-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 15px;
-            padding-bottom: 10px;
-            border-bottom: 2px solid #0073aa;
-        }
+.feature-group-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #0073aa;
+}
 
-        .feature-group-title {
-            font-weight: 700;
-            color: #0073aa;
-            font-size: 16px;
-        }
+.feature-group-title {
+    font-weight: 700;
+    color: #0073aa;
+    font-size: 16px;
+}
 
-        .feature-group-main-title {
-            margin-bottom: 15px;
-        }
+.feature-group-main-title {
+    margin-bottom: 15px;
+}
 
-        .feature-group-main-title input {
-            width: 100%;
-            padding: 10px;
-            border: 2px solid #0073aa;
-            border-radius: 6px;
-            font-weight: 600;
-        }
+.feature-group-main-title input {
+    width: 100%;
+    padding: 10px;
+    border: 2px solid #0073aa;
+    border-radius: 6px;
+    font-weight: 600;
+}
 
-        .feature-items-list {
-            margin-top: 15px;
-            padding: 15px;
-            background: #f0fdf4;
-            border-radius: 6px;
-        }
+.feature-items-list {
+    margin-top: 15px;
+    padding: 15px;
+    background: #f0fdf4;
+    border-radius: 6px;
+}
 
-        .feature-item-group {
-            border: 2px solid #0073aa;
-            padding: 12px;
-            margin-bottom: 10px;
-            border-radius: 6px;
-            background: white;
-        }
+.feature-item-group {
+    border: 2px solid #0073aa;
+    padding: 12px;
+    margin-bottom: 10px;
+    border-radius: 6px;
+    background: white;
+}
 
-        .feature-item-group input {
-            width: 100%;
-            padding: 8px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            margin-bottom: 8px;
-        }
+.feature-item-group input {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    margin-bottom: 8px;
+}
 
-        .feature-item-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 10px;
-        }
+.feature-item-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
 
-        .desc-btn-add,
-        .desc-btn-remove {
-            padding: 8px 15px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 13px;
-        }
+.desc-btn-add,
+.desc-btn-remove {
+    padding: 8px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 13px;
+}
 
-        .desc-btn-add {
-            background: #0073aa;
-            color: white;
-        }
+.desc-btn-add {
+    background: #0073aa;
+    color: white;
+}
 
-        .desc-btn-add:hover {
-            background: #005a87;
-        }
+.desc-btn-add:hover {
+    background: #005a87;
+}
 
-        .desc-btn-remove {
-            background: #dc3232;
-            color: white;
-            padding: 8px 12px;
-        }
+.desc-btn-remove {
+    background: #dc3232;
+    color: white;
+    padding: 8px 12px;
+}
 
-        .desc-btn-remove:hover {
-            background: #a00;
-        }
+.desc-btn-remove:hover {
+    background: #a00;
+}
 
-        .desc-section {
-            margin-bottom: 30px;
-        }
+.desc-section {
+    margin-bottom: 30px;
+}
 
-        .desc-section-title {
-            font-size: 18px;
-            font-weight: 700;
-            margin-bottom: 20px;
-            color: #0073aa;
-            border-bottom: 2px solid #0073aa;
-            padding-bottom: 10px;
-        }
+.desc-section-title {
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 20px;
+    color: #0073aa;
+    border-bottom: 2px solid #0073aa;
+    padding-bottom: 10px;
+}
 
-        .rating-label {
-            font-weight: 600;
-            font-size: 14px;
-            color: #333;
-        }
+.rating-label {
+    font-weight: 600;
+    font-size: 14px;
+    color: #333;
+}
 
-        /* commit & achieve */
+/* commit & achieve */
 
-        .perfect-group {
-            border: 2px solid #0073aa;
-            padding: 20px;
-            margin-bottom: 20px;
-            border-radius: 8px;
-            background: white;
-            position: relative;
-        }
+.perfect-group {
+    border: 2px solid #0073aa;
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    background: white;
+    position: relative;
+}
 
-        .perfect-group-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 15px;
-            padding-bottom: 10px;
-            border-bottom: 2px solid #0073aa;
-        }
+.perfect-group-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #0073aa;
+}
 
-        .perfect-group-title {
-            font-weight: 700;
-            color: #0073aa;
-            font-size: 16px;
-        }
+.perfect-group-title {
+    font-weight: 700;
+    color: #0073aa;
+    font-size: 16px;
+}
 
-        .perfect-field {
-            margin-bottom: 15px;
-        }
+.perfect-field {
+    margin-bottom: 15px;
+}
 
-        .perfect-field label {
-            display: block;
-            font-weight: 600;
-            margin-bottom: 5px;
-            font-size: 13px;
-            color: #555;
-        }
+.perfect-field label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 5px;
+    font-size: 13px;
+    color: #555;
+}
 
-        .perfect-field input,
-        .perfect-field textarea {
-            width: 100%;
-            padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-        }
+.perfect-field input,
+.perfect-field textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
 
-        .perfect-field textarea {
-            min-height: 80px;
-        }
+.perfect-field textarea {
+    min-height: 80px;
+}
 
-        .perfect-field textarea.icon-field {
-            min-height: 120px;
-            font-family: monospace;
-            font-size: 12px;
-        }
-    </style>
+.perfect-field textarea.icon-field {
+    min-height: 120px;
+    font-family: monospace;
+    font-size: 12px;
+}
+</style>
 
-    <div class="provider-meta-box">
+<div class="provider-meta-box">
 
-        <div class="desc-section">
-            <div class="desc-section-title">Commitment and achievement</div>
+    <div class="desc-section">
+        <div class="desc-section-title">Commitment and achievement</div>
 
-            <div id="perfect-for-container">
-                <?php
+        <div id="perfect-for-container">
+            <?php
                 if (!empty($perfect_for)) {
                     foreach ($perfect_for as $pf_index => $pf_item) {
                         $pf_title = isset($pf_item['title']) ? $pf_item['title'] : '';
                         $pf_icon = isset($pf_item['icon']) ? $pf_item['icon'] : '';
                         $pf_summary = isset($pf_item['summary']) ? $pf_item['summary'] : '';
                         ?>
-                        <div class="perfect-group" data-perfect-index="<?php echo $pf_index; ?>">
-                            <div class="perfect-group-header">
-                                <span class="perfect-group-title">Use Case #<?php echo (int) $pf_index + 1; ?></span>
-                                <button type="button" class="desc-btn-remove remove-perfect-group">✕</button>
-                            </div>
+            <div class="perfect-group" data-perfect-index="<?php echo $pf_index; ?>">
+                <div class="perfect-group-header">
+                    <span class="perfect-group-title">Use Case #<?php echo (int) $pf_index + 1; ?></span>
+                    <button type="button" class="desc-btn-remove remove-perfect-group">✕</button>
+                </div>
 
-                            <div class="perfect-field">
-                                <label>Title</label>
-                                <input type="text" name="perfect_for_title[]" value="<?php echo esc_attr($pf_title); ?>"
-                                    placeholder="Web Scraping">
-                            </div>
+                <div class="perfect-field">
+                    <label>Title</label>
+                    <input type="text" name="perfect_for_title[]" value="<?php echo esc_attr($pf_title); ?>"
+                        placeholder="Web Scraping">
+                </div>
 
-                            <div class="perfect-field">
-                                <label>Icon Code (HTML/SVG)</label>
-                                <textarea name="perfect_for_icon[]" class="icon-field"
-                                    placeholder="<svg>...</svg> or HTML icon code"><?php echo esc_textarea($pf_icon); ?></textarea>
-                            </div>
+                <div class="perfect-field">
+                    <label>Icon Code (HTML/SVG)</label>
+                    <textarea name="perfect_for_icon[]" class="icon-field"
+                        placeholder="<svg>...</svg> or HTML icon code"><?php echo esc_textarea($pf_icon); ?></textarea>
+                </div>
 
-                            <div class="perfect-field">
-                                <label>Summary</label>
-                                <textarea name="perfect_for_summary[]"
-                                    placeholder="Extract data from websites at scale without getting blocked..."><?php echo esc_textarea($pf_summary); ?></textarea>
-                            </div>
-                        </div>
-                        <?php
+                <div class="perfect-field">
+                    <label>Summary</label>
+                    <textarea name="perfect_for_summary[]"
+                        placeholder="Extract data from websites at scale without getting blocked..."><?php echo esc_textarea($pf_summary); ?></textarea>
+                </div>
+            </div>
+            <?php
                     }
                 } else {
                     ?>
-                    <div class="perfect-group" data-perfect-index="0">
-                        <div class="perfect-group-header">
-                            <span class="perfect-group-title">Use Case #1</span>
-                            <button type="button" class="desc-btn-remove remove-perfect-group">✕</button>
-                        </div>
+            <div class="perfect-group" data-perfect-index="0">
+                <div class="perfect-group-header">
+                    <span class="perfect-group-title">Use Case #1</span>
+                    <button type="button" class="desc-btn-remove remove-perfect-group">✕</button>
+                </div>
 
-                        <div class="perfect-field">
-                            <label>Title</label>
-                            <input type="text" name="perfect_for_title[]" value="" placeholder="Web Scraping">
-                        </div>
+                <div class="perfect-field">
+                    <label>Title</label>
+                    <input type="text" name="perfect_for_title[]" value="" placeholder="Web Scraping">
+                </div>
 
-                        <div class="perfect-field">
-                            <label>Icon Code (HTML/SVG)</label>
-                            <textarea name="perfect_for_icon[]" class="icon-field"
-                                placeholder="<svg>...</svg> or HTML icon code"></textarea>
-                        </div>
+                <div class="perfect-field">
+                    <label>Icon Code (HTML/SVG)</label>
+                    <textarea name="perfect_for_icon[]" class="icon-field"
+                        placeholder="<svg>...</svg> or HTML icon code"></textarea>
+                </div>
 
-                        <div class="perfect-field">
-                            <label>Summary</label>
-                            <textarea name="perfect_for_summary[]"
-                                placeholder="Extract data from websites at scale without getting blocked..."></textarea>
-                        </div>
-                    </div>
-                    <?php
+                <div class="perfect-field">
+                    <label>Summary</label>
+                    <textarea name="perfect_for_summary[]"
+                        placeholder="Extract data from websites at scale without getting blocked..."></textarea>
+                </div>
+            </div>
+            <?php
                 }
                 ?>
-            </div>
-
-            <button type="button" class="desc-btn-add add-perfect-group">ADD</button>
         </div>
 
-        <div class="desc-section">
-            <div class="desc-section-title">Proxy Details</div>
+        <button type="button" class="desc-btn-add add-perfect-group">ADD</button>
+    </div>
 
-            <div id="features-overview-container">
-                <?php
+    <div class="desc-section">
+        <div class="desc-section-title">Proxy Details</div>
+
+        <div id="features-overview-container">
+            <?php
                 if (!empty($features_overview)) {
                     foreach ($features_overview as $group_index => $feature_group) {
                         $group_title = isset($feature_group['title']) ? $feature_group['title'] : '';
                         $group_items = isset($feature_group['items']) && is_array($feature_group['items']) ? $feature_group['items'] : array();
                         ?>
-                        <div class="feature-group" data-group-index="<?php echo $group_index; ?>">
-                            <div class="feature-group-header">
-                                <span class="feature-group-title">Details Group #<?php echo $group_index + 1; ?></span>
-                                <button type="button" class="desc-btn-remove remove-feature-group">✕</button>
-                            </div>
+            <div class="feature-group" data-group-index="<?php echo $group_index; ?>">
+                <div class="feature-group-header">
+                    <span class="feature-group-title">Details Group #<?php echo $group_index + 1; ?></span>
+                    <button type="button" class="desc-btn-remove remove-feature-group">✕</button>
+                </div>
 
-                            <div class="feature-group-main-title">
-                                <label class="rating-label">Details Title</label>
-                                <input type="text" name="feature_group_title[]" value="<?php echo esc_attr($group_title); ?>"
-                                    placeholder="Proxy Types">
-                            </div>
+                <div class="feature-group-main-title">
+                    <label class="rating-label">Details Title</label>
+                    <input type="text" name="feature_group_title[]" value="<?php echo esc_attr($group_title); ?>"
+                        placeholder="Proxy Types">
+                </div>
 
-                            <div class="feature-items-list">
-                                <label class="rating-label">Items in this Group</label>
-                                <div class="feature-items-container">
-                                    <?php
+                <div class="feature-items-list">
+                    <label class="rating-label">Items in this Group</label>
+                    <div class="feature-items-container">
+                        <?php
                                     if (!empty($group_items)) {
                                         foreach ($group_items as $item_index => $item) {
                                             $item_title = isset($item['title']) ? $item['title'] : '';
                                             ?>
-                                            <div class="feature-item-group">
-                                                <div class="feature-item-header">
-                                                    <label class="rating-label" style="margin: 0;">Item
-                                                        #<?php echo $item_index + 1; ?></label>
-                                                    <button type="button" class="desc-btn-remove remove-feature-item">✕</button>
-                                                </div>
-                                                <input type="text" name="feature_item_title_<?php echo $group_index; ?>[]"
-                                                    value="<?php echo esc_attr($item_title); ?>" placeholder="Residential Proxies">
-                                            </div>
-                                            <?php
+                        <div class="feature-item-group">
+                            <div class="feature-item-header">
+                                <label class="rating-label" style="margin: 0;">Item
+                                    #<?php echo $item_index + 1; ?></label>
+                                <button type="button" class="desc-btn-remove remove-feature-item">✕</button>
+                            </div>
+                            <input type="text" name="feature_item_title_<?php echo $group_index; ?>[]"
+                                value="<?php echo esc_attr($item_title); ?>" placeholder="Residential Proxies">
+                        </div>
+                        <?php
                                         }
                                     } else {
                                         ?>
-                                        <div class="feature-item-group">
-                                            <div class="feature-item-header">
-                                                <label class="rating-label" style="margin: 0;">Item #1</label>
-                                                <button type="button" class="desc-btn-remove remove-feature-item">✕</button>
-                                            </div>
-                                            <input type="text" name="feature_item_title_<?php echo $group_index; ?>[]" value=""
-                                                placeholder="Residential Proxies">
-                                        </div>
-                                        <?php
-                                    }
-                                    ?>
-                                </div>
-                                <button type="button" class="desc-btn-add add-feature-item" style="margin-top: 10px;">ADD</button>
+                        <div class="feature-item-group">
+                            <div class="feature-item-header">
+                                <label class="rating-label" style="margin: 0;">Item #1</label>
+                                <button type="button" class="desc-btn-remove remove-feature-item">✕</button>
                             </div>
+                            <input type="text" name="feature_item_title_<?php echo $group_index; ?>[]" value=""
+                                placeholder="Residential Proxies">
                         </div>
                         <?php
+                                    }
+                                    ?>
+                    </div>
+                    <button type="button" class="desc-btn-add add-feature-item" style="margin-top: 10px;">ADD</button>
+                </div>
+            </div>
+            <?php
                     }
                 } else {
                     ?>
-                    <div class="feature-group" data-group-index="0">
-                        <div class="feature-group-header">
-                            <span class="feature-group-title">Details Group #1</span>
-                            <button type="button" class="desc-btn-remove remove-feature-group">✕</button>
-                        </div>
+            <div class="feature-group" data-group-index="0">
+                <div class="feature-group-header">
+                    <span class="feature-group-title">Details Group #1</span>
+                    <button type="button" class="desc-btn-remove remove-feature-group">✕</button>
+                </div>
 
-                        <div class="feature-group-main-title">
-                            <label class="rating-label">Group Title</label>
-                            <input type="text" name="feature_group_title[]" value="" placeholder="Proxy Types">
-                        </div>
+                <div class="feature-group-main-title">
+                    <label class="rating-label">Group Title</label>
+                    <input type="text" name="feature_group_title[]" value="" placeholder="Proxy Types">
+                </div>
 
-                        <div class="feature-items-list">
-                            <label class="rating-label">Items in this Group</label>
-                            <div class="feature-items-container">
-                                <div class="feature-item-group">
-                                    <div class="feature-item-header">
-                                        <label class="rating-label" style="margin: 0;">Item #1</label>
-                                        <button type="button" class="desc-btn-remove remove-feature-item">✕</button>
-                                    </div>
-                                    <input type="text" name="feature_item_title_0[]" value="" placeholder="Residential Proxies">
-                                </div>
+                <div class="feature-items-list">
+                    <label class="rating-label">Items in this Group</label>
+                    <div class="feature-items-container">
+                        <div class="feature-item-group">
+                            <div class="feature-item-header">
+                                <label class="rating-label" style="margin: 0;">Item #1</label>
+                                <button type="button" class="desc-btn-remove remove-feature-item">✕</button>
                             </div>
-                            <button type="button" class="desc-btn-add add-feature-item" style="margin-top: 10px;">ADD</button>
+                            <input type="text" name="feature_item_title_0[]" value="" placeholder="Residential Proxies">
                         </div>
                     </div>
-                    <?php
+                    <button type="button" class="desc-btn-add add-feature-item" style="margin-top: 10px;">ADD</button>
+                </div>
+            </div>
+            <?php
                 }
                 ?>
-            </div>
-
-            <button type="button" class="desc-btn-add add-feature-group">ADD</button>
         </div>
 
+        <button type="button" class="desc-btn-add add-feature-group">ADD</button>
     </div>
 
-    <script>
-        jQuery(document).ready(function ($) {
-            // ===================================================================
-            // === METABOX: Proxy Details - CHỈ XỬ LÝ METABOX NÀY ===
-            // ===================================================================
+</div>
 
-            // Tìm container của Proxy Details metabox
-            var $container = $('#features-overview-container');
-            if (!$container.length) return;
+<script>
+jQuery(document).ready(function($) {
+    // ===================================================================
+    // === METABOX: Proxy Details - CHỈ XỬ LÝ METABOX NÀY ===
+    // ===================================================================
 
-            // Lấy parent metabox để scope events
-            var $metabox = $container.closest('.desc-section');
+    // Tìm container của Proxy Details metabox
+    var $container = $('#features-overview-container');
+    if (!$container.length) return;
 
-            // === ADD FEATURE GROUP ===
-            $metabox.on('click', '.add-feature-group', function (e) {
-                e.stopImmediatePropagation();
-                e.preventDefault();
+    // Lấy parent metabox để scope events
+    var $metabox = $container.closest('.desc-section');
 
-                var count = $container.find('.feature-group').length;
-                var html = '<div class="feature-group" data-group-index="' + count + '">' +
-                    '<div class="feature-group-header">' +
-                    '<span class="feature-group-title">Details Group #' + (count + 1) + '</span>' +
-                    '<button type="button" class="desc-btn-remove remove-feature-group">✕</button>' +
-                    '</div>' +
-                    '<div class="feature-group-main-title">' +
-                    '<label class="rating-label">Details Title</label>' +
-                    '<input type="text" name="feature_group_title[]" value="" placeholder="Proxy Types">' +
-                    '</div>' +
-                    '<div class="feature-items-list">' +
-                    '<label class="rating-label">Items in this Group</label>' +
-                    '<div class="feature-items-container">' +
-                    '<div class="feature-item-group">' +
-                    '<div class="feature-item-header">' +
-                    '<label class="rating-label" style="margin: 0;">Item #1</label>' +
-                    '<button type="button" class="desc-btn-remove remove-feature-item">✕</button>' +
-                    '</div>' +
-                    '<input type="text" name="feature_item_title_' + count + '[]" value="" placeholder="Residential Proxies">' +
-                    '</div>' +
-                    '</div>' +
-                    '<button type="button" class="desc-btn-add add-feature-item" style="margin-top: 10px;">ADD ITEM</button>' +
-                    '</div>' +
-                    '</div>';
-                $container.append(html);
-                return false;
-            });
+    // === ADD FEATURE GROUP ===
+    $metabox.on('click', '.add-feature-group', function(e) {
+        e.stopImmediatePropagation();
+        e.preventDefault();
 
-            // === REMOVE FEATURE GROUP ===
-            $metabox.on('click', '.remove-feature-group', function (e) {
-                e.stopImmediatePropagation();
-                if ($container.find('.feature-group').length > 1) {
-                    $(this).closest('.feature-group').remove();
-                    updateFeatureGroupNumbers();
-                } else {
-                    alert('Phải có ít nhất 1 feature group!');
-                }
-                return false;
-            });
+        var count = $container.find('.feature-group').length;
+        var html = '<div class="feature-group" data-group-index="' + count + '">' +
+            '<div class="feature-group-header">' +
+            '<span class="feature-group-title">Details Group #' + (count + 1) + '</span>' +
+            '<button type="button" class="desc-btn-remove remove-feature-group">✕</button>' +
+            '</div>' +
+            '<div class="feature-group-main-title">' +
+            '<label class="rating-label">Details Title</label>' +
+            '<input type="text" name="feature_group_title[]" value="" placeholder="Proxy Types">' +
+            '</div>' +
+            '<div class="feature-items-list">' +
+            '<label class="rating-label">Items in this Group</label>' +
+            '<div class="feature-items-container">' +
+            '<div class="feature-item-group">' +
+            '<div class="feature-item-header">' +
+            '<label class="rating-label" style="margin: 0;">Item #1</label>' +
+            '<button type="button" class="desc-btn-remove remove-feature-item">✕</button>' +
+            '</div>' +
+            '<input type="text" name="feature_item_title_' + count +
+            '[]" value="" placeholder="Residential Proxies">' +
+            '</div>' +
+            '</div>' +
+            '<button type="button" class="desc-btn-add add-feature-item" style="margin-top: 10px;">ADD ITEM</button>' +
+            '</div>' +
+            '</div>';
+        $container.append(html);
+        return false;
+    });
 
-            // === ADD FEATURE ITEM ===
-            $metabox.on('click', '.add-feature-item', function (e) {
-                e.stopImmediatePropagation();
-                e.preventDefault();
-
-                var featureGroup = $(this).closest('.feature-group');
-                var groupIndex = featureGroup.attr('data-group-index');
-                var itemsContainer = featureGroup.find('.feature-items-container');
-                var itemCount = itemsContainer.find('.feature-item-group').length + 1;
-
-                var html = '<div class="feature-item-group">' +
-                    '<div class="feature-item-header">' +
-                    '<label class="rating-label" style="margin: 0;">Item #' + itemCount + '</label>' +
-                    '<button type="button" class="desc-btn-remove remove-feature-item">✕</button>' +
-                    '</div>' +
-                    '<input type="text" name="feature_item_title_' + groupIndex + '[]" value="" placeholder="Residential Proxies">' +
-                    '</div>';
-                itemsContainer.append(html);
-                return false;
-            });
-
-            // === REMOVE FEATURE ITEM ===
-            $metabox.on('click', '.remove-feature-item', function (e) {
-                e.stopImmediatePropagation();
-                var itemsContainer = $(this).closest('.feature-items-container');
-                if (itemsContainer.find('.feature-item-group').length > 1) {
-                    $(this).closest('.feature-item-group').remove();
-                    updateFeatureItemNumbers(itemsContainer);
-                } else {
-                    alert('Phải có ít nhất 1 item!');
-                }
-                return false;
-            });
-
-            // === UPDATE FEATURE GROUP NUMBERS ===
-            function updateFeatureGroupNumbers() {
-                $container.find('.feature-group').each(function (index) {
-                    $(this).attr('data-group-index', index);
-                    $(this).find('.feature-group-title').text('Details Group #' + (index + 1));
-
-                    // Update input names for items in this group
-                    $(this).find('.feature-items-container input').each(function () {
-                        var name = $(this).attr('name');
-                        name = name.replace(/feature_item_title_\d+\[\]/, 'feature_item_title_' + index + '[]');
-                        $(this).attr('name', name);
-                    });
-                });
-            }
-
-            // === UPDATE FEATURE ITEM NUMBERS ===
-            function updateFeatureItemNumbers(container) {
-                container.find('.feature-item-group').each(function (index) {
-                    $(this).find('.feature-item-header label').text('Item #' + (index + 1));
-                });
-            }
-
-            // === PERFECT FOR SECTION ===
-            function updatePerfectForNumbers() {
-                $('#perfect-for-container .perfect-group').each(function (index) {
-                    $(this).attr('data-perfect-index', index);
-                    $(this).find('.perfect-group-title').text('Use Case #' + (index + 1));
-                });
-            }
-
-            // Add Perfect For Group
-            $('.add-perfect-group').on('click', function () {
-                var count = $('#perfect-for-container .perfect-group').length;
-                var html = '<div class="perfect-group" data-perfect-index="' + count + '">' +
-                    '<div class="perfect-group-header">' +
-                    '<span class="perfect-group-title">Use Case #' + (count + 1) + '</span>' +
-                    '<button type="button" class="desc-btn-remove remove-perfect-group">✕</button>' +
-                    '</div>' +
-                    '<div class="perfect-field">' +
-                    '<label>Title</label>' +
-                    '<input type="text" name="perfect_for_title[]" value="" placeholder="Web Scraping">' +
-                    '</div>' +
-                    '<div class="perfect-field">' +
-                    '<label>Icon Code (HTML/SVG)</label>' +
-                    '<textarea name="perfect_for_icon[]" class="icon-field" placeholder="<svg>...</svg> or HTML icon code"></textarea>' +
-                    '</div>' +
-                    '<div class="perfect-field">' +
-                    '<label>Summary</label>' +
-                    '<textarea name="perfect_for_summary[]" placeholder="Extract data from websites at scale..."></textarea>' +
-                    '</div>' +
-                    '</div>';
-                $('#perfect-for-container').append(html);
-            });
-
-            // Remove Perfect For Group
-            $(document).on('click', '.remove-perfect-group', function () {
-                if ($('#perfect-for-container .perfect-group').length > 1) {
-                    $(this).closest('.perfect-group').remove();
-                    updatePerfectForNumbers();
-                } else {
-                    alert('Phải có ít nhất 1 use case!');
-                }
-            });
-
-            // Initialize
+    // === REMOVE FEATURE GROUP ===
+    $metabox.on('click', '.remove-feature-group', function(e) {
+        e.stopImmediatePropagation();
+        if ($container.find('.feature-group').length > 1) {
+            $(this).closest('.feature-group').remove();
             updateFeatureGroupNumbers();
-        });
-    </script>
+        } else {
+            alert('Phải có ít nhất 1 feature group!');
+        }
+        return false;
+    });
 
-    <?php
+    // === ADD FEATURE ITEM ===
+    $metabox.on('click', '.add-feature-item', function(e) {
+        e.stopImmediatePropagation();
+        e.preventDefault();
+
+        var featureGroup = $(this).closest('.feature-group');
+        var groupIndex = featureGroup.attr('data-group-index');
+        var itemsContainer = featureGroup.find('.feature-items-container');
+        var itemCount = itemsContainer.find('.feature-item-group').length + 1;
+
+        var html = '<div class="feature-item-group">' +
+            '<div class="feature-item-header">' +
+            '<label class="rating-label" style="margin: 0;">Item #' + itemCount + '</label>' +
+            '<button type="button" class="desc-btn-remove remove-feature-item">✕</button>' +
+            '</div>' +
+            '<input type="text" name="feature_item_title_' + groupIndex +
+            '[]" value="" placeholder="Residential Proxies">' +
+            '</div>';
+        itemsContainer.append(html);
+        return false;
+    });
+
+    // === REMOVE FEATURE ITEM ===
+    $metabox.on('click', '.remove-feature-item', function(e) {
+        e.stopImmediatePropagation();
+        var itemsContainer = $(this).closest('.feature-items-container');
+        if (itemsContainer.find('.feature-item-group').length > 1) {
+            $(this).closest('.feature-item-group').remove();
+            updateFeatureItemNumbers(itemsContainer);
+        } else {
+            alert('Phải có ít nhất 1 item!');
+        }
+        return false;
+    });
+
+    // === UPDATE FEATURE GROUP NUMBERS ===
+    function updateFeatureGroupNumbers() {
+        $container.find('.feature-group').each(function(index) {
+            $(this).attr('data-group-index', index);
+            $(this).find('.feature-group-title').text('Details Group #' + (index + 1));
+
+            // Update input names for items in this group
+            $(this).find('.feature-items-container input').each(function() {
+                var name = $(this).attr('name');
+                name = name.replace(/feature_item_title_\d+\[\]/, 'feature_item_title_' +
+                    index + '[]');
+                $(this).attr('name', name);
+            });
+        });
+    }
+
+    // === UPDATE FEATURE ITEM NUMBERS ===
+    function updateFeatureItemNumbers(container) {
+        container.find('.feature-item-group').each(function(index) {
+            $(this).find('.feature-item-header label').text('Item #' + (index + 1));
+        });
+    }
+
+    // === PERFECT FOR SECTION ===
+    function updatePerfectForNumbers() {
+        $('#perfect-for-container .perfect-group').each(function(index) {
+            $(this).attr('data-perfect-index', index);
+            $(this).find('.perfect-group-title').text('Use Case #' + (index + 1));
+        });
+    }
+
+    // Add Perfect For Group
+    $('.add-perfect-group').on('click', function() {
+        var count = $('#perfect-for-container .perfect-group').length;
+        var html = '<div class="perfect-group" data-perfect-index="' + count + '">' +
+            '<div class="perfect-group-header">' +
+            '<span class="perfect-group-title">Use Case #' + (count + 1) + '</span>' +
+            '<button type="button" class="desc-btn-remove remove-perfect-group">✕</button>' +
+            '</div>' +
+            '<div class="perfect-field">' +
+            '<label>Title</label>' +
+            '<input type="text" name="perfect_for_title[]" value="" placeholder="Web Scraping">' +
+            '</div>' +
+            '<div class="perfect-field">' +
+            '<label>Icon Code (HTML/SVG)</label>' +
+            '<textarea name="perfect_for_icon[]" class="icon-field" placeholder="<svg>...</svg> or HTML icon code"></textarea>' +
+            '</div>' +
+            '<div class="perfect-field">' +
+            '<label>Summary</label>' +
+            '<textarea name="perfect_for_summary[]" placeholder="Extract data from websites at scale..."></textarea>' +
+            '</div>' +
+            '</div>';
+        $('#perfect-for-container').append(html);
+    });
+
+    // Remove Perfect For Group
+    $(document).on('click', '.remove-perfect-group', function() {
+        if ($('#perfect-for-container .perfect-group').length > 1) {
+            $(this).closest('.perfect-group').remove();
+            updatePerfectForNumbers();
+        } else {
+            alert('Phải có ít nhất 1 use case!');
+        }
+    });
+
+    // Initialize
+    updateFeatureGroupNumbers();
+});
+</script>
+
+<?php
 }
 
-// Lưu dữ liệu
+// save
 function save_proxy_desc($post_id)
 {
     // check nonce

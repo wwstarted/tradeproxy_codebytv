@@ -113,67 +113,134 @@
         <!-- Right Sidebar - Pricing -->
         <div class="pricing-sidebar">
             <div class="pricing-card">
-                <h3>9proxy</h3>
+                <?php
+                while (have_posts()):
+                    the_post();
+                    global $product;
 
-                <!-- Package Tabs -->
-                <!-- <div class="package-tabs">
-                    <button class="package-tab active">Thông thường</button>
-                    <button class="package-tab">Tiến tiến</button>
-                    <button class="package-tab">VIP</button>
-                </div> -->
+                    // check object
+                    if (!is_object($product)) {
+                        $product = wc_get_product(get_the_ID());
+                    }
 
-                <!-- Quantity Selection -->
-                <div class="quantity-grid">
-                    <button class="quantity-btn-proxy">10 IP</button>
-                    <button class="quantity-btn-proxy">50 IP</button>
-                    <button class="quantity-btn-proxy active">100 IP</button>
-                    <button class="quantity-btn-proxy">200 IP</button>
-                    <button class="quantity-btn-proxy">500 IP</button>
-                    <button class="quantity-btn-proxy">1000 IP</button>
-                    <button class="quantity-btn-proxy">5000 IP</button>
-                    <button class="quantity-btn-proxy">10000 IP</button>
-                </div>
+                    if ($product && is_a($product, 'WC_Product') && $product->is_type('variable')):
+                        $available_variations = $product->get_available_variations();
+                        $variation_attributes = $product->get_variation_attributes();
 
-                <!-- Duration Selection -->
-                <div class="duration-grid">
-                    <button class="duration-btn">1 tháng</button>
-                    <button class="duration-btn">3 tháng</button>
-                    <button class="duration-btn active">6 tháng</button>
-                    <button class="duration-btn">12 tháng</button>
-                    <button class="duration-btn">24 tháng</button>
-                    <button class="duration-btn">36 tháng</button>
-                </div>
+                        // covert variations to json;
+                        $variation_data_json = htmlspecialchars(wp_json_encode($available_variations));
+                        ?>
 
-                <!-- Location Selection -->
-                <p style="
-                  font-size: 14px;
-                  font-weight: 600;
-                  margin-bottom: 8px;
-                  color: #1f2937;
-                ">
-                    Lớn hơn (Vui lòng liên hệ để được giá tốt hơn)
-                </p>
+                <h3><?php echo $product->get_name(); ?></h3>
 
-                <!-- Price Display -->
-                <div class="price-display">
-                    <div class="price-label">Tổng tiền</div>
-                    <div class="price-amount">
-                        300.000đ
-                        <span class="price-unit">VNĐ</span>
+                <form class="variations_form cart" method="post" enctype='multipart/form-data'
+                    data-product_id="<?php echo absint($product->get_id()); ?>"
+                    data-product_variations="<?php echo $variation_data_json; ?>">
+
+                    <?php
+                            $ke_hoach_attr = null;
+                            $ke_hoach_taxonomy = null;
+
+                            // find
+                            if (isset($variation_attributes['pa_ke-hoach'])) {
+                                $ke_hoach_attr = 'pa_ke-hoach';
+                                $ke_hoach_taxonomy = 'pa_ke-hoach';
+                            } elseif (isset($variation_attributes['ke-hoach'])) {
+                                $ke_hoach_attr = 'ke-hoach';
+                                $ke_hoach_taxonomy = 'ke-hoach';
+                            }
+
+                            if ($ke_hoach_attr):
+                                $ke_hoach_slugs = $variation_attributes[$ke_hoach_attr];
+                                ?>
+                    <p style="font-size: 14px; font-weight: 600; margin-bottom: 8px; margin-top: 16px; color: #1f2937;">
+                        Kế hoạch
+                    </p>
+                    <div class="quantity-grid">
+                        <?php foreach ($ke_hoach_slugs as $slug):
+                                        // Lấy term name từ slug (nếu là global attribute)
+                                        $term = get_term_by('slug', $slug, 'pa_ke-hoach'); // Luôn thử với pa_ slug
+                                        $term_name = $term ? $term->name : $slug;
+                                        ?>
+                        <button type="button" class="quantity-btn-proxy"
+                            data-attribute="<?php echo esc_attr($ke_hoach_attr); ?>"
+                            data-value="<?php echo esc_attr($slug); ?>">
+                            <?php echo esc_html($term_name); ?>
+                        </button>
+                        <?php endforeach; ?>
                     </div>
-                </div>
+                    <input type="hidden" name="attribute_<?php echo esc_attr($ke_hoach_attr); ?>" value=""
+                        class="attribute-selector">
+                    <?php endif; ?>
 
-                <!-- Action Buttons -->
-                <div class="action-buttons">
-                    <button class="btn-primary-proxy">
-                        <i class="fa-solid fa-credit-card"></i>
-                        Mua ngay
-                    </button>
-                    <button class="btn-secondary-proxy">
-                        <i class="fa-solid fa-cart-plus"></i>
-                        Thêm vào giỏ hàng
-                    </button>
-                </div>
+                    <?php
+                            $thoi_han_attr = null;
+                            $thoi_han_taxonomy = null;
+
+                            if (isset($variation_attributes['pa_thoi-han'])) {
+                                $thoi_han_attr = 'pa_thoi-han';
+                                $thoi_han_taxonomy = 'pa_thoi-han';
+                            } elseif (isset($variation_attributes['thoi-han'])) {
+                                $thoi_han_attr = 'thoi-han';
+                                $thoi_han_taxonomy = 'thoi-han';
+                            }
+
+                            if ($thoi_han_attr):
+                                $thoi_han_slugs = $variation_attributes[$thoi_han_attr];
+                                ?>
+                    <p style="font-size: 14px; font-weight: 600; margin-bottom: 8px; margin-top: 16px; color: #1f2937;">
+                        Thời hạn
+                    </p>
+                    <div class="duration-grid">
+                        <?php foreach ($thoi_han_slugs as $slug):
+                                        $term = get_term_by('slug', $slug, 'pa_thoi-han');
+                                        $term_name = $term ? $term->name : $slug;
+                                        ?>
+                        <button type="button" class="duration-btn"
+                            data-attribute="<?php echo esc_attr($thoi_han_attr); ?>"
+                            data-value="<?php echo esc_attr($slug); ?>">
+                            <?php echo esc_html($term_name); ?>
+                        </button>
+                        <?php endforeach; ?>
+                    </div>
+                    <input type="hidden" name="attribute_<?php echo esc_attr($thoi_han_attr); ?>" value=""
+                        class="attribute-selector">
+                    <?php endif; ?>
+
+                    <p style="font-size: 14px; font-weight: 600; margin-bottom: 8px; margin-top: 16px; color: #1f2937;">
+                        Số lượng lớn hơn (Vui lòng liên hệ để được giá tốt hơn)
+                    </p>
+
+                    <div class="price-display">
+                        <div class="price-label">Tổng tiền</div>
+                        <div class="price-amount">
+                            <span id="variation-price-display" class="woocommerce-Price-amount amount">Vui lòng chọn
+                                gói</span>
+                        </div>
+                    </div>
+
+                    <input type="hidden" name="variation_id" class="variation_id" value="0">
+                    <input type="hidden" name="product_id" value="<?php echo absint($product->get_id()); ?>">
+                    <input type="hidden" name="quantity" value="1">
+
+                    <div class="action-buttons">
+                        <button type="submit" class="btn-primary-proxy single_add_to_cart_button" disabled>
+                            <i class="fa-solid fa-credit-card"></i>
+                            Mua ngay
+                        </button>
+                        <button type="button" class="btn-secondary-proxy ajax_add_to_cart" disabled>
+                            <i class="fa-solid fa-cart-plus"></i>
+                            Thêm vào giỏ hàng
+                        </button>
+                    </div>
+                </form>
+
+                <?php
+                    else:
+                        ?>
+                <?php endif;
+                endwhile;
+                ?>
             </div>
 
             <!-- Related Products -->
@@ -282,6 +349,7 @@
                     </div>
                 </div>
             </div>
+
         </div>
     </div>
 
@@ -318,123 +386,7 @@
                     </div>
                 </div>
 
-                <!-- Card 1: ABC Proxy -->
-                <div class="detail-proxy-card">
-                    <div class="detail-proxy-card-header">
-                        <div class="detail-proxy-card-logo">
-                            <img src="https://tradeproxy.vn/images/categories/abc-proxy.png" alt="ABC Proxy" />
-                        </div>
-                        <h2 class="detail-proxy-card-title">ABC Proxy</h2>
-                        <p class="detail-proxy-card-description line-clamp">
-                            Tốc độ truyền tải mạnh, số lượng IP đa dạng.
-                            <strong>Mua ABC proxy</strong> ngay!
-                        </p>
-                    </div>
-                    <div class="detail-proxy-card-price">1,290đ / IP</div>
-                    <div class="detail-proxy-card-body">
-                        <ul class="detail-proxy-features">
-                            <li>Tốc độ kết nối nhanh</li>
-                            <li>Hỗ trợ Http, Socks5...</li>
-                            <li>Window, Mac, Linux, Android</li>
-                        </ul>
-                        <button class="detail-proxy-btn-buy">Mua ngay</button>
-                    </div>
-                </div>
-
-                <!-- Card 1: ABC Proxy -->
-                <div class="detail-proxy-card">
-                    <div class="detail-proxy-card-header">
-                        <div class="detail-proxy-card-logo">
-                            <img src="https://tradeproxy.vn/images/categories/abc-proxy.png" alt="ABC Proxy" />
-                        </div>
-                        <h2 class="detail-proxy-card-title">ABC Proxy</h2>
-                        <p class="detail-proxy-card-description line-clamp">
-                            Tốc độ truyền tải mạnh, số lượng IP đa dạng.
-                            <strong>Mua ABC proxy</strong> ngay!
-                        </p>
-                    </div>
-                    <div class="detail-proxy-card-price">1,290đ / IP</div>
-                    <div class="detail-proxy-card-body">
-                        <ul class="detail-proxy-features">
-                            <li>Tốc độ kết nối nhanh</li>
-                            <li>Hỗ trợ Http, Socks5...</li>
-                            <li>Window, Mac, Linux, Android</li>
-                        </ul>
-                        <button class="detail-proxy-btn-buy">Mua ngay</button>
-                    </div>
-                </div>
-
-                <!-- Card 1: ABC Proxy -->
-                <div class="detail-proxy-card">
-                    <div class="detail-proxy-card-header">
-                        <div class="detail-proxy-card-logo">
-                            <img src="https://tradeproxy.vn/images/categories/abc-proxy.png" alt="ABC Proxy" />
-                        </div>
-                        <h2 class="detail-proxy-card-title">ABC Proxy</h2>
-                        <p class="detail-proxy-card-description line-clamp">
-                            Tốc độ truyền tải mạnh, số lượng IP đa dạng.
-                            <strong>Mua ABC proxy</strong> ngay!
-                        </p>
-                    </div>
-                    <div class="detail-proxy-card-price">1,290đ / IP</div>
-                    <div class="detail-proxy-card-body">
-                        <ul class="detail-proxy-features">
-                            <li>Tốc độ kết nối nhanh</li>
-                            <li>Hỗ trợ Http, Socks5...</li>
-                            <li>Window, Mac, Linux, Android</li>
-                        </ul>
-                        <button class="detail-proxy-btn-buy">Mua ngay</button>
-                    </div>
-                </div>
-
-                <!-- Card 1: ABC Proxy -->
-                <div class="detail-proxy-card">
-                    <div class="detail-proxy-card-header">
-                        <div class="detail-proxy-card-logo">
-                            <img src="https://tradeproxy.vn/images/categories/abc-proxy.png" alt="ABC Proxy" />
-                        </div>
-                        <h2 class="detail-proxy-card-title">ABC Proxy</h2>
-                        <p class="detail-proxy-card-description line-clamp">
-                            Tốc độ truyền tải mạnh, số lượng IP đa dạng.
-                            <strong>Mua ABC proxy</strong> ngay!
-                        </p>
-                    </div>
-                    <div class="detail-proxy-card-price">1,290đ / IP</div>
-                    <div class="detail-proxy-card-body">
-                        <ul class="detail-proxy-features">
-                            <li>Tốc độ kết nối nhanh</li>
-                            <li>Hỗ trợ Http, Socks5...</li>
-                            <li>Window, Mac, Linux, Android</li>
-                        </ul>
-                        <button class="detail-proxy-btn-buy">Mua ngay</button>
-                    </div>
-                </div>
-
-                <!-- Card 1: ABC Proxy -->
-                <div class="detail-proxy-card">
-                    <div class="detail-proxy-card-header">
-                        <div class="detail-proxy-card-logo">
-                            <img src="https://tradeproxy.vn/images/categories/abc-proxy.png" alt="ABC Proxy" />
-                        </div>
-                        <h2 class="detail-proxy-card-title">ABC Proxy</h2>
-                        <p class="detail-proxy-card-description line-clamp">
-                            Tốc độ truyền tải mạnh, số lượng IP đa dạng.
-                            Tốc độ truyền tải mạnh, số lượng IP đa dạng.
-                            Tốc độ truyền tải mạnh, số lượng IP đa dạng.
-                            <strong>Mua ABC proxy</strong> ngay!
-                        </p>
-                    </div>
-                    <div class="detail-proxy-card-price">1,290đ / IP</div>
-                    <div class="detail-proxy-card-body">
-                        <ul class="detail-proxy-features">
-                            <li>Tốc độ kết nối nhanh</li>
-                            <li>Hỗ trợ Http, Socks5...</li>
-                            <li>Window, Mac, Linux, Android</li>
-                        </ul>
-                        <button class="detail-proxy-btn-buy">Mua ngay</button>
-                    </div>
-                </div>
-
+                <!-- Repeat cards... -->
             </div>
 
             <button class="detail-carousel-nav-button detail-next" id="detailNextBtn">

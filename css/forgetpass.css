@@ -27,7 +27,7 @@
 }
 
 
-/* Phần form bên phải */
+/* form right */
 
 .form-section {
     flex: 1;
@@ -60,7 +60,7 @@
 }
 
 
-/* Input row cho Họ và Tên */
+/* Input row */
 
 .input-row {
     display: flex;

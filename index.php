@@ -10,8 +10,7 @@
             <div class="text-[#007BF3]">mức chiết khấu đại lý giá rẻ</div>
         </div>
         <div class="hero-image">
-            <img
-                src="https://tradeproxy.vn/images/background/tradeproxy-phan-phoi-piaproxy-922-abc-gia-dai-ly.webp"
+            <img src="https://tradeproxy.vn/images/background/tradeproxy-phan-phoi-piaproxy-922-abc-gia-dai-ly.webp"
                 alt="" />
         </div>
     </div>
@@ -25,100 +24,66 @@
                     Danh sách các loại proxy
                     <span class="text-[#007BF3]">tốt nhất</span>
                 </div>
-                <div
-                    id="scrollContainer"
+                <div id="scrollContainer"
                     class="flex overflow-x-auto whitespace-nowrap space-x-4 hide-scrollbar cursor-grab select-none">
                     <button
                         class="pt-1 pb-1 pl-3 pr-3 bg-[#007BF3] text-lg text-white rounded-xl border-1 flex-shrink-0">
                         tất cả
                     </button>
 
-                    <button
-                        class="flex pt-1 pb-1 pl-3 pr-3 border-1 rounded-xl border-[#007BF3] flex-shrink-0">
-                        <img
-                            src="https://tradeproxy.vn/images/categories/9proxy(32x32).png"
-                            alt=""
-                            class="w-7 h-7" />
+                    <button class="flex pt-1 pb-1 pl-3 pr-3 border-1 rounded-xl border-[#007BF3] flex-shrink-0">
+                        <img src="https://tradeproxy.vn/images/categories/9proxy(32x32).png" alt="" class="w-7 h-7" />
                         <p class="capitalize ml-2">9proxy</p>
                     </button>
 
-                    <button
-                        class="flex pt-1 pb-1 pl-3 pr-3 border-1 rounded-xl border-[#007BF3] flex-shrink-0">
-                        <img
-                            src="https://tradeproxy.vn/images/categories/pia-proxy(32x32).png"
-                            alt=""
+                    <button class="flex pt-1 pb-1 pl-3 pr-3 border-1 rounded-xl border-[#007BF3] flex-shrink-0">
+                        <img src="https://tradeproxy.vn/images/categories/pia-proxy(32x32).png" alt=""
                             class="w-7 h-7" />
                         <p class="capitalize ml-2">pia</p>
                     </button>
 
-                    <button
-                        class="flex pt-1 pb-1 pl-3 pr-3 border-1 rounded-xl border-[#007BF3] flex-shrink-0">
-                        <img
-                            src="https://tradeproxy.vn/images/categories/922-all(32x32).png"
-                            alt=""
-                            class="w-7 h-7" />
+                    <button class="flex pt-1 pb-1 pl-3 pr-3 border-1 rounded-xl border-[#007BF3] flex-shrink-0">
+                        <img src="https://tradeproxy.vn/images/categories/922-all(32x32).png" alt="" class="w-7 h-7" />
                         <p class="capitalize ml-2">922</p>
                     </button>
 
-                    <button
-                        class="flex pt-1 pb-1 pl-3 pr-3 border-1 rounded-xl border-[#007BF3] flex-shrink-0">
-                        <img
-                            src="https://tradeproxy.vn/images/categories/abc-all(32x32).png"
-                            alt=""
-                            class="w-7 h-7" />
+                    <button class="flex pt-1 pb-1 pl-3 pr-3 border-1 rounded-xl border-[#007BF3] flex-shrink-0">
+                        <img src="https://tradeproxy.vn/images/categories/abc-all(32x32).png" alt="" class="w-7 h-7" />
                         <p class="capitalize ml-2">acb</p>
                     </button>
 
-                    <button
-                        class="flex pt-1 pb-1 pl-3 pr-3 border-1 rounded-xl border-[#007BF3] flex-shrink-0">
-                        <img
-                            src="https://tradeproxy.vn/images/categories/pyproxy-all(32x32).png"
-                            alt=""
+                    <button class="flex pt-1 pb-1 pl-3 pr-3 border-1 rounded-xl border-[#007BF3] flex-shrink-0">
+                        <img src="https://tradeproxy.vn/images/categories/pyproxy-all(32x32).png" alt=""
                             class="w-7 h-7" />
                         <p class="capitalize ml-2">pyproxy</p>
                     </button>
 
-                    <button
-                        class="flex pt-1 pb-1 pl-3 pr-3 border-1 rounded-xl border-[#007BF3] flex-shrink-0">
-                        <img
-                            src="https://tradeproxy.vn/images/categories/global-proxies(32x32).webp"
-                            alt=""
+                    <button class="flex pt-1 pb-1 pl-3 pr-3 border-1 rounded-xl border-[#007BF3] flex-shrink-0">
+                        <img src="https://tradeproxy.vn/images/categories/global-proxies(32x32).webp" alt=""
                             class="w-7 h-7" />
                         <p class="capitalize ml-2">global proxies</p>
                     </button>
 
-                    <button
-                        class="flex pt-1 pb-1 pl-3 pr-3 border-1 rounded-xl border-[#007BF3] flex-shrink-0">
-                        <img
-                            src="https://tradeproxy.vn/images/categories/global-proxies(32x32).webp"
-                            alt=""
+                    <button class="flex pt-1 pb-1 pl-3 pr-3 border-1 rounded-xl border-[#007BF3] flex-shrink-0">
+                        <img src="https://tradeproxy.vn/images/categories/global-proxies(32x32).webp" alt=""
                             class="w-7 h-7" />
                         <p class="capitalize ml-2">global proxies 2</p>
                     </button>
 
-                    <button
-                        class="flex pt-1 pb-1 pl-3 pr-3 border-1 rounded-xl border-[#007BF3] flex-shrink-0">
-                        <img
-                            src="https://tradeproxy.vn/images/categories/global-proxies(32x32).webp"
-                            alt=""
+                    <button class="flex pt-1 pb-1 pl-3 pr-3 border-1 rounded-xl border-[#007BF3] flex-shrink-0">
+                        <img src="https://tradeproxy.vn/images/categories/global-proxies(32x32).webp" alt=""
                             class="w-7 h-7" />
                         <p class="capitalize ml-2">global proxies 3</p>
                     </button>
 
-                    <button
-                        class="flex pt-1 pb-1 pl-3 pr-3 border-1 rounded-xl border-[#007BF3] flex-shrink-0">
-                        <img
-                            src="https://tradeproxy.vn/images/categories/global-proxies(32x32).webp"
-                            alt=""
+                    <button class="flex pt-1 pb-1 pl-3 pr-3 border-1 rounded-xl border-[#007BF3] flex-shrink-0">
+                        <img src="https://tradeproxy.vn/images/categories/global-proxies(32x32).webp" alt=""
                             class="w-7 h-7" />
                         <p class="capitalize ml-2">global proxies 4</p>
                     </button>
 
-                    <button
-                        class="flex pt-1 pb-1 pl-3 pr-3 border-1 rounded-xl border-[#007BF3] flex-shrink-0">
-                        <img
-                            src="https://tradeproxy.vn/images/categories/global-proxies(32x32).webp"
-                            alt=""
+                    <button class="flex pt-1 pb-1 pl-3 pr-3 border-1 rounded-xl border-[#007BF3] flex-shrink-0">
+                        <img src="https://tradeproxy.vn/images/categories/global-proxies(32x32).webp" alt=""
                             class="w-7 h-7" />
                         <p class="capitalize ml-2">global proxies 5</p>
                     </button>
@@ -137,10 +102,7 @@
                 <!-- Search Bar -->
                 <div class="proxy-search-wrapper">
                     <i class="fa-solid fa-magnifying-glass proxy-search-icon"></i>
-                    <input
-                        type="text"
-                        placeholder="Search..."
-                        class="proxy-search-input" />
+                    <input type="text" placeholder="Search..." class="proxy-search-input" />
                 </div>
 
                 <!-- Table Body -->
@@ -149,9 +111,7 @@
                     <div class="proxy-row">
                         <div class="proxy-info">
                             <div class="proxy-logo">
-                                <img
-                                    src="https://tradeproxy.vn/images/logo/9proxy.png"
-                                    alt="9proxy"
+                                <img src="https://tradeproxy.vn/images/logo/9proxy.png" alt="9proxy"
                                     style="width: 100%; height: 100%; object-fit: contain" />
                             </div>
                             <div class="proxy-details">
@@ -190,9 +150,7 @@
                     <div class="proxy-row">
                         <div class="proxy-info">
                             <div class="proxy-logo">
-                                <img
-                                    src="https://tradeproxy.vn/images/logo/9proxy.png"
-                                    alt="9proxy"
+                                <img src="https://tradeproxy.vn/images/logo/9proxy.png" alt="9proxy"
                                     style="width: 100%; height: 100%; object-fit: contain" />
                             </div>
                             <div class="proxy-details">
@@ -231,9 +189,7 @@
                     <div class="proxy-row">
                         <div class="proxy-info">
                             <div class="proxy-logo">
-                                <img
-                                    src="https://tradeproxy.vn/images/logo/9proxy.png"
-                                    alt="9proxy"
+                                <img src="https://tradeproxy.vn/images/logo/9proxy.png" alt="9proxy"
                                     style="width: 100%; height: 100%; object-fit: contain" />
                             </div>
                             <div class="proxy-details">
@@ -272,9 +228,7 @@
                     <div class="proxy-row">
                         <div class="proxy-info">
                             <div class="proxy-logo">
-                                <img
-                                    src="https://tradeproxy.vn/images/logo/9proxy.png"
-                                    alt="9proxy"
+                                <img src="https://tradeproxy.vn/images/logo/9proxy.png" alt="9proxy"
                                     style="width: 100%; height: 100%; object-fit: contain" />
                             </div>
                             <div class="proxy-details">
@@ -313,9 +267,7 @@
                     <div class="proxy-row">
                         <div class="proxy-info">
                             <div class="proxy-logo">
-                                <img
-                                    src="https://tradeproxy.vn/images/logo/9proxy.png"
-                                    alt="9proxy"
+                                <img src="https://tradeproxy.vn/images/logo/9proxy.png" alt="9proxy"
                                     style="width: 100%; height: 100%; object-fit: contain" />
                             </div>
                             <div class="proxy-details">
@@ -354,9 +306,7 @@
                     <div class="proxy-row">
                         <div class="proxy-info">
                             <div class="proxy-logo">
-                                <img
-                                    src="https://tradeproxy.vn/images/logo/9proxy.png"
-                                    alt="9proxy"
+                                <img src="https://tradeproxy.vn/images/logo/9proxy.png" alt="9proxy"
                                     style="width: 100%; height: 100%; object-fit: contain" />
                             </div>
                             <div class="proxy-details">
@@ -411,54 +361,18 @@
             <div class="features">
                 <div class="feature-card">
                     <div class="icon-container">
-                        <svg
-                            viewBox="0 0 64 64"
-                            fill="none"
-                            xmlns="http://www.w3.org/2000/svg">
-                            <rect
-                                x="12"
-                                y="12"
-                                width="24"
-                                height="32"
-                                rx="3"
-                                stroke="#0ea5e9"
-                                stroke-width="2.5"
+                        <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <rect x="12" y="12" width="24" height="32" rx="3" stroke="#0ea5e9" stroke-width="2.5"
                                 fill="#e0f2fe" />
                             <circle cx="24" cy="50" r="3" fill="#0ea5e9" />
-                            <rect
-                                x="18"
-                                y="16"
-                                width="12"
-                                height="2"
-                                rx="1"
-                                fill="#0ea5e9" />
-                            <rect
-                                x="18"
-                                y="22"
-                                width="12"
-                                height="2"
-                                rx="1"
-                                fill="#0ea5e9" />
-                            <rect
-                                x="18"
-                                y="28"
-                                width="8"
-                                height="2"
-                                rx="1"
-                                fill="#0ea5e9" />
+                            <rect x="18" y="16" width="12" height="2" rx="1" fill="#0ea5e9" />
+                            <rect x="18" y="22" width="12" height="2" rx="1" fill="#0ea5e9" />
+                            <rect x="18" y="28" width="8" height="2" rx="1" fill="#0ea5e9" />
                             <circle cx="46" cy="18" r="8" fill="#0ea5e9" />
-                            <path
-                                d="M43 18l2 2 4-4"
-                                stroke="white"
-                                stroke-width="2"
-                                stroke-linecap="round"
+                            <path d="M43 18l2 2 4-4" stroke="white" stroke-width="2" stroke-linecap="round"
                                 stroke-linejoin="round" />
                             <circle cx="46" cy="38" r="8" fill="#0ea5e9" />
-                            <path
-                                d="M43 38l2 2 4-4"
-                                stroke="white"
-                                stroke-width="2"
-                                stroke-linecap="round"
+                            <path d="M43 38l2 2 4-4" stroke="white" stroke-width="2" stroke-linecap="round"
                                 stroke-linejoin="round" />
                         </svg>
                     </div>
@@ -471,66 +385,21 @@
 
                 <div class="feature-card">
                     <div class="icon-container">
-                        <svg
-                            viewBox="0 0 64 64"
-                            fill="none"
-                            xmlns="http://www.w3.org/2000/svg">
-                            <rect
-                                x="16"
-                                y="20"
-                                width="32"
-                                height="10"
-                                rx="2"
-                                stroke="#0ea5e9"
-                                stroke-width="2.5"
+                        <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <rect x="16" y="20" width="32" height="10" rx="2" stroke="#0ea5e9" stroke-width="2.5"
                                 fill="#e0f2fe" />
-                            <rect
-                                x="16"
-                                y="34"
-                                width="32"
-                                height="10"
-                                rx="2"
-                                stroke="#0ea5e9"
-                                stroke-width="2.5"
+                            <rect x="16" y="34" width="32" height="10" rx="2" stroke="#0ea5e9" stroke-width="2.5"
                                 fill="#e0f2fe" />
-                            <line
-                                x1="20"
-                                y1="25"
-                                x2="28"
-                                y2="25"
-                                stroke="#0ea5e9"
-                                stroke-width="2"
+                            <line x1="20" y1="25" x2="28" y2="25" stroke="#0ea5e9" stroke-width="2"
                                 stroke-linecap="round" />
-                            <line
-                                x1="20"
-                                y1="39"
-                                x2="28"
-                                y2="39"
-                                stroke="#0ea5e9"
-                                stroke-width="2"
+                            <line x1="20" y1="39" x2="28" y2="39" stroke="#0ea5e9" stroke-width="2"
                                 stroke-linecap="round" />
                             <circle cx="52" cy="16" r="8" fill="#0ea5e9" />
-                            <path
-                                d="M49 16l2 2 4-4"
-                                stroke="white"
-                                stroke-width="2"
-                                stroke-linecap="round"
+                            <path d="M49 16l2 2 4-4" stroke="white" stroke-width="2" stroke-linecap="round"
                                 stroke-linejoin="round" />
-                            <line
-                                x1="24"
-                                y1="20"
-                                x2="24"
-                                y2="44"
-                                stroke="#0ea5e9"
-                                stroke-width="2"
+                            <line x1="24" y1="20" x2="24" y2="44" stroke="#0ea5e9" stroke-width="2"
                                 stroke-linecap="round" />
-                            <line
-                                x1="20"
-                                y1="48"
-                                x2="44"
-                                y2="48"
-                                stroke="#0ea5e9"
-                                stroke-width="2"
+                            <line x1="20" y1="48" x2="44" y2="48" stroke="#0ea5e9" stroke-width="2"
                                 stroke-linecap="round" />
                         </svg>
                     </div>
@@ -543,44 +412,17 @@
 
                 <div class="feature-card">
                     <div class="icon-container">
-                        <svg
-                            viewBox="0 0 64 64"
-                            fill="none"
-                            xmlns="http://www.w3.org/2000/svg">
-                            <rect
-                                x="14"
-                                y="16"
-                                width="36"
-                                height="28"
-                                rx="3"
-                                stroke="#0ea5e9"
-                                stroke-width="2.5"
+                        <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <rect x="14" y="16" width="36" height="28" rx="3" stroke="#0ea5e9" stroke-width="2.5"
                                 fill="#e0f2fe" />
-                            <rect
-                                x="20"
-                                y="22"
-                                width="24"
-                                height="16"
-                                rx="2"
-                                fill="white"
-                                stroke="#0ea5e9"
+                            <rect x="20" y="22" width="24" height="16" rx="2" fill="white" stroke="#0ea5e9"
                                 stroke-width="2" />
                             <circle cx="32" cy="30" r="6" fill="#0ea5e9" />
-                            <text
-                                x="32"
-                                y="34"
-                                text-anchor="middle"
-                                font-size="8"
-                                font-weight="bold"
-                                fill="white">
+                            <text x="32" y="34" text-anchor="middle" font-size="8" font-weight="bold" fill="white">
                                 IP
                             </text>
                             <circle cx="52" cy="12" r="8" fill="#0ea5e9" />
-                            <path
-                                d="M49 12l2 2 4-4"
-                                stroke="white"
-                                stroke-width="2"
-                                stroke-linecap="round"
+                            <path d="M49 12l2 2 4-4" stroke="white" stroke-width="2" stroke-linecap="round"
                                 stroke-linejoin="round" />
                             <circle cx="26" cy="50" r="3" fill="#64748b" />
                             <circle cx="32" cy="50" r="3" fill="#64748b" />
@@ -600,9 +442,7 @@
         <div class="container pb-10">
             <div class="commit-section">
                 <div class="commit-left-section">
-                    <img
-                        src="https://tradeproxy.vn/images/background/banner_server.webp"
-                        alt="Trade Proxy Server" />
+                    <img src="https://tradeproxy.vn/images/background/banner_server.webp" alt="Trade Proxy Server" />
                 </div>
 
                 <div class="commit-right-section">
@@ -619,9 +459,7 @@
 
                     <div class="commit-feature">
                         <div class="commit-feature-icon">
-                            <img
-                                src="https://tradeproxy.vn/images/img/world.svg"
-                                alt="" />
+                            <img src="https://tradeproxy.vn/images/img/world.svg" alt="" />
                         </div>
                         <div class="commit-feature-content">
                             <h3>Băng thông tốc độ cao</h3>
@@ -635,9 +473,7 @@
 
                     <div class="commit-feature">
                         <div class="commit-feature-icon">
-                            <img
-                                src="https://tradeproxy.vn/images/img/secure.svg"
-                                alt="" />
+                            <img src="https://tradeproxy.vn/images/img/secure.svg" alt="" />
                         </div>
                         <div class="commit-feature-content">
                             <h3>An toàn, ổn định</h3>
@@ -668,9 +504,7 @@
                     <div class="card">
                         <div class="card-header">
                             <div class="card-logo">
-                                <img
-                                    src="https://tradeproxy.vn/images/categories/abc-proxy.png"
-                                    alt="" />
+                                <img src="https://tradeproxy.vn/images/categories/abc-proxy.png" alt="" />
                             </div>
                             <h2 class="card-title">ABC proxy</h2>
                             <p class="card-description line-clamp">
@@ -692,9 +526,7 @@
                     <div class="card">
                         <div class="card-header">
                             <div class="card-logo">
-                                <img
-                                    src="https://tradeproxy.vn/images/categories/abc-proxy.png"
-                                    alt="" />
+                                <img src="https://tradeproxy.vn/images/categories/abc-proxy.png" alt="" />
                             </div>
                             <h2 class="card-title">ABC proxy</h2>
                             <p class="card-description line-clamp">
@@ -716,9 +548,7 @@
                     <div class="card">
                         <div class="card-header">
                             <div class="card-logo">
-                                <img
-                                    src="https://tradeproxy.vn/images/categories/abc-proxy.png"
-                                    alt="" />
+                                <img src="https://tradeproxy.vn/images/categories/abc-proxy.png" alt="" />
                             </div>
                             <h2 class="card-title">ABC proxy</h2>
                             <p class="card-description line-clamp">
@@ -740,9 +570,7 @@
                     <div class="card">
                         <div class="card-header">
                             <div class="card-logo">
-                                <img
-                                    src="https://tradeproxy.vn/images/categories/abc-proxy.png"
-                                    alt="" />
+                                <img src="https://tradeproxy.vn/images/categories/abc-proxy.png" alt="" />
                             </div>
                             <h2 class="card-title">ABC proxy</h2>
                             <p class="card-description line-clamp">
@@ -764,9 +592,7 @@
                     <div class="card">
                         <div class="card-header">
                             <div class="card-logo">
-                                <img
-                                    src="https://tradeproxy.vn/images/categories/abc-proxy.png"
-                                    alt="" />
+                                <img src="https://tradeproxy.vn/images/categories/abc-proxy.png" alt="" />
                             </div>
                             <h2 class="card-title">ABC proxy</h2>
                             <p class="card-description line-clamp">
@@ -819,9 +645,7 @@
 
                 <div class="country-card featured">
                     <div class="country-flag">
-                        <img
-                            src="https://flagcdn.com/w80/gb.png"
-                            alt="Vương Quốc Anh" />
+                        <img src="https://flagcdn.com/w80/gb.png" alt="Vương Quốc Anh" />
                     </div>
                     <div class="country-info">
                         <div class="country-name">Vương Quốc Anh</div>
@@ -938,45 +762,35 @@
                 <!-- Duplicate để tạo hiệu ứng loop liền mạch -->
                 <a href="<?php echo esc_url(home_url('/detail-provider')) ?>" class="partner-card">
                     <div class="partner-logo">
-                        <img
-                            src="https://tradeproxy.vn/images/logo/carousel/nest_logo.png"
-                            alt="Mulogin" />
+                        <img src="https://tradeproxy.vn/images/logo/carousel/nest_logo.png" alt="Mulogin" />
                     </div>
                     <div class="partner-name">Mulogin</div>
                 </a>
 
                 <a href="<?php echo esc_url(home_url('/detail-provider')) ?>" class="partner-card">
                     <div class="partner-logo">
-                        <img
-                            src="https://tradeproxy.vn/images/partners/pionlogin-logo.webp"
-                            alt="NestBrowser" />
+                        <img src="https://tradeproxy.vn/images/partners/pionlogin-logo.webp" alt="NestBrowser" />
                     </div>
                     <div class="partner-name">NestBrowser</div>
                 </a>
 
                 <a href="<?php echo esc_url(home_url('/detail-provider')) ?>" class="partner-card">
                     <div class="partner-logo">
-                        <img
-                            src="https://tradeproxy.vn/images/partners/omocaptcha-logo.webp"
-                            alt="TigerAi Browser" />
+                        <img src="https://tradeproxy.vn/images/partners/omocaptcha-logo.webp" alt="TigerAi Browser" />
                     </div>
                     <div class="partner-name">TigerAi Browser</div>
                 </a>
 
                 <a href="<?php echo esc_url(home_url('/detail-provider')) ?>" class="partner-card">
                     <div class="partner-logo">
-                        <img
-                            src="https://tradeproxy.vn/images/partners/duoplus-logo.webp"
-                            alt="VMlogin" />
+                        <img src="https://tradeproxy.vn/images/partners/duoplus-logo.webp" alt="VMlogin" />
                     </div>
                     <div class="partner-name">VMlogin</div>
                 </a>
 
                 <a href="<?php echo esc_url(home_url('/detail-provider')) ?>" class="partner-card">
                     <div class="partner-logo">
-                        <img
-                            src="https://tradeproxy.vn/images/partners/vmlogin-logo.webp"
-                            alt="YunLogin" />
+                        <img src="https://tradeproxy.vn/images/partners/vmlogin-logo.webp" alt="YunLogin" />
                     </div>
                     <div class="partner-name">YunLogin</div>
                 </a>
@@ -984,26 +798,21 @@
                 <!-- Duplicate để loop -->
                 <a href="<?php echo esc_url(home_url('/detail-provider')) ?>" class="partner-card">
                     <div class="partner-logo">
-                        <img
-                            src="https://tradeproxy.vn/images/logo/carousel/tigerai.png"
-                            alt="Mulogin" />
+                        <img src="https://tradeproxy.vn/images/logo/carousel/tigerai.png" alt="Mulogin" />
                     </div>
                     <div class="partner-name">Mulogin</div>
                 </a>
 
                 <a href="<?php echo esc_url(home_url('/detail-provider')) ?>" class="partner-card">
                     <div class="partner-logo">
-                        <img
-                            src="https://tradeproxy.vn/images/logo/carousel/mulogin.png"
-                            alt="NestBrowser" />
+                        <img src="https://tradeproxy.vn/images/logo/carousel/mulogin.png" alt="NestBrowser" />
                     </div>
                     <div class="partner-name">NestBrowser</div>
                 </a>
 
                 <a href="<?php echo esc_url(home_url('/detail-provider')) ?>" class="partner-card">
                     <div class="partner-logo">
-                        <img
-                            src="https://tradeproxy.vn/images/partners/genzolo-agency-logo.webp"
+                        <img src="https://tradeproxy.vn/images/partners/genzolo-agency-logo.webp"
                             alt="TigerAi Browser" />
                     </div>
                     <div class="partner-name">TigerAi Browser</div>
@@ -1011,18 +820,14 @@
 
                 <a href="<?php echo esc_url(home_url('/detail-provider')) ?>" class="partner-card">
                     <div class="partner-logo">
-                        <img
-                            src="https://tradeproxy.vn/images/partners/omnilogin-logo.webp"
-                            alt="VMlogin" />
+                        <img src="https://tradeproxy.vn/images/partners/omnilogin-logo.webp" alt="VMlogin" />
                     </div>
                     <div class="partner-name">VMlogin</div>
                 </a>
 
                 <a href="<?php echo esc_url(home_url('/detail-provider')) ?>" class="partner-card">
                     <div class="partner-logo">
-                        <img
-                            src="https://tradeproxy.vn/images/partners/genlogin-logo.webp"
-                            alt="YunLogin" />
+                        <img src="https://tradeproxy.vn/images/partners/genlogin-logo.webp" alt="YunLogin" />
                     </div>
                     <div class="partner-name">YunLogin</div>
                 </a>
@@ -1035,8 +840,7 @@
                 <!-- Duplicate để tạo hiệu ứng loop liền mạch -->
                 <a href="<?php echo esc_url(home_url('/detail-provider')) ?>" class="partner-card">
                     <div class="partner-logo">
-                        <img
-                            src="https://tradeproxy.vn/images/logo/carousel_after/flexcard.png"
+                        <img src="https://tradeproxy.vn/images/logo/carousel_after/flexcard.png"
                             alt="XLogin Antidetect" />
                     </div>
                     <div class="partner-name">XLogin Antidetect</div>
@@ -1044,36 +848,28 @@
 
                 <a href="<?php echo esc_url(home_url('/detail-provider')) ?>" class="partner-card">
                     <div class="partner-logo">
-                        <img
-                            src="https://tradeproxy.vn/images/logo/carousel_after/hubstudio.png"
-                            alt="Gemlogin" />
+                        <img src="https://tradeproxy.vn/images/logo/carousel_after/hubstudio.png" alt="Gemlogin" />
                     </div>
                     <div class="partner-name">Gemlogin</div>
                 </a>
 
                 <a href="<?php echo esc_url(home_url('/detail-provider')) ?>" class="partner-card">
                     <div class="partner-logo">
-                        <img
-                            src="https://tradeproxy.vn/images/logo/carousel_after/Ix.png"
-                            alt="Nocaptcha AI" />
+                        <img src="https://tradeproxy.vn/images/logo/carousel_after/Ix.png" alt="Nocaptcha AI" />
                     </div>
                     <div class="partner-name">Nocaptcha AI</div>
                 </a>
 
                 <a href="<?php echo esc_url(home_url('/detail-provider')) ?>" class="partner-card">
                     <div class="partner-logo">
-                        <img
-                            src="https://tradeproxy.vn/images/logo/carousel_after/vmlogin.png"
-                            alt="Undetectable" />
+                        <img src="https://tradeproxy.vn/images/logo/carousel_after/vmlogin.png" alt="Undetectable" />
                     </div>
                     <div class="partner-name">Undetectable</div>
                 </a>
 
                 <a href="<?php echo esc_url(home_url('/detail-provider')) ?>" class="partner-card">
                     <div class="partner-logo">
-                        <img
-                            src="https://tradeproxy.vn/images/logo/carousel_after/vmlogin.png"
-                            alt="MostLogin" />
+                        <img src="https://tradeproxy.vn/images/logo/carousel_after/vmlogin.png" alt="MostLogin" />
                     </div>
                     <div class="partner-name">MostLogin</div>
                 </a>
@@ -1081,8 +877,7 @@
                 <!-- Duplicate để loop -->
                 <a href="<?php echo esc_url(home_url('/detail-provider')) ?>" class="partner-card">
                     <div class="partner-logo">
-                        <img
-                            src="https://tradeproxy.vn/images/partners/undetectable-browser-en-logo.webp"
+                        <img src="https://tradeproxy.vn/images/partners/undetectable-browser-en-logo.webp"
                             alt="XLogin Antidetect" />
                     </div>
                     <div class="partner-name">XLogin Antidetect</div>
@@ -1090,36 +885,28 @@
 
                 <a href="<?php echo esc_url(home_url('/detail-provider')) ?>" class="partner-card">
                     <div class="partner-logo">
-                        <img
-                            src="https://tradeproxy.vn/images/partners/mostlogin-logo.webp"
-                            alt="Gemlogin" />
+                        <img src="https://tradeproxy.vn/images/partners/mostlogin-logo.webp" alt="Gemlogin" />
                     </div>
                     <div class="partner-name">Gemlogin</div>
                 </a>
 
                 <a href="<?php echo esc_url(home_url('/detail-provider')) ?>" class="partner-card">
                     <div class="partner-logo">
-                        <img
-                            src="https://tradeproxy.vn/images/logo/carousel_after/Linken.png"
-                            alt="Nocaptcha AI" />
+                        <img src="https://tradeproxy.vn/images/logo/carousel_after/Linken.png" alt="Nocaptcha AI" />
                     </div>
                     <div class="partner-name">Nocaptcha AI</div>
                 </a>
 
                 <a href="<?php echo esc_url(home_url('/detail-provider')) ?>" class="partner-card">
                     <div class="partner-logo">
-                        <img
-                            src="https://tradeproxy.vn/images/logo/carousel_after/vmlogin.png"
-                            alt="Undetectable" />
+                        <img src="https://tradeproxy.vn/images/logo/carousel_after/vmlogin.png" alt="Undetectable" />
                     </div>
                     <div class="partner-name">Undetectable</div>
                 </a>
 
                 <a href="<?php echo esc_url(home_url('/detail-provider')) ?>" class="partner-card">
                     <div class="partner-logo">
-                        <img
-                            src="https://tradeproxy.vn/images/logo/carousel_after/xlogin.png"
-                            alt="MostLogin" />
+                        <img src="https://tradeproxy.vn/images/logo/carousel_after/xlogin.png" alt="MostLogin" />
                     </div>
                     <div class="partner-name">MostLogin</div>
                 </a>

@@ -111,8 +111,8 @@
                     </div>
                     <div class="input-group">
                         <label for="confirmPassword">Xác nhận mật khẩu*</label>
-                        <input type="password" name="confirmPassword" id="confirmPassword" placeholder="Xác nhận mật khẩu"
-                            required>
+                        <input type="password" name="confirmPassword" id="confirmPassword"
+                            placeholder="Xác nhận mật khẩu" required>
                     </div>
 
                     <div class="g-recaptcha" data-sitekey="6LfNxwksAAAAALrxpsJlGqGllZ2P-UF9Wmk-5VSc"></div>

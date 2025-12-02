@@ -6,12 +6,12 @@ const OTP_CHANGE_PASSWORD_URL = wpAccountData.restUrl + 'my-api/v1/otp/';
 
 // ========== TOGGLE PASSWORD VISIBILITY (GLOBAL) ==========
 window.togglePassword = function(inputId, button) {
-    console.log("👁️ togglePassword called for:", inputId);
+    console.log("togglePassword called for:", inputId);
     const input = document.getElementById(inputId);
     const icon = button.querySelector('i');
 
     if (!input || !icon) {
-        console.error("❌ Input or icon not found!");
+        console.error("Input or icon not found!");
         return;
     }
 
@@ -19,15 +19,15 @@ window.togglePassword = function(inputId, button) {
         input.type = 'text';
         icon.classList.remove('fa-eye');
         icon.classList.add('fa-eye-slash');
-        console.log("✅ Password visible");
+        console.log("Password visible");
     } else {
         input.type = 'password';
         icon.classList.remove('fa-eye-slash');
         icon.classList.add('fa-eye');
-        console.log("✅ Password hidden");
+        console.log("Password hidden");
     }
 };
-console.log("✅ togglePassword defined:", typeof window.togglePassword);
+console.log("togglePassword defined:", typeof window.togglePassword);
 
 // ========== CHECK PASSWORD STRENGTH (GLOBAL) ==========
 window.checkPasswordStrength = function(password) {
@@ -107,7 +107,7 @@ function initChangePasswordPage() {
     let otpTimer = null;
     let remainingTime = 300;
 
-    // Lưu password để dùng sau khi verify OTP
+    // save password
     let pendingPasswordChange = null;
 
     // ========== VALIDATE PASSWORD ==========
@@ -137,7 +137,7 @@ function initChangePasswordPage() {
 
     // ========== OTP FUNCTIONS ==========
     
-    // Hàm gửi OTP
+    // send OTP
     async function sendChangePasswordOTP() {
         try {
             const response = await fetch(OTP_CHANGE_PASSWORD_URL + 'send-change-password', {

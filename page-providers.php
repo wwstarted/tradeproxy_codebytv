@@ -1,4 +1,3 @@
-
 <?php get_header(); ?>
 
 <!-- Main -->
@@ -22,9 +21,7 @@
             <a href="<?php echo esc_url(home_url('/provider-detail')) ?>" class="provider-card">
                 <div class="provider-card-header">
                     <div class="provider-logo">
-                        <img
-                            src="https://tradeproxy.vn/images/partners/bitbrowser-logo.webp"
-                            alt="BitBrowser" />
+                        <img src="https://tradeproxy.vn/images/partners/bitbrowser-logo.webp" alt="BitBrowser" />
                     </div>
                     <h3 class="provider-name">Bitbrowser</h3>
                 </div>
@@ -38,9 +35,7 @@
             <a href="<?php echo esc_url(home_url('/provider-detail')) ?>" class="provider-card">
                 <div class="provider-card-header">
                     <div class="provider-logo">
-                        <img
-                            src="https://tradeproxy.vn/images/partners/genzolo-agency-logo.webp"
-                            alt="Gemlogin" />
+                        <img src="https://tradeproxy.vn/images/partners/genzolo-agency-logo.webp" alt="Gemlogin" />
                     </div>
                     <h3 class="provider-name">Gemlogin</h3>
                 </div>
@@ -54,9 +49,7 @@
             <a href="<?php echo esc_url(home_url('/provider-detail')) ?>" class="provider-card">
                 <div class="provider-card-header">
                     <div class="provider-logo">
-                        <img
-                            src="https://tradeproxy.vn/images/partners/vmlogin-logo.webp"
-                            alt="Genlogin" />
+                        <img src="https://tradeproxy.vn/images/partners/vmlogin-logo.webp" alt="Genlogin" />
                     </div>
                     <h3 class="provider-name">Genlogin</h3>
                 </div>
@@ -71,9 +64,7 @@
             <a href="<?php echo esc_url(home_url('/provider-detail')) ?>" class="provider-card">
                 <div class="provider-card-header">
                     <div class="provider-logo">
-                        <img
-                            src="https://tradeproxy.vn/images/logo/carousel_after/vmlogin.png"
-                            alt="Nocaptcha AI" />
+                        <img src="https://tradeproxy.vn/images/logo/carousel_after/vmlogin.png" alt="Nocaptcha AI" />
                     </div>
                     <h3 class="provider-name">Nocaptcha AI</h3>
                 </div>
@@ -88,9 +79,7 @@
             <a href="<?php echo esc_url(home_url('/provider-detail')) ?>" class="provider-card">
                 <div class="provider-card-header">
                     <div class="provider-logo">
-                        <img
-                            src="https://tradeproxy.vn/images/logo/carousel_after/Ix.png"
-                            alt="VMlogin" />
+                        <img src="https://tradeproxy.vn/images/logo/carousel_after/Ix.png" alt="VMlogin" />
                     </div>
                     <h3 class="provider-name">VMlogin</h3>
                 </div>
@@ -104,8 +93,7 @@
             <a href="<?php echo esc_url(home_url('/provider-detail')) ?>" class="provider-card">
                 <div class="provider-card-header">
                     <div class="provider-logo">
-                        <img
-                            src="https://tradeproxy.vn/images/partners/undetectable-browser-en-logo.webp"
+                        <img src="https://tradeproxy.vn/images/partners/undetectable-browser-en-logo.webp"
                             alt="DuoPlus" />
                     </div>
                     <h3 class="provider-name">DuoPlus</h3>
@@ -120,9 +108,7 @@
             <a href="<?php echo esc_url(home_url('/provider-detail')) ?>" class="provider-card">
                 <div class="provider-card-header">
                     <div class="provider-logo">
-                        <img
-                            src="https://tradeproxy.vn/images/logo/carousel/mulogin.png"
-                            alt="Undetectable" />
+                        <img src="https://tradeproxy.vn/images/logo/carousel/mulogin.png" alt="Undetectable" />
                     </div>
                     <h3 class="provider-name">Undetectable</h3>
                 </div>
@@ -137,9 +123,7 @@
             <a href="<?php echo esc_url(home_url('/provider-detail')) ?>" class="provider-card">
                 <div class="provider-card-header">
                     <div class="provider-logo">
-                        <img
-                            src="https://tradeproxy.vn/images/logo/carousel_after/hubstudio.png"
-                            alt="MostLogin" />
+                        <img src="https://tradeproxy.vn/images/logo/carousel_after/hubstudio.png" alt="MostLogin" />
                     </div>
                     <h3 class="provider-name">MostLogin</h3>
                 </div>

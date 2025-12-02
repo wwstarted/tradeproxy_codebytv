@@ -4,8 +4,7 @@
     <div class="forgetpass-container">
         <!-- image -->
         <div class="image-section">
-            <img src="https://tradeproxy.vn/images/background/bg_login.webp"
-                alt="Forgot password illustration">
+            <img src="https://tradeproxy.vn/images/background/bg_login.webp" alt="Forgot password illustration">
         </div>
 
         <!-- form forgot password -->

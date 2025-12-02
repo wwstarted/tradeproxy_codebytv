@@ -1,61 +1,61 @@
 <?php get_header(); ?>
-    <div class="account-wrapper">
-        <!-- Sidebar -->
-        <aside class="sidebar-ac">
-            <div class="sidebar-ac-section">
-                <div class="section-header">
-                    <i class="fas fa-user-circle"></i>
-                    <span>Tài khoản của tôi</span>
-                </div>
-                <nav class="sidebar-menu">
-                    <a href="#profile" class="menu-item active" data-page="profile">
-                        Hồ sơ
-                    </a>
-                    <a href="#change-password" class="menu-item" data-page="change-password">
-                        Đổi mật khẩu
-                    </a>
-                </nav>
+<div class="account-wrapper">
+    <!-- Sidebar -->
+    <aside class="sidebar-ac">
+        <div class="sidebar-ac-section">
+            <div class="section-header">
+                <i class="fas fa-user-circle"></i>
+                <span>Tài khoản của tôi</span>
             </div>
-            
-            <div class="sidebar-ac-section">
-                <a href="#wallet" class="menu-item" data-page="wallet">
-                    <i class="fas fa-wallet"></i>
-                    <span>Ví tiền</span>
+            <nav class="sidebar-menu">
+                <a href="#profile" class="menu-item active" data-page="profile">
+                    Hồ sơ
                 </a>
-            </div>
-
-            <div class="sidebar-ac-section">
-                <a href="#membership" class="menu-item" data-page="membership">
-                    <i class="fas fa-crown"></i>
-                    <span>Hạng thành viên</span>
+                <a href="#change-password" class="menu-item" data-page="change-password">
+                    Đổi mật khẩu
                 </a>
-            </div>
+            </nav>
+        </div>
 
-            <div class="sidebar-ac-section">
-                <a href="#deposit-history" class="menu-item" data-page="deposit-history">
-                    <i class="fas fa-history"></i>
-                    <span>Lịch sử nạp tiền</span>
-                </a>
-            </div>
+        <div class="sidebar-ac-section">
+            <a href="#wallet" class="menu-item" data-page="wallet">
+                <i class="fas fa-wallet"></i>
+                <span>Ví tiền</span>
+            </a>
+        </div>
 
-            <div class="sidebar-ac-section">
-                <a href="#purchase-history" class="menu-item" data-page="purchase-history">
-                    <i class="fas fa-shopping-bag"></i>
-                    <span>Lịch sử mua hàng</span>
-                </a>
-            </div>
-        </aside>
+        <div class="sidebar-ac-section">
+            <a href="#membership" class="menu-item" data-page="membership">
+                <i class="fas fa-crown"></i>
+                <span>Hạng thành viên</span>
+            </a>
+        </div>
 
-        <!-- Content Area -->
-        <main class="content-area">
-            <div id="page-content">
-                <!-- fetch data here -->
-                <div class="loading">
-                    <i class="fas fa-spinner fa-spin"></i>
-                    <p>Đang tải...</p>
-                </div>
+        <div class="sidebar-ac-section">
+            <a href="#deposit-history" class="menu-item" data-page="deposit-history">
+                <i class="fas fa-history"></i>
+                <span>Lịch sử nạp tiền</span>
+            </a>
+        </div>
+
+        <div class="sidebar-ac-section">
+            <a href="#purchase-history" class="menu-item" data-page="purchase-history">
+                <i class="fas fa-shopping-bag"></i>
+                <span>Lịch sử mua hàng</span>
+            </a>
+        </div>
+    </aside>
+
+    <!-- Content Area -->
+    <main class="content-area">
+        <div id="page-content">
+            <!-- fetch data here -->
+            <div class="loading">
+                <i class="fas fa-spinner fa-spin"></i>
+                <p>Đang tải...</p>
             </div>
-        </main>
-    </div>
-    
-   <?php get_footer(); ?>
+        </div>
+    </main>
+</div>
+
+<?php get_footer(); ?>

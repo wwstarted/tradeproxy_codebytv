@@ -26,9 +26,7 @@
                             <h3 class="contact-method-title">Telegram</h3>
                             <div class="contact-method-value">
                                 <a href="https://t.me/TradeProxyVN" target="_blank">@TradeProxyVN</a>
-                                <button
-                                    class="contact-copy-btn"
-                                    data-copy="@TradeProxyVN">
+                                <button class="contact-copy-btn" data-copy="@TradeProxyVN">
                                     <i class="fa-regular fa-copy"></i>
                                 </button>
                             </div>
@@ -44,9 +42,7 @@
                             <h3 class="contact-method-title">Email</h3>
                             <div class="contact-method-value">
                                 <a href="mailto:support@tradeproxy.vn">support@tradeproxy.vn</a>
-                                <button
-                                    class="contact-copy-btn"
-                                    data-copy="support@tradeproxy.vn">
+                                <button class="contact-copy-btn" data-copy="support@tradeproxy.vn">
                                     <i class="fa-regular fa-copy"></i>
                                 </button>
                             </div>
@@ -62,31 +58,17 @@
 
                     <form class="contact-form" id="contactForm">
                         <div class="form-group">
-                            <input
-                                type="text"
-                                class="form-input"
-                                placeholder="Tên"
-                                id="contactName"
-                                required />
+                            <input type="text" class="form-input" placeholder="Tên" id="contactName" required />
                             <span class="form-error" id="nameError"></span>
                         </div>
 
                         <div class="form-group">
-                            <input
-                                type="email"
-                                class="form-input"
-                                placeholder="Email"
-                                id="contactEmail"
-                                required />
+                            <input type="email" class="form-input" placeholder="Email" id="contactEmail" required />
                             <span class="form-error" id="emailError"></span>
                         </div>
 
                         <div class="form-group">
-                            <textarea
-                                class="form-textarea"
-                                placeholder="Nhập nội dung..."
-                                rows="6"
-                                id="contactMessage"
+                            <textarea class="form-textarea" placeholder="Nhập nội dung..." rows="6" id="contactMessage"
                                 required></textarea>
                             <span class="form-error" id="messageError"></span>
                         </div>

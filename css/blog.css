@@ -147,7 +147,7 @@
 }
 
 
-/* Post Card - FIXED */
+/* Post Card  */
 
 .post-card {
     background: white;
@@ -170,7 +170,6 @@
     width: 100%;
     aspect-ratio: 16/9;
     overflow: visible;
-    /* Cho phép post-date hiển thị bên ngoài */
     border-radius: 12px 12px 0 0;
 }
 
@@ -181,7 +180,6 @@
     transition: transform 0.3s ease;
     border-radius: 12px 12px 0 0;
     display: block;
-    /* Loại bỏ khoảng trống dưới image */
 }
 
 .post-thumbnail img {
@@ -209,13 +207,12 @@
 }
 
 
-/* Date - FIXED: Nằm cố định dưới thumbnail */
+/* Date */
 
 .post-date {
     position: absolute;
     left: 20px;
     bottom: -18px;
-    /* Đẩy xuống dưới thumbnail (relative to post-thumbnail) */
     background: #e0f2ff;
     color: #0077c8;
     padding: 6px 16px;
@@ -230,11 +227,9 @@
 .post-content {
     padding: 24px;
     padding-top: 30px;
-    /* Tạo khoảng trống cho post-date */
     display: flex;
     flex-direction: column;
     min-height: 180px;
-    /* Giới hạn chiều cao tối thiểu */
 }
 
 .post-title {
@@ -243,7 +238,6 @@
     color: #222;
     margin-bottom: 12px;
     line-height: 1.4;
-    /* Giới hạn 2 dòng */
     display: -webkit-box;
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
@@ -256,7 +250,6 @@
     color: #666;
     line-height: 1.6;
     margin-bottom: 16px;
-    /* Giới hạn 3 dòng với ... */
     display: -webkit-box;
     -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;
@@ -365,14 +358,13 @@
 /* ==================== RESPONSIVE DESIGN ==================== */
 
 
-/* Tablet (768px - 1023px) - Giống trang mẫu */
+/* Tablet (768px - 1023px) */
 
 @media (max-width: 1023px) {
     .content-wrapper {
         grid-template-columns: 1fr;
         gap: 0;
     }
-    /* Ẩn sidebar trên tablet và mobile */
     .left-sidebar {
         display: none;
     }
@@ -388,7 +380,7 @@
 }
 
 
-/* Mobile (< 768px) - Responsive như trang mẫu */
+/* Mobile (< 768px)  */
 
 @media (max-width: 767px) {
     .hero-banner {
